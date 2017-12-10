@@ -10,4 +10,4 @@ angular.module('reme', [
 			$interpolateProvider.startSymbol('{!');
 			$interpolateProvider.endSymbol('!}');
 		}
-	]);
+	]).constant('API_URL', 'http://13.229.48.46');;
