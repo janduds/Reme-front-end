@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="reme">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Re:Me</title>
     <link href="css/styles.min.css" rel="stylesheet">
   </head>
-  <body>
+  <body ng-controller="remeController">
 	<div class="content">
 		<div class="register-container">
 			<div class="canvas">
@@ -65,5 +65,11 @@
 	</footer>
 
 	<script type="text/javascript" src="js/scripts.min.js"></script>
+	<script src="js/angular/angular.min.js"></script>
+	<script src="js/angular/app.js"></script>
+	<script src="js/angular/reme_controller.js"></script>
+	<script src="js/angular/reme_service.js"></script>
+	<script src="js/angular/controllers/register_controllers.js"></script>
+	<script src="js/angular/services/register_services.js"></script>
   </body>
 </html>
