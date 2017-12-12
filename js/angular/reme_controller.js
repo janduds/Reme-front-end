@@ -213,12 +213,14 @@ function remeController($scope, apiService) {
 			$scope._client_list = res.data.success;
 			
 			angular.forEach($scope._client_list, function(value, key){
-				console.log(parseInt(key))
 				if(!isNaN(parseInt(key))) {
 					if(value.birth_date == null) {
 						value.birth_date = '--';
+						value.age = '--';
+					}else {
+						value.age = $scope.getAge(value.birth_date) + ' years old';
 					}
-					
+
 					$scope.client_list.push(value);
 				}
 			})
@@ -229,6 +231,15 @@ function remeController($scope, apiService) {
 			console.log(res);
 		});
     }
+
+    $scope.getAge = function(birthday){
+	    var birthday = new Date(birthday);
+	    var today = new Date();
+	    var age = ((today - birthday) / (31557600000));
+	    var age = Math.floor( age );
+
+	    return age;
+	}
 
 
 
