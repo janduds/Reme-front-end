@@ -11,6 +11,7 @@ function remeController($scope, apiService) {
 		$scope.reset = {};
 		$scope.can_submit = false;
 
+
 	$scope.requiredValidator = function(text, field) {
 		if(text == '' || text == undefined) {
 			$scope.errors[field] = $scope.ucfirst(field) + ' is required';
@@ -189,6 +190,7 @@ function remeController($scope, apiService) {
                    function(firstLetter){
                       return   firstLetter.toUpperCase();
                    });
+
      }
 
      $scope.getUser = function() {
@@ -202,4 +204,32 @@ function remeController($scope, apiService) {
      		console.log('something is wrong');
      	})
      }
+
+
+    $scope.getClientList = function() {
+
+    	apiService.getClientList().then(function(res) {
+			$scope.client_list = [];
+			$scope._client_list = res.data.success;
+			
+			angular.forEach($scope._client_list, function(value, key){
+				console.log(parseInt(key))
+				if(!isNaN(parseInt(key))) {
+					if(value.birth_date == null) {
+						value.birth_date = '--';
+					}
+					
+					$scope.client_list.push(value);
+				}
+			})
+
+
+		}).catch(function(res) {
+			$scope.sending = 'off';
+			console.log(res);
+		});
+    }
+
+
+
 }

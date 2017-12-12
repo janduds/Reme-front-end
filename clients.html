@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app ="reme">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Re:Me</title>
     <link href="css/styles.min.css" rel="stylesheet">
   </head>
-  <body>
+  <body ng-controller = "remeController" ng-cloak ng-init = "getClientList()">
   	<div class="sidebar">
   		<div class="sidebar-header">
   			<div class="wrapper">
@@ -206,96 +206,16 @@
 				</div>
 			</div>
 			<ul class="listing-items">
-				<li>
+				<li ng-repeat ="client in client_list track by $index" >
 					<div class="wrapper">
 						<figure class="listing-user" style="background-image:url('/images/user-default.png');">
 							<img src="/images/user-default.png" alt="" />
 						</figure>
-						<div class="listing-column client-name"><span>Millan, John Michael</span></div>
-						<div class="listing-column client-birthdate"><span>Dec. 30, 1983</span></div>
+						<div class="listing-column client-name"><span>{!client.name!}</span></div>
+						<div class="listing-column client-birthdate"><span>{!client.birth_date | date:'MMM. dd, yyyy'!}</span></div>
 						<div class="listing-column client-age"><span>30 years old</span></div>
-						<div class="listing-column client-gender"><span>Female</span></div>
-						<div class="listing-column client-category"><span>Educational Setting</span></div>
-						<div class="listing-options dropdown">
-							<a href="" data-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></a>
-							<ul class="dropdown-menu dropdown-menu-right">
-								<li><a href="">Edit</a></li>
-								<li><a href="">View Profile</a></li>
-								<li><a href="">Archive</a></li>
-							</ul>
-						</div>
-					</div><!-- wrapper -->
-				</li>
-				<li>
-					<div class="wrapper">
-						<figure class="listing-user" style="background-image:url('/images/user-default.png');">
-							<img src="/images/user-default.png" alt="" />
-						</figure>
-						<div class="listing-column client-name"><span>Millan, John Michael</span></div>
-						<div class="listing-column client-birthdate"><span>Dec. 30, 1983</span></div>
-						<div class="listing-column client-age"><span>30 years old</span></div>
-						<div class="listing-column client-gender"><span>Female</span></div>
-						<div class="listing-column client-category"><span>Educational Setting</span></div>
-						<div class="listing-options dropdown">
-							<a href="" data-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></a>
-							<ul class="dropdown-menu dropdown-menu-right">
-								<li><a href="">Edit</a></li>
-								<li><a href="">View Profile</a></li>
-								<li><a href="">Archive</a></li>
-							</ul>
-						</div>
-					</div><!-- wrapper -->
-				</li>
-				<li>
-					<div class="wrapper">
-						<figure class="listing-user" style="background-image:url('/images/user-default.png');">
-							<img src="/images/user-default.png" alt="" />
-						</figure>
-						<div class="listing-column client-name"><span>Millan, John Michael</span></div>
-						<div class="listing-column client-birthdate"><span>Dec. 30, 1983</span></div>
-						<div class="listing-column client-age"><span>30 years old</span></div>
-						<div class="listing-column client-gender"><span>Female</span></div>
-						<div class="listing-column client-category"><span>Educational Setting</span></div>
-						<div class="listing-options dropdown">
-							<a href="" data-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></a>
-							<ul class="dropdown-menu dropdown-menu-right">
-								<li><a href="">Edit</a></li>
-								<li><a href="">View Profile</a></li>
-								<li><a href="">Archive</a></li>
-							</ul>
-						</div>
-					</div><!-- wrapper -->
-				</li>
-				<li>
-					<div class="wrapper">
-						<figure class="listing-user" style="background-image:url('/images/user-default.png');">
-							<img src="/images/user-default.png" alt="" />
-						</figure>
-						<div class="listing-column client-name"><span>Millan, John Michael</span></div>
-						<div class="listing-column client-birthdate"><span>Dec. 30, 1983</span></div>
-						<div class="listing-column client-age"><span>30 years old</span></div>
-						<div class="listing-column client-gender"><span>Female</span></div>
-						<div class="listing-column client-category"><span>Educational Setting</span></div>
-						<div class="listing-options dropdown">
-							<a href="" data-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></a>
-							<ul class="dropdown-menu dropdown-menu-right">
-								<li><a href="">Edit</a></li>
-								<li><a href="">View Profile</a></li>
-								<li><a href="">Archive</a></li>
-							</ul>
-						</div>
-					</div><!-- wrapper -->
-				</li>
-				<li>
-					<div class="wrapper">
-						<figure class="listing-user" style="background-image:url('/images/user-default.png');">
-							<img src="/images/user-default.png" alt="" />
-						</figure>
-						<div class="listing-column client-name"><span>Millan, John Michael</span></div>
-						<div class="listing-column client-birthdate"><span>Dec. 30, 1983</span></div>
-						<div class="listing-column client-age"><span>30 years old</span></div>
-						<div class="listing-column client-gender"><span>Female</span></div>
-						<div class="listing-column client-category"><span>Educational Setting</span></div>
+						<div class="listing-column client-gender"><span>{!client.gender!}</span></div>
+						<!-- <div class="listing-column client-category"><span>Educational Setting</span></div> -->
 						<div class="listing-options dropdown">
 							<a href="" data-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></a>
 							<ul class="dropdown-menu dropdown-menu-right">
@@ -457,5 +377,10 @@
 	  </div>
 	</div>
 	<script type="text/javascript" src="js/scripts.min.js"></script>
+	<script src="js/angular/angular.min.js"></script>
+	<script src="js/angular/app.js"></script>
+	<script src="js/angular/reme_controller.js"></script>
+	<script src="js/angular/reme_service.js"></script>
+
   </body>
 </html>
