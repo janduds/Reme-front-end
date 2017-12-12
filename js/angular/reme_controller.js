@@ -64,34 +64,6 @@ function remeController($scope, apiService) {
 		}
 	}
 
-	$scope.submitRegister = function() {
-		$scope.errors = {};
-		$scope.requiredValidator($scope.reg.firstname, 'firstname');
-		$scope.requiredValidator($scope.reg.lastname, 'lastname');
-		$scope.validateEmail($scope.reg.email);
-		$scope.validatePassword($scope.reg.password);
-		$scope.checkGender($scope.reg.gender);
-
-		var err = $.map($scope.errors, function(e) {
-			if(e != false) {
-				return e;
-			}
-		});
-
-		if(err.length == 0) {
-			apiService.register($scope.reg).then(function(res) {
-				console.log(res);
-				if(res.data.data) {
-					$scope.landing = 'success_reg';
-				} else if(res.data.errors) {
-					$scope.errors = res.data.errors;
-				}
-			}).catch(function(res){
-				console.log(res.error);
-			})
-		}
-	}
-
 	$scope.submitLogin = function() {
 		$scope.errors = {};
 		$scope.validateEmail($scope.log_details.email);
@@ -112,7 +84,7 @@ function remeController($scope, apiService) {
 					$scope.errors.login = res.data.errors.credentials;
 					return;
 				}
-				// window.location.href = '/'
+				window.location.href = '/clients.html'
 			}).catch(function(res) {
 				$scope.sending = 'off';
 				$scope.errors.login = 'Something is wrong please contact admin';
@@ -177,6 +149,25 @@ function remeController($scope, apiService) {
 			});
 		}
 	}
+
+	$scope.checkUser = function() {
+		var action = $scope.getUrlParameter('action');
+
+		// if(!localStorage.authorization && action != 'logout') {
+		// 	window.location.href = '/?action=logout';
+		// 	return;
+		// } else if(localStorage.authorization){
+		// 	window.location.href = '/clients.html';
+		// 	return;
+		// }
+	}
+
+	$scope.getUrlParameter = function(name) {
+	    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+	    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+	    var results = regex.exec(location.search);
+	    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+	};
 
 	$scope.getToken = function() {
 		return $('input[name="_token"]').val();
