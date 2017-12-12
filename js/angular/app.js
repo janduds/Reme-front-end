@@ -14,7 +14,7 @@ angular.module('reme', [
 				return {
 					'request' : function(config) {
 						if(localStorage.authorization) {
-							config.headers.Authorization = localStorage.authorization;
+							config.headers.Authorization = 'Bearer ' + localStorage.authorization;
 						}
 
 						return config;
