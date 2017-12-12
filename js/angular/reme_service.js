@@ -12,5 +12,12 @@ var services = angular.module('reme.services', []);
 			});
 		}
 
+		remeApi.getUser = function() {
+			return $http({
+				method 	: 'GET'
+				, url 	: remeUrl + '/user'
+			});
+		}
+
 		return remeApi;
 	});

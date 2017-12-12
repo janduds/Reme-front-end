@@ -79,12 +79,13 @@ function remeController($scope, apiService) {
 			$scope.sending = 'on';
 			$scope.log_details._token = $scope.getToken();
 			apiService.login($scope.log_details).then(function(res) {
-				if(res.data.errors){
-					$scope.sending = 'off';
-					$scope.errors.login = res.data.errors.credentials;
-					return;
-				}
-				window.location.href = '/clients.html'
+				// if(res.data.errors){
+				// 	$scope.sending = 'off';
+				// 	$scope.errors.login = res.data.errors.credentials;
+				// 	return;
+				// }
+				// window.location.href = '/clients.html'
+				$scope.getUser();
 			}).catch(function(res) {
 				$scope.sending = 'off';
 				$scope.errors.login = 'Something is wrong please contact admin';
@@ -188,5 +189,17 @@ function remeController($scope, apiService) {
                    function(firstLetter){
                       return   firstLetter.toUpperCase();
                    });
+     }
+
+     $scope.getUser = function() {
+     	apiService.getUser().then(function(res){
+     		var string_val = JSON.stringify(res.data.success);
+     		console.log(string_val);
+     		localStorage.user = string_val;
+     		$scope.sending = 'off';
+     		window.location.href = '/clients.html'
+     	}).catch(function(res){
+     		console.log('something is wrong');
+     	})
      }
 }
