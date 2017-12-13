@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Re:Me</title>
     <link href="css/styles.min.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
   </head>
   <body ng-controller="remeController">
-	<div class="content" ng-controller="registerController as reg">
+	<div class="content" ng-controller="registerController as reg" ng-cloak>
 		<div class="register-container">
 			<div class="canvas">
 				<div class="register-header">
@@ -22,31 +23,57 @@
 					<div class="register-firstname">
 						<div class="form-group">
 							<label for="firstName">First Name</label>
-							<input type="text" name="" value="" class="form-control" id="firstName" name="firstname" ng-class="{'error-field' : reg.errors.firstname}" ng-model="reg.reg.firstname" ng-change="reg.requiredValidator(reg.reg.firstname, 'firstname')" required>
-                            <span ng-if="reg.errors.firstname" class="error">{! reg.errors.firstname !}</span>
+							<input type="text" name="" value="" class="form-control" id="firstName" name="firstname" ng-class="{'error-field' : reg.errors.first_name}" ng-model="reg.reg.first_name" ng-change="reg.requiredValidator(reg.reg.first_name, 'first_name')" required>
+                            <span ng-if="reg.errors.first_name" class="error">{! reg.errors.first_name !}</span>
 						</div><!-- form-group -->
 					</div>
 					<div class="register-lastname">
 						<div class="form-group">
 							<label for="lastName">Last Name</label>
-							<input type="text" name="" value="" class="form-control" id="lastName" />
+							<input type="text" name="" value="" class="form-control" id="lastName" ng-class="{'error-field' : reg.errors.last_name}" ng-model="reg.reg.last_name" ng-change="reg.requiredValidator(reg.reg.last_name, 'last_name')" required>
+                            <span ng-if="reg.errors.last_name" class="error">{! reg.errors.last_name !}</span>
 						</div><!-- form-group -->
 					</div>
-					<div class="form-group">
-						<label for="emailAddress">Email Address</label>
-						<input type="email" name="" value="" class="form-control" id="emailAddress" />
-					</div><!-- form-group -->
+					<div class="row">
+						<div class="col-sm-12 col-md-12">
+							<div class="form-group">
+								<label for="emailAddress">Email Address</label>
+								<input type="email" name="" value="" class="form-control" id="emailAddress" ng-class="{'error-field' : reg.errors.email}" ng-model="reg.reg.email" ng-change="reg.validateEmail(reg.reg.email)" required>
+                                <span ng-if="reg.errors.email" class="error">{! reg.errors.email !}</span>
+							</div><!-- form-group -->
+						</div>
+					</div>
 					<div class="register-password">
 						<div class="form-group">
 							<label for="passWord">Password</label>
-							<input type="password" name="" value="" class="form-control" id="passWord" />
+							<input type="password" name="" value="" class="form-control" id="passWord" ng-class="{'error-field' : reg.errors.password}" ng-model="reg.reg.password" ng-change="reg.validatePassword(reg.reg.password)" required>
+                            <span ng-if="reg.errors.password" class="error">{! reg.errors.password !}</span>
 						</div><!-- form-group -->
 					</div>
 					<div class="register-confirmpass">
 						<div class="form-group">
 							<label for="confirmPassword">Confirm Password</label>
-							<input type="password" name="" value="" class="form-control" id="confirmPassword" />
+							<input type="password" name="" value="" class="form-control" id="confirmPassword" ng-class="{'error-field' : reg.errors.c_password}" ng-model="reg.reg.c_password" ng-change="reg.validateConfirmPass(reg.reg.c_password)"required>
+                            <span ng-if="reg.errors.c_password" class="error">{! reg.errors.c_password !}</span>
 						</div><!-- form-group -->
+					</div>
+					<div class="row">
+						<div class="col-sm-12 col-md-12">
+							<span class="gender-label">Gender</span>
+							<div class="col-md-12 col-sm-12">
+                                <label for="gender" class="radio-inline">
+                                    <input type="radio" name="gender" ng-model="reg.reg.gender" ng-click="reg.checkGender(reg.reg.gender)" value="male">Male
+                                </label>
+                                <label for="gender" class="radio-inline">
+                                    <input type="radio" name="gender" ng-model="reg.reg.gender" ng-click="reg.checkGender(reg.reg.gender)" value="female">Female
+                                </label>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        <span ng-if="reg.errors.gender" class="error">{! reg.errors.gender !}</span>
+                                    </div>
+                                </div>
+                            </div>
+						</div>
 					</div>
 					<p class="register-support"><a href="">Need help? Contact support.</a></p>
 					<button type="button" class="btn btn-primary register-button" ng-click="reg.submitRegister()">Create My New Account</button>
