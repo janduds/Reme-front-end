@@ -30,6 +30,8 @@ angular.module('reme', [
 
 						if(response.data.status == 401) {
 							localStorage.token_expire = true;
+							localStorage.clear();
+							window.location.href = '/';	
 						}
 						
 						return response;

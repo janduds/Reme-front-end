@@ -10,7 +10,7 @@
   <body ng-controller="remeController">
 	<div class="content" ng-controller="registerController as reg" ng-cloak>
 		<div class="register-container">
-			<div class="canvas">
+			<div class="canvas" ng-if="reg.landing == 'default'">
 				<div class="register-header">
 					<div class="register-logo">
 						<a href="" class="logo"><img src="/images/logo_dark.png" alt="" /></a>
@@ -83,6 +83,19 @@
 					<p>Aliquam erat volutpat. Quisque malesuada magna in condimentum molestie. Duis sodales arcu non purus port titor.</p>
 				</div>
 			</div><!-- canvas -->
+			<div class="canvas" ng-if="reg.landing == 'success_reg'">
+				<div class="row">
+					<div class="col-md-12 col-sm-12">
+						<div class="register-header">
+							<div class="register-logo">
+								<a href="" class="logo"><img src="/images/logo_dark.png" alt="" /></a>
+								<h1 class="name">Re:Me</h1>
+							</div>
+							<h4 class="heading">You are successfully registered. Please check your email to activate your account<span>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div><!-- register-container -->
 	</div><!-- content -->
 	<footer>
