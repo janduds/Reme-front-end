@@ -55,7 +55,7 @@
 				<input type="text" name="" value="" placeholder="Enter keyword to search...">
 			</div>
 			<div class="header-user">
-				<span class="name">Eden McArthur</span>
+				<span class="name">{!user.name | uppercase!}</span>
 				<figure class="profilepic" style="background-image:url(/images/user-default.png);">
 					<img src="/images/user-default.png" alt="" />
 				</figure>
@@ -215,7 +215,7 @@
 						<div class="listing-column client-birthdate"><span>{!client.birth_date | date:'MMM. dd, yyyy'!}</span></div>
 						<div class="listing-column client-age"><span>{!client.age!}</span></div>
 						<div class="listing-column client-gender"><span>{!client.gender!}</span></div>
-						<!-- <div class="listing-column client-category"><span>Educational Setting</span></div> -->
+						<div class="listing-column client-category"><span>Professional</span></div>
 						<div class="listing-options dropdown">
 							<a href="" data-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></a>
 							<ul class="dropdown-menu dropdown-menu-right">

@@ -11,6 +11,8 @@ function remeController($scope, apiService) {
 		$scope.reset = {};
 		$scope.can_submit = false;
 
+		$scope.user = JSON.parse(localStorage.user);
+
 
 	$scope.requiredValidator = function(text, field) {
 		if(text == '' || text == undefined) {
@@ -211,7 +213,8 @@ function remeController($scope, apiService) {
     	apiService.getClientList().then(function(res) {
 			$scope.client_list = [];
 			$scope._client_list = res.data.success;
-			
+			$scope.total_client_count = res.data.success.total;
+			$scope.limit = 10;
 			angular.forEach($scope._client_list, function(value, key){
 				if(!isNaN(parseInt(key))) {
 					if(value.birth_date == null) {
