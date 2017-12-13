@@ -194,10 +194,9 @@ function remeController($scope, apiService) {
      $scope.getUser = function() {
      	apiService.getUser().then(function(res){
      		var string_val = JSON.stringify(res.data.success);
-     		console.log(string_val);
      		localStorage.user = string_val;
      		$scope.sending = 'off';
-     		window.location.href = '/clients.html'
+     		window.location.href = '/clients'
      	}).catch(function(res){
      		console.log('something is wrong');
      	})

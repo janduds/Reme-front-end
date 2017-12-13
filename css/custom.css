@@ -5,3 +5,14 @@
 .error {
 	color: #f73a3a;
 }
+
+.row .gender-label {
+	display: block;
+    width: 100%;
+    height: auto;
+    padding: 0 0 5px;
+    margin: 0;
+    font-size: 12px;
+    color: #757575;
+    font-weight: 700;
+}
