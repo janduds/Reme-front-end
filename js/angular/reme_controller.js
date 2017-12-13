@@ -10,7 +10,6 @@ function remeController($scope, apiService) {
 		$scope.sending = 'off';
 		$scope.reset = {};
 		$scope.can_submit = false;
-
 		$scope.user = JSON.parse(localStorage.user);
 
 
@@ -198,10 +197,9 @@ function remeController($scope, apiService) {
      $scope.getUser = function() {
      	apiService.getUser().then(function(res){
      		var string_val = JSON.stringify(res.data.success);
-     		console.log(string_val);
      		localStorage.user = string_val;
      		$scope.sending = 'off';
-     		window.location.href = '/clients.html'
+     		window.location.href = '/clients'
      	}).catch(function(res){
      		console.log('something is wrong');
      	})
@@ -209,7 +207,7 @@ function remeController($scope, apiService) {
 
 
     $scope.getClientList = function() {
-
+    	$scope.user = JSON.parse(localStorage.user);
     	apiService.getClientList().then(function(res) {
 			$scope.client_list = [];
 			$scope._client_list = res.data.success;
@@ -243,7 +241,13 @@ function remeController($scope, apiService) {
 
 	    return age;
 	}
+	console.log($scope.user);
+	// $scope.initUser = function(){
 
-
+		
+		
+	// 	console.log(11111);
+	// }
+	// console.log(11111);
 
 }
