@@ -7,7 +7,7 @@
     <link href="css/styles.min.css" rel="stylesheet">
   </head>
   <body ng-controller = "remeController" ng-cloak ng-init = "getClientList()">
-  	<div class="sidebar">
+  	<div class="sidebar" >
   		<div class="sidebar-header">
   			<div class="wrapper">
 	  			<a href="" class="logo-image"><img src="/images/logo_dark.png" alt="" /></a>
@@ -215,7 +215,7 @@
 						<div class="listing-column client-birthdate"><span>{!client.birth_date | date:'MMM. dd, yyyy'!}</span></div>
 						<div class="listing-column client-age"><span>{!client.age!}</span></div>
 						<div class="listing-column client-gender"><span>{!client.gender!}</span></div>
-						<!-- <div class="listing-column client-category"><span>Educational Setting</span></div> -->
+						<div class="listing-column client-category"><span>Professional</span></div>
 						<div class="listing-options dropdown">
 							<a href="" data-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></a>
 							<ul class="dropdown-menu dropdown-menu-right">

@@ -11,6 +11,7 @@ function remeController($scope, apiService) {
 		$scope.reset = {};
 		$scope.can_submit = false;
 
+		
 
 	$scope.requiredValidator = function(text, field) {
 		if(text == '' || text == undefined) {
@@ -206,7 +207,7 @@ function remeController($scope, apiService) {
 
 
     $scope.getClientList = function() {
-
+    	$scope.user = JSON.parse(localStorage.user);
     	apiService.getClientList().then(function(res) {
 			$scope.client_list = [];
 			$scope._client_list = res.data.success;
@@ -239,7 +240,13 @@ function remeController($scope, apiService) {
 
 	    return age;
 	}
+	console.log($scope.user);
+	// $scope.initUser = function(){
 
-
+		
+		
+	// 	console.log(11111);
+	// }
+	// console.log(11111);
 
 }
