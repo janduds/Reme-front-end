@@ -3,12 +3,14 @@
 angular.module('reme.controllers')
 		.controller('registerController', registerController);
 
-registerController.$inject = ['$scope', 'registerApiService'];
+registerController.$inject = ['$scope', 'registerApiService', '$location'];
 
-function registerController($scope, registerApiService) {
+function registerController($scope, registerApiService, $location) {
 	var self = this;
 		self.errors = {};
 		self.reg = {};
+		self.base_url = $location.protocol() + "://" + location.host;
+		self.landing = 'default';
 
 	self.submitRegister = function() {
 		self.errors = {};
@@ -32,16 +34,13 @@ function registerController($scope, registerApiService) {
 			self.reg.user_type = 1;
 			self.reg.role = 'customer';
 			self.reg.age = 23;
-			registerApiService.register(self.reg).then(function(res) {
-				console.log(res.data);
+			registerApiService.register(self.reg, self.base_url).then(function(res) {
 				if(res.data.success) {
-					// $scope.landing = 'success_reg';
-					// console.log(res.data.success);
+					self.landing = 'success_reg';
 				} else if(res.data.errors) {
 					angular.forEach(res.data.errors, function(value, key) {
 						self.errors[value.field] = value.message;
 					})
-					console.log($scope.errors)
 					// $scope.errors = res.data.errors;
 				}
 			}).catch(function(res){
