@@ -35,6 +35,10 @@
     color: #757575;
     font-weight: 700;
 }
+.update-button{
+	float:right;
+	padding-right: 45px;
+}
 
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {

@@ -79,34 +79,32 @@
 		</ul>
 	</div>
 		<div class="content">
-			<div class="listing-container listing-client iconed optioned">
-				<div class="listing-header">
-				<div class="wrapper">
-					<div class="listing-column1"><span>Profile Details</span></div>
-					
-				</div>
-			</div>
+				
 				<div class="main-content">
 					<h4 class="form-sectitle sectitle-bold"><span>Complete Name</span></h4>
 			      	<div class="col-container">
-			      		<div class="col4">
+			      		<div class="col6">
 			      			<div class="form-group">
 								<label for="firstName">First Name</label>
 								{!user.first_name | uppercase!}
 							</div>
 			      		</div>
-			      		<div class="col4">
-			      			<div class="form-group">
-								<label for="middleName">Middle Name</label>
-								--
-							</div>
-			      		</div>
-			      		<div class="col4">
+			      		<div class="col6">
 			      			<div class="form-group">
 								<label for="lastName">Last Name</label>
 								{!user.last_name | uppercase!}
 							</div>
 			      		</div>
+			      	</div>
+			      	<h4 class="form-sectitle sectitle-bold"><span>Email Address</span></h4>
+			      	<div class="col-container">
+			      		<div class="col6">
+			      			<div class="form-group">
+								<label for="birthMonth">Email</label>
+								{!user.email!}
+							</div>
+			      		</div>
+			      		
 			      	</div>
 			      	<h4 class="form-sectitle sectitle-bold"><span>Birthdate</span></h4>
 			      	<div class="col-container">
@@ -151,6 +149,12 @@
 			      		</div>
 			      	</div>
 			</div>
+			<div class="col-container">
+				<div class="update-button">
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newClient">Update</button>
+				</div>
+				
+			</div>
 		</div>
 		
 		
@@ -160,6 +164,143 @@
 			<p class="footer-made">Hand-crafted &amp; made with Love.</p>
 		</div>
 	</footer>
+
+
+
+	<!-- MODALS -->
+	<div id="newClient" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Update Client</h4>
+	        <p class="modal-description">A small description for this form. Have the option for the client to update his/her profile.</p>
+	      </div>
+	      <div class="modal-body">
+	      	<h4 class="form-sectitle"><span>Complete Name</span></h4>
+	      	<div class="col-container">
+	      		<div class="col4">
+	      			<div class="form-group">
+						<label for="firstName">First Name</label>
+						<input type="text" class="form-control" id="firstName" value={!user.first_name!}>
+					</div>
+	      		</div>
+	      		<div class="col4">
+	      			<div class="form-group">
+						<label for="middleName">Middle Name</label>
+						<input type="text" class="form-control" id="middleName" value={!user.first_name!}>
+					</div>
+	      		</div>
+	      		<div class="col4">
+	      			<div class="form-group">
+						<label for="lastName">Last Name</label>
+						<input type="text" class="form-control" id="lastName" value={!user.last_name!}>
+					</div>
+	      		</div>
+	      	</div>
+	      	<h4 class="form-sectitle"><span>Birthdate</span></h4>
+	      	<div class="col-container">
+	      		<div class="col4">
+	      			<div class="form-group">
+						<label for="birthMonth">Month</label>
+						<select class="form-control" id="birthMonth">
+							<option value="{!$index + 1!}" ng-repeat="month in months" ng-selected="checkIfSelected($index + 1,user.birth_date | date:'M')" >{!month!}</option>
+
+						</select>
+					</div>
+	      		</div>
+	      		<div class="col4">
+	      			<div class="form-group">
+						<label for="birthDate">Day</label>
+						<select class="form-control" id="birthDate" >
+							<option value="{!day!}"  ng-repeat="day in days"  ng-selected="checkIfSelected(day,user.birth_date | date:'dd')" >{!day!}</option>
+
+						</select>
+					</div>
+	      		</div>
+	      		<div class="col4">
+	      			<div class="form-group">
+						<label for="birthYear">Year</label>
+						<input type="text" class="form-control" id="birthYear">
+					</div>
+	      		</div>
+	      	</div>
+	      	<div class="col-container">
+	      		<div class="col4">
+	      			<div class="form-group">
+						<label for="clientGeneder">Gender</label>
+						<select class="form-control" id="clientGeneder">
+							<option value="">Female</option>
+							<option value="">Male</option>
+							<option value="">Other</option>
+						</select>
+					</div>
+	      		</div>
+	      		<div class="col8">
+	      			<div class="form-group">
+						<label for="codeAllocate">Code Allocate</label>
+						<select class="form-control" id="codeAllocate">
+							<option value="">13456789</option>
+							<option value="">28765434</option>
+							<option value="">33456789</option>
+							<option value="">44567890</option>
+							<option value="">55654332</option>
+						</select>
+					</div>
+	      		</div>
+	      	</div>
+	      	<h4 class="form-sectitle"><span>Assign Group</span></h4>
+	      	<ul class="form-grouplist">
+				<li class="custom-checkbox">
+					<input type="checkbox" name="" id="check1">
+					<label for="check1"><span>Pellentesque Fauci</span></label>
+				</li>
+				<li class="custom-checkbox">
+					<input type="checkbox" name="" id="check2">
+					<label for="check2"><span>Curabitur Eget</span></label>
+				</li>
+				<li class="custom-checkbox">
+					<input type="checkbox" name="" id="check3">
+					<label for="check3"><span>Tristique Senectus</span></label>
+				</li>
+				<li class="custom-checkbox">
+					<input type="checkbox" name="" id="check4">
+					<label for="check4"><span>Pellentesque Fauci</span></label>
+				</li>
+				<li class="custom-checkbox">
+					<input type="checkbox" name="" id="check5">
+					<label for="check5"><span>Pellentesque Fauci</span></label>
+				</li>
+	      		<li class="custom-checkbox">
+	      			<input type="checkbox" name="" id="check6">
+	      			<label for="check6"><span>Pellentesque Fauci</span></label>
+	      		</li>
+	      		<li class="custom-checkbox">
+	      			<input type="checkbox" name="" id="check7">
+	      			<label for="check7"><span>Pellentesque Fauci</span></label>
+	      		</li>
+	      		<li class="custom-checkbox">
+	      			<input type="checkbox" name="" id="check8">
+	      			<label for="check8"><span>Pellentesque Fauci</span></label>
+	      		</li>
+	      		<li class="custom-checkbox">
+	      			<input type="checkbox" name="" id="check9">
+	      			<label for="check9"><span>Pellentesque Fauci</span></label>
+	      		</li>
+				<li class="custom-checkbox">
+	      			<input type="checkbox" name="" id="check10">
+	      			<label for="check10"><span>Pellentesque Fauci</span></label>
+	      		</li>
+	      	</ul>
+	      	
+	      </div>
+	      <div class="modal-footer">
+	      	<a href="" class="btn btn-primary">Save</a>
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div><!-- model-content -->
 
 
 
