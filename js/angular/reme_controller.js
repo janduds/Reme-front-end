@@ -15,11 +15,17 @@ function remeController($scope, apiService) {
 		$scope.months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 		//,
 		$scope.genders = ['male','female','others'];
-
+		$scope.currentYear = new Date().getFullYear();
+		$scope.years = [];
+		
+		for (var i = 1940; i <=$scope.currentYear ; i++) {
+			$scope.years.push(i);
+		}
 
 		//initialize user
 		if(localStorage.length > 0) {
 			$scope.user = JSON.parse(localStorage.user);
+			$scope.old_user = $scope.user;
 		}
 
 	$scope.requiredValidator = function(text, field) {
@@ -257,7 +263,7 @@ function remeController($scope, apiService) {
 	}
 
 	$scope.checkIfSelected = function(option,user_option) {
-		console.log(option,user_option);
+
 		if(option == user_option) {
 			return true;
 		}else {
@@ -276,5 +282,42 @@ function remeController($scope, apiService) {
 		})
 
 	}
+
+
+	$scope.updateClient = function() {
+		month = document.getElementById("birthMonth").value;
+		day = document.getElementById("birthDate").value;
+		year = document.getElementById("birthYear").value;
+
+		if(month <= 9){
+			month = '0'+month;
+		}
+		$scope.user.birth_date = year+'-'+month+'-'+day;
+
+		$scope.user.name = $scope.user.first_name +' '+ $scope.user.last_name;
+
+		apiService.updateClient($scope.user,$scope.user.id).then(function(res) {
+				$scope.sending = 'off';
+				if(res.data.errors) {
+					$scope.errors.forgot = res.data.errors.email;
+					return;
+				}else {
+					$scope.success = "Successfully updated client.";
+					localStorage.user = $scope.user.toString();
+				}
+				$scope.landing = 'reset_view';
+			}).catch(function(res) {
+				$scope.sending = 'off';
+				console.log(res);
+			});
+
+
+	}
+
+	$scope.cancel = function() {
+		$scope.user = $scope.old_user;
+	}
+
+	
 
 }
