@@ -10,8 +10,11 @@ function remeController($scope, apiService) {
 		$scope.sending = 'off';
 		$scope.reset = {};
 		$scope.can_submit = false;
-		$scope.user = JSON.parse(localStorage.user);
 
+		//initialize user
+		if(localStorage.length > 0) {
+			$scope.user = JSON.parse(localStorage.user);
+		}
 
 	$scope.requiredValidator = function(text, field) {
 		if(text == '' || text == undefined) {
@@ -241,13 +244,16 @@ function remeController($scope, apiService) {
 
 	    return age;
 	}
-	console.log($scope.user);
-	// $scope.initUser = function(){
 
-		
-		
-	// 	console.log(11111);
-	// }
-	// console.log(11111);
+	$scope.logout = function() {
+		apiService.logout().then(function(res) {
+			if(res.data.success) {
+				localStorage.clear();
+				window.location.href = '/';
+			}
+		}).catch(function(res) {
+			console.log(res.data.errors);
+		})
+	}
 
 }
