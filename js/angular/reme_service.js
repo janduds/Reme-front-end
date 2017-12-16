@@ -26,5 +26,12 @@ var services = angular.module('reme.services', []);
 			});
 		}
 
+		remeApi.logout = function() {
+			return $http({
+				method 	: 'GET',
+				url 	: remeUrl + '/logout'
+			});
+		}
+
 		return remeApi;
 	});
