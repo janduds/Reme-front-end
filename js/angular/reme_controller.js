@@ -10,12 +10,21 @@ function remeController($scope, apiService) {
 		$scope.sending = 'off';
 		$scope.reset = {};
 		$scope.can_submit = false;
+<<<<<<< HEAD
+		$scope.user = JSON.parse(localStorage.user);
+		$scope.days =['01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31'];
+		$scope.months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+		//,
+
+		console.log($scope.months);
+=======
 
 		//initialize user
 		if(localStorage.length > 0) {
 			$scope.user = JSON.parse(localStorage.user);
 		}
 
+>>>>>>> 7df1bcaff345cdc06678333d9eacfb6af2edb0d7
 	$scope.requiredValidator = function(text, field) {
 		if(text == '' || text == undefined) {
 			$scope.errors[field] = $scope.ucfirst(field) + ' is required';
@@ -245,6 +254,19 @@ function remeController($scope, apiService) {
 	    return age;
 	}
 
+	$scope.getNumber = function(num) {
+
+	    return new Array(num);   
+	}
+
+	$scope.checkIfSelected = function(option,user_option) {
+		console.log(option,user_option);
+		if(option == user_option) {
+			return true;
+		}else {
+			return false;
+		}
+
 	$scope.logout = function() {
 		apiService.logout().then(function(res) {
 			if(res.data.success) {
@@ -254,6 +276,7 @@ function remeController($scope, apiService) {
 		}).catch(function(res) {
 			console.log(res.data.errors);
 		})
+
 	}
 
 }
