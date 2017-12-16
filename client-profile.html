@@ -232,9 +232,7 @@
 	      			<div class="form-group">
 						<label for="clientGeneder">Gender</label>
 						<select class="form-control" id="clientGeneder">
-							<option value="">Female</option>
-							<option value="">Male</option>
-							<option value="">Other</option>
+							<option value="{!gender!}"  ng-repeat="gender in genders"  ng-selected="checkIfSelected(gender,user.gender)" >{!gender | uppercase!}</option>
 						</select>
 					</div>
 	      		</div>
