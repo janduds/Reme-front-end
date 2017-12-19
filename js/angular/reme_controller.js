@@ -10,6 +10,7 @@ function remeController($scope, apiService) {
 		$scope.sending = 'off';
 		$scope.reset = {};
 		$scope.can_submit = false;
+		$scope.loader_hide = true;
 
 		$scope.days =['01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31'];
 		$scope.months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -21,9 +22,9 @@ function remeController($scope, apiService) {
 		for (var i = 1940; i <=$scope.currentYear ; i++) {
 			$scope.years.push(i);
 		}
-
 		//initialize user
 		if(localStorage.length > 0) {
+
 			$scope.user = JSON.parse(localStorage.user);
 			$scope.old_user = $scope.user;
 		}
@@ -288,6 +289,7 @@ function remeController($scope, apiService) {
 		month = document.getElementById("birthMonth").value;
 		day = document.getElementById("birthDate").value;
 		year = document.getElementById("birthYear").value;
+		$scope.loader_hide =false;
 
 		if(month <= 9){
 			month = '0'+month;
@@ -303,7 +305,10 @@ function remeController($scope, apiService) {
 					return;
 				}else {
 					$scope.success = "Successfully updated client.";
-					localStorage.user = $scope.user.toString();
+					localStorage.user = JSON.stringify($scope.user);
+					angular.element('#newClient').modal('hide');
+					$scope.loader_hide =true;
+
 				}
 				$scope.landing = 'reset_view';
 			}).catch(function(res) {
