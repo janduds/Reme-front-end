@@ -185,19 +185,22 @@
 	      		<div class="col4">
 	      			<div class="form-group">
 						<label for="firstName">First Name</label>
-						<input type="text" class="form-control" id="firstName" ng-model = "user.first_name">
+						<input type="text" class="form-control"  id="firstName" ng-model = "user.first_name" ng-class="{'error-field' : errors.first_name}" ng-change="requiredValidator(user.first_name, 'first_name')" required>
+						<span ng-if="errors.first_name" class="error">{!errors.first_name !}</span>
 					</div>
 	      		</div>
 	      		<div class="col4">
-	      			<div class="form-group">
+	      			<!-- <div class="form-group">
 						<label for="middleName">Middle Name</label>
 						<input type="text" class="form-control" id="middleName" ng-model = "user.middle_name">
-					</div>
+					</div> -->
 	      		</div>
 	      		<div class="col4">
 	      			<div class="form-group">
 						<label for="lastName">Last Name</label>
-						<input type="text" class="form-control" id="lastName" name="last_name" ng-model = "user.last_name">
+						<input type="text" class="form-control" id="lastName" name="last_name" ng-model = "user.last_name" ng-class="{'error-field' : errors.last_name}" ng-change="requiredValidator(user.last_name, 'last_name')" required>
+						
+						<span ng-if="errors.last_name" class="error">{!errors.last_name !}</span>
 					</div>
 	      		</div>
 	      	</div>
@@ -206,7 +209,7 @@
 	      		<div class="col4">
 	      			<div class="form-group">
 						<label for="birthMonth">Month</label>
-						<select class="form-control" id="birthMonth" name = "month" >
+						<select class="form-control" id="birthMonth" name = "month" ng-class="{'error-field' : errors.birth_date}" >
 							<option value="{!$index + 1!}" name="month" ng-repeat="month in months" ng-selected="checkIfSelected($index + 1,user.birth_date | date:'M')"  >{!month!}</option>
 
 						</select>
@@ -215,8 +218,8 @@
 	      		<div class="col4">
 	      			<div class="form-group">
 						<label for="birthDate">Day</label>
-						<select class="form-control" id="birthDate" name="day">
-							<option value="{!day!}" ng-repeat="day in days"  ng-selected="checkIfSelected(day,user.birth_date | date:'dd')" >{!day!}</option>
+						<select class="form-control" id="birthDate" name="day" ng-class="{'error-field' : errors.birth_date}">
+							<option value="{!day!}" ng-repeat="day in days"  ng-selected="checkIfSelected(day,user.birth_date | date:'dd')"  >{!day!}</option>
 
 						</select>
 					</div>
@@ -224,17 +227,19 @@
 	      		<div class="col4">
 	      			<div class="form-group">
 						<label for="birthYear">Year</label>
-						<select class="form-control" id="birthYear">
-							<option value="{!year!}" name="year"  ng-repeat="year in years"  ng-selected="checkIfSelected(year,user.birth_date | date:'yyyy')" >{!year!}</option>
+						<select class="form-control" id="birthYear" ng-class="{'error-field' : errors.birth_date}">
+							<option value="{!year!}" name="year"  ng-repeat="year in years"  ng-selected="checkIfSelected(year,user.birth_date | date:'yyyy')">{!year!}</option>
 						</select>
 					</div>
 	      		</div>
+	      		<span ng-if="errors.birth_date" class="padded-10 error">{!errors.birth_date !}</span>
 	      	</div>
 	      	<div class="col-container">
 	      		<div class="col4">
 	      			<div class="form-group">
 						<label for="clientGeneder">Gender</label>
-						<select ng-model="user.gender" class="capitalize" ng-options="gender for gender in genders"></select>
+						<select ng-model="user.gender" class="capitalize" ng-options="gender for gender in genders" ng-class="{'error-field' : errors.gender}" ng-change="checkGender(user.gender)" required></select>
+						<span ng-if="errors.gender" class="error" >{!errors.gender !}</span>
 					</div>
 	      		</div>
 	      		<div class="col8">
@@ -302,9 +307,9 @@
 	      </div>
 	    </div><!-- model-content -->
 
-	    <div class="loading" ng-hide= "loader_hide == true">
+	  <!--   <div class="loading" ng-hide= "loader_hide == true">
 		  <p><img src="images/giphy.gif" /></p>
-		</div>
+		</div> -->
 
 
 
