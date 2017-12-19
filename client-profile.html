@@ -63,9 +63,11 @@
 				<div class="menu dropdown">
 					<a href="" data-toggle="dropdown"><i class="fa fa-list-ul"></i></a>
 					<ul class="dropdown-menu dropdown-menu-right">
-						<li><a href="">Profile</a></li>
+						<li><a href="/client-profile.html">Profile</a></li>
+						<li><a href="/clients.html">Clients</a></li>
+						<li><a href="">Change Password</a></li>
 						<li><a href="">Settings</a></li>
-						<li><a href="index.html">Logout</a></li>
+						<li><a href="#" ng-click="logout()">Logout</a></li>
 					</ul>
 				</div>
 			</div>
@@ -101,9 +103,13 @@
 			      		<div class="col6">
 			      			<div class="form-group">
 								<label for="birthMonth">Email</label>
-								{!user.email!}
+								{!user.email!} &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#newClient">new</button>
+
 							</div>
+							
+
 			      		</div>
+			      		
 			      		
 			      	</div>
 			      	<h4 class="form-sectitle sectitle-bold"><span>Birthdate</span></h4>
@@ -243,7 +249,7 @@
 					</div>
 	      		</div>
 	      		<div class="col8">
-	      			<div class="form-group">
+	      			<div class="form-group" ng-hide = "true ">
 						<label for="codeAllocate">Code Allocate</label>
 						<select class="form-control" id="codeAllocate">
 							<option value="">13456789</option>
@@ -255,8 +261,8 @@
 					</div>
 	      		</div>
 	      	</div>
-	      	<h4 class="form-sectitle"><span>Assign Group</span></h4>
-	      	<ul class="form-grouplist">
+	      	<h4 class="form-sectitle" ng-hide = "true "><span>Assign Group</span></h4>
+	      	<ul class="form-grouplist" ng-hide = "true ">
 				<li class="custom-checkbox">
 					<input type="checkbox" name="" id="check1">
 					<label for="check1"><span>Pellentesque Fauci</span></label>
@@ -306,6 +312,9 @@
 	        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancel()">Close</button>
 	      </div>
 	    </div><!-- model-content -->
+
+
+
 
 	  <!--   <div class="loading" ng-hide= "loader_hide == true">
 		  <p><img src="images/giphy.gif" /></p>
