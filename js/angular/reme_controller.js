@@ -10,16 +10,23 @@ function remeController($scope, apiService) {
 		$scope.sending = 'off';
 		$scope.reset = {};
 		$scope.can_submit = false;
+		$scope.loader_hide = true;
 
 		$scope.days =['01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31'];
 		$scope.months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 		//,
 		$scope.genders = ['male','female','others'];
-
-
+		$scope.currentYear = new Date().getFullYear();
+		$scope.years = [];
+		
+		for (var i = 1940; i <=$scope.currentYear ; i++) {
+			$scope.years.push(i);
+		}
 		//initialize user
 		if(localStorage.length > 0) {
+
 			$scope.user = JSON.parse(localStorage.user);
+			$scope.old_user = $scope.user;
 		}
 
 	$scope.requiredValidator = function(text, field) {
@@ -257,7 +264,7 @@ function remeController($scope, apiService) {
 	}
 
 	$scope.checkIfSelected = function(option,user_option) {
-		console.log(option,user_option);
+
 		if(option == user_option) {
 			return true;
 		}else {
@@ -276,5 +283,93 @@ function remeController($scope, apiService) {
 		})
 
 	}
+
+
+	$scope.updateClient = function() {
+		month = document.getElementById("birthMonth").value;
+		day = document.getElementById("birthDate").value;
+		year = document.getElementById("birthYear").value;
+		$scope.loader_hide =false;
+
+		if(month <= 9){
+			month = '0'+month;
+		}
+		$scope.user.birth_date = year+'-'+month+'-'+day;
+
+		$scope.requiredValidator($scope.user.first_name, 'first_name');
+		$scope.requiredValidator($scope.user.last_name, 'last_name');
+		$scope.checkGender($scope.user.gender);
+		$scope.isValidDate($scope.user.birth_date);
+
+		if($scope.errors.first_name != false || $scope.errors.last_name != false 
+		 || $scope.errors.gender != false ||  $scope.errors.birth_date != false) {
+			return false;
+		}
+
+		$scope.user.name = $scope.user.first_name +' '+ $scope.user.last_name;
+
+
+
+		apiService.updateClient($scope.user,$scope.user.id).then(function(res) {
+				$scope.sending = 'off';
+				if(res.data.errors) {
+					$scope.errors.forgot = res.data.errors.email;
+					return;
+				}else {
+
+
+					$scope.success = "Successfully updated client.";
+					localStorage.user = JSON.stringify($scope.user);
+					angular.element('#newClient').modal('hide');
+					$scope.loader_hide =true;
+
+				}
+				$scope.landing = 'reset_view';
+			}).catch(function(res) {
+				$scope.sending = 'off';
+				console.log(res);
+			});
+
+
+	}
+
+	$scope.cancel = function() {
+		$scope.user = $scope.old_user;
+	}
+
+
+	$scope.validateString = function(value) {
+
+	}
+
+	$scope.requiredValidator = function(text, field) {
+		if(text == '' || text == undefined) {
+			$scope.errors[field] = $scope.ucfirst(field).replace('_', ' ') + ' is required';
+		} else if(!$scope.checkAlpha(text)) {
+			$scope.errors[field] = $scope.ucfirst(field).replace('_', ' ') + ' must be a string';
+		}else {
+			console.log(field);
+			return $scope.errors[field] = false;
+		}
+	}
+
+	$scope.checkGender = function(gender) {
+		if(gender == '' || gender == undefined) {
+			$scope.errors.gender = 'Gender is required';
+		} else {
+			return $scope.errors.gender = false;
+		}
+	}
+
+	$scope.isValidDate = function(dateString) {
+	  var regEx = /^\d{4}-\d{2}-\d{2}$/;
+	  if(dateString.match(regEx) != null) {
+	  	return $scope.errors.birth_date = false;
+	  }else {
+	  	$scope.errors.birth_date = 'Invalid format birth date'; 
+	  }
+	}	
+
+	
 
 }

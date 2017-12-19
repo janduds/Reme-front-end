@@ -63,9 +63,11 @@
 				<div class="menu dropdown">
 					<a href="" data-toggle="dropdown"><i class="fa fa-list-ul"></i></a>
 					<ul class="dropdown-menu dropdown-menu-right">
-						<li><a href="">Profile</a></li>
+						<li><a href="/client-profile.html">Profile</a></li>
+						<li><a href="/clients.html">Clients</a></li>
+						<li><a href="">Change Password</a></li>
 						<li><a href="">Settings</a></li>
-						<li><a href="index.html">Logout</a></li>
+						<li><a href="#" ng-click="logout()">Logout</a></li>
 					</ul>
 				</div>
 			</div>
@@ -101,9 +103,13 @@
 			      		<div class="col6">
 			      			<div class="form-group">
 								<label for="birthMonth">Email</label>
-								{!user.email!}
+								{!user.email!} &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#newClient">new</button>
+
 							</div>
+							
+
 			      		</div>
+			      		
 			      		
 			      	</div>
 			      	<h4 class="form-sectitle sectitle-bold"><span>Birthdate</span></h4>
@@ -156,8 +162,7 @@
 				
 			</div>
 		</div>
-		
-		
+
 	<footer>
 		<div class="footer-wrapper">
 			<p class="footer-copyright">Copyright © 2017 Re:Me All rights reserved. <a href="#">Terms of use</a> | <a href="#">Privacy Policy</a></p>
@@ -176,27 +181,32 @@
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal">&times;</button>
 	        <h4 class="modal-title">Update Client</h4>
-	        <p class="modal-description">A small description for this form. Have the option for the client to update his/her profile.</p>
+	        <p class="modal-description">For the client to update his/her profile.</p>
 	      </div>
 	      <div class="modal-body">
 	      	<h4 class="form-sectitle"><span>Complete Name</span></h4>
+	      	<form name="update">
 	      	<div class="col-container">
+
 	      		<div class="col4">
 	      			<div class="form-group">
 						<label for="firstName">First Name</label>
-						<input type="text" class="form-control" id="firstName" value={!user.first_name!}>
+						<input type="text" class="form-control"  id="firstName" ng-model = "user.first_name" ng-class="{'error-field' : errors.first_name}" ng-change="requiredValidator(user.first_name, 'first_name')" required>
+						<span ng-if="errors.first_name" class="error">{!errors.first_name !}</span>
 					</div>
 	      		</div>
 	      		<div class="col4">
-	      			<div class="form-group">
+	      			<!-- <div class="form-group">
 						<label for="middleName">Middle Name</label>
-						<input type="text" class="form-control" id="middleName" value={!user.first_name!}>
-					</div>
+						<input type="text" class="form-control" id="middleName" ng-model = "user.middle_name">
+					</div> -->
 	      		</div>
 	      		<div class="col4">
 	      			<div class="form-group">
 						<label for="lastName">Last Name</label>
-						<input type="text" class="form-control" id="lastName" value={!user.last_name!}>
+						<input type="text" class="form-control" id="lastName" name="last_name" ng-model = "user.last_name" ng-class="{'error-field' : errors.last_name}" ng-change="requiredValidator(user.last_name, 'last_name')" required>
+						
+						<span ng-if="errors.last_name" class="error">{!errors.last_name !}</span>
 					</div>
 	      		</div>
 	      	</div>
@@ -205,8 +215,8 @@
 	      		<div class="col4">
 	      			<div class="form-group">
 						<label for="birthMonth">Month</label>
-						<select class="form-control" id="birthMonth">
-							<option value="{!$index + 1!}" ng-repeat="month in months" ng-selected="checkIfSelected($index + 1,user.birth_date | date:'M')" >{!month!}</option>
+						<select class="form-control" id="birthMonth" name = "month" ng-class="{'error-field' : errors.birth_date}" >
+							<option value="{!$index + 1!}" name="month" ng-repeat="month in months" ng-selected="checkIfSelected($index + 1,user.birth_date | date:'M')"  >{!month!}</option>
 
 						</select>
 					</div>
@@ -214,8 +224,8 @@
 	      		<div class="col4">
 	      			<div class="form-group">
 						<label for="birthDate">Day</label>
-						<select class="form-control" id="birthDate" >
-							<option value="{!day!}"  ng-repeat="day in days"  ng-selected="checkIfSelected(day,user.birth_date | date:'dd')" >{!day!}</option>
+						<select class="form-control" id="birthDate" name="day" ng-class="{'error-field' : errors.birth_date}">
+							<option value="{!day!}" ng-repeat="day in days"  ng-selected="checkIfSelected(day,user.birth_date | date:'dd')"  >{!day!}</option>
 
 						</select>
 					</div>
@@ -223,21 +233,23 @@
 	      		<div class="col4">
 	      			<div class="form-group">
 						<label for="birthYear">Year</label>
-						<input type="text" class="form-control" id="birthYear">
+						<select class="form-control" id="birthYear" ng-class="{'error-field' : errors.birth_date}">
+							<option value="{!year!}" name="year"  ng-repeat="year in years"  ng-selected="checkIfSelected(year,user.birth_date | date:'yyyy')">{!year!}</option>
+						</select>
 					</div>
 	      		</div>
+	      		<span ng-if="errors.birth_date" class="padded-10 error">{!errors.birth_date !}</span>
 	      	</div>
 	      	<div class="col-container">
 	      		<div class="col4">
 	      			<div class="form-group">
 						<label for="clientGeneder">Gender</label>
-						<select class="form-control" id="clientGeneder">
-							<option value="{!gender!}"  ng-repeat="gender in genders"  ng-selected="checkIfSelected(gender,user.gender)" >{!gender | uppercase!}</option>
-						</select>
+						<select ng-model="user.gender" class="capitalize" ng-options="gender for gender in genders" ng-class="{'error-field' : errors.gender}" ng-change="checkGender(user.gender)" required></select>
+						<span ng-if="errors.gender" class="error" >{!errors.gender !}</span>
 					</div>
 	      		</div>
 	      		<div class="col8">
-	      			<div class="form-group">
+	      			<div class="form-group" ng-hide = "true ">
 						<label for="codeAllocate">Code Allocate</label>
 						<select class="form-control" id="codeAllocate">
 							<option value="">13456789</option>
@@ -249,8 +261,8 @@
 					</div>
 	      		</div>
 	      	</div>
-	      	<h4 class="form-sectitle"><span>Assign Group</span></h4>
-	      	<ul class="form-grouplist">
+	      	<h4 class="form-sectitle" ng-hide = "true "><span>Assign Group</span></h4>
+	      	<ul class="form-grouplist" ng-hide = "true ">
 				<li class="custom-checkbox">
 					<input type="checkbox" name="" id="check1">
 					<label for="check1"><span>Pellentesque Fauci</span></label>
@@ -294,11 +306,19 @@
 	      	</ul>
 	      	
 	      </div>
+	      </form>
 	      <div class="modal-footer">
-	      	<a href="" class="btn btn-primary">Save</a>
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      	<a href="" class="btn btn-primary" ng-click="updateClient()">Save</a>
+	        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancel()">Close</button>
 	      </div>
 	    </div><!-- model-content -->
+
+
+
+
+	  <!--   <div class="loading" ng-hide= "loader_hide == true">
+		  <p><img src="images/giphy.gif" /></p>
+		</div> -->
 
 
 

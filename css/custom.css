@@ -40,7 +40,28 @@
 	padding-right: 45px;
 }
 
+.capitalize {
+   text-transform: capitalize;
+}
+
+.modal-description-green{
+	display: block;
+    width: 100%;
+    height: auto;
+    font-size: 14px;
+    font-weight: bold;
+    color: green;
+}
+
+.padded-10 {
+    padding-left: 190px;
+}
+
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
+}
+
+.loading {
+    margin-left: 150px;
 }

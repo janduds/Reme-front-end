@@ -25,6 +25,14 @@ var services = angular.module('reme.services', []);
 				url 	: remeUrl + '/manage/users?limit=20&offset=0'
 			});
 		}
+		remeApi.updateClient = function(data,id){
+			console.log(remeUrl + '/manage/users/'+ id);
+			return $http({
+				method 	: 'PUT',
+				data 	: data,
+				url 	: remeUrl + '/manage/users/'+ id
+			});
+		}
 
 		remeApi.logout = function() {
 			return $http({
