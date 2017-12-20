@@ -42,6 +42,45 @@
                                 <span ng-if="reg.errors.email" class="error">{! reg.errors.email !}</span>
 							</div><!-- form-group -->
 						</div>
+
+					</div>
+					<div class="row">
+						<div class="col-sm-12 col-md-12">
+							<div class="form-group">
+								<div class="col4">
+								<label for="birthDate">Birth Date</label>
+								</div>
+						      	<div class="col-container">
+						      		<div class="col4">
+						      			<div class="form-group">
+											<label for="birthMonth">Month</label>
+											<select class="form-control" id="birthMonth" name = "month" ng-class="{'error-field' : reg.errors.birth_date}" ng-model="reg.reg.birth_month">
+												<option value="{!$index + 1!}" name="month" ng-repeat="month in months">{!month!}</option>
+
+											</select>
+										</div>
+						      		</div>
+						      		<div class="col4">
+						      			<div class="form-group">
+											<label for="birthDate">Day</label>
+											<select class="form-control" id="birthDate" name="day" ng-class="{'error-field' : reg.errors.birth_date}" ng-model="reg.reg.birth_day">
+												<option value="{!day!}" ng-repeat="day in days" >{!day!}</option>
+
+											</select>
+										</div>
+						      		</div>
+						      		<div class="col4">
+						      			<div class="form-group">
+											<label for="birthYear">Year</label>
+											<select class="form-control" id="birthYear" ng-class="{'error-field' : reg.errors.birth_date}" ng-model="reg.reg.birth_year">
+												<option value="{!year!}" name="year"  ng-repeat="year in years" ">{!year!}</option>
+											</select>
+										</div>
+						      		</div>
+						      		<span ng-if="reg.errors.birth_date" class="padded-5 error">{!reg.errors.birth_date !}</span>
+					      		</div>
+							</div><!-- form-group -->
+						</div>
 					</div>
 					<div class="register-password">
 						<div class="form-group">

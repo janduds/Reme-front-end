@@ -10,7 +10,7 @@ function registerController($scope, registerApiService, $location) {
 		self.errors = {};
 		self.reg = {};
 		self.base_url = $location.protocol() + "://" + location.host;
-		self.landing = 'default';
+		self.landing = 'success_reg';
 
 	self.submitRegister = function() {
 		self.errors = {};
@@ -20,6 +20,16 @@ function registerController($scope, registerApiService, $location) {
 		self.validatePassword(self.reg.password);
 		self.validateConfirmPass(self.reg.c_password, 'confpassword');
 		self.checkGender(self.reg.gender);
+		if(self.reg.birth_month <= 9){
+
+			month = '0'+self.reg.birth_month;
+		}else{
+			month = self.reg.birth_month;
+		}
+		self.reg.birth_date = self.reg.birth_year+'-'+month+'-'+self.reg.birth_day;
+		self.isValidDate(self.reg.birth_date);
+
+
 
 		var err = $.map(self.errors, function(e) {
 			if(e != false) {
@@ -36,6 +46,7 @@ function registerController($scope, registerApiService, $location) {
 			self.reg.age = 23;
 			registerApiService.register(self.reg, self.base_url).then(function(res) {
 				if(res.data.success) {
+					console.log('x');
 					self.landing = 'success_reg';
 				} else if(res.data.errors) {
 					angular.forEach(res.data.errors, function(value, key) {
@@ -103,4 +114,14 @@ function registerController($scope, registerApiService, $location) {
 			return self.errors.gender = false;
 		}
 	}
+
+	self.isValidDate = function(dateString) {
+	  console.log(dateString);
+	  var regEx = /^\d{4}-\d{2}-\d{2}$/;
+	  if(dateString.match(regEx) != null) {
+	  	return self.errors.birth_date = false;
+	  }else {
+	  	self.errors.birth_date = 'Birth date is required or must be a valid format'; 
+	  }
+	}	
 }
