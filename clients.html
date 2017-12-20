@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Re:Me</title>
     <link href="css/styles.min.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
   </head>
   <body ng-controller = "remeController" ng-cloak ng-init = "getClientList()">
   	<div class="sidebar" >
@@ -78,7 +79,7 @@
 			<li>clients</li>
 		</ul>
 	</div>
-	<div class="content" ng-controller="clientController">
+	<div class="content">
 		<div class="page-heading">
 			<div class="colleft">
 				<div class="canvas">
@@ -241,7 +242,7 @@
 
 
 	<!-- MODALS -->
-	<div id="newClient" class="modal fade" role="dialog">
+	<div id="newClient" class="modal fade" role="dialog" ng-controller="clientController as client">
 	  <div class="modal-dialog">
 
 	    <!-- Modal content-->
@@ -252,24 +253,30 @@
 	        <p class="modal-description">A small description for this form. lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tristique consequat arcu, vitae finibus.</p>
 	      </div>
 	      <div class="modal-body">
+	      	<div class="alert alert-success fade in" ng-if="client.success">
+		        <a href="#" class="close" data-dismiss="alert">&times;</a>
+		        <strong>Success!</strong> {! client.success !}
+		    </div>
 	      	<h4 class="form-sectitle"><span>Complete Name</span></h4>
 	      	<div class="col-container">
-	      		<div class="col4">
+	      		<div class="col6">
 	      			<div class="form-group">
 						<label for="firstName">First Name</label>
-						<input type="text" class="form-control" id="firstName">
+						<input type="text" class="form-control" id="firstName" ng-class="{'error-field' : client.errors.first_name}" ng-model="client.reg.first_name" ng-change="client.requiredValidator(client.reg.first_name, 'first_name')" required>
+                            <span ng-if="client.errors.first_name" class="error">{! client.errors.first_name !}</span>
 					</div>
 	      		</div>
-	      		<div class="col4">
+	      		<!-- <div class="col4">
 	      			<div class="form-group">
 						<label for="middleName">Middle Name</label>
 						<input type="text" class="form-control" id="middleName">
 					</div>
-	      		</div>
-	      		<div class="col4">
+	      		</div> -->
+	      		<div class="col6">
 	      			<div class="form-group">
 						<label for="lastName">Last Name</label>
-						<input type="text" class="form-control" id="lastName">
+						<input type="text" class="form-control" id="lastName" ng-class="{'error-field' : client.errors.last_name}" ng-model="client.reg.last_name" ng-change="client.requiredValidator(client.reg.last_name, 'last_name')" required>
+                            <span ng-if="client.errors.last_name" class="error">{! client.errors.last_name !}</span>
 					</div>
 	      		</div>
 	      	</div>
@@ -278,31 +285,50 @@
 	      		<div class="col4">
 	      			<div class="form-group">
 						<label for="birthMonth">Month</label>
-						<input type="text" class="form-control" id="Month">
+						<select class="form-control" id="birthMonth" name = "month" ng-class="{'error-field' : client.errors.birth_date}" ng-model="client.reg.birth_month">
+							<option value="{!$index + 1!}" name="month" ng-repeat="month in months">{!month!}</option>
+
+						</select>
 					</div>
 	      		</div>
 	      		<div class="col4">
 	      			<div class="form-group">
 						<label for="birthDate">Day</label>
-						<input type="text" class="form-control" id="Date">
+						<select class="form-control" id="birthDate" name="day" ng-class="{'error-field' : client.errors.birth_date}" ng-model="client.reg.birth_day">
+							<option value="{!day!}" ng-repeat="day in days" >{!day!}</option>
+
+						</select>
 					</div>
 	      		</div>
 	      		<div class="col4">
 	      			<div class="form-group">
 						<label for="birthYear">Year</label>
-						<input type="text" class="form-control" id="Year">
+						<select class="form-control" id="birthYear" ng-class="{'error-field' : client.errors.birth_date}" ng-model="client.reg.birth_year">
+							<option value="{!year!}" name="year"  ng-repeat="year in years" ">{!year!}</option>
+						</select>
 					</div>
 	      		</div>
-	      	</div>
+	      		<span ng-if="client.errors.birth_date" class="padded-5 error">{!client.errors.birth_date !}</span>
+	  		</div>
+	  		<h4 class="form-sectitle"><span>Others</span></h4>
 	      	<div class="col-container">
+	      		<div class="row">
+	      			<div class="col-sm-6 col-md-6">
+		      			<div class="form-group">
+			      			<label for="email">Email</label>
+			      			<input type="text" class="form-control" id="email" ng-class="{'error-field' : client.errors.email}" ng-model="client.reg.email" ng-change="client.validateEmail(client.reg.email)" required>
+	                                <span ng-if="client.errors.email" class="error">{! client.errors.email !}</span>
+			      		</div>
+		      		</div>
+	      		</div>
 	      		<div class="col4">
 	      			<div class="form-group">
 						<label for="clientGeneder">Gender</label>
-						<select class="form-control" id="clientGeneder">
-							<option value="">Female</option>
-							<option value="">Male</option>
-							<option value="">Other</option>
+						<select class="form-control" id="clientGender" ng-model="client.reg.gender">
+							<option value="female">Female</option>
+							<option value="male">Male</option>
 						</select>
+						<span ng-if="client.errors.gender" class="error">{! client.errors.gender !}</span>
 					</div>
 	      		</div>
 	      		<div class="col8">
@@ -316,6 +342,23 @@
 							<option value="">55654332</option>
 						</select>
 					</div>
+	      		</div>
+
+	      	</div>
+	      	<div class="row">
+	      		<div class="col-sm-6 col-md-6">
+	      			<div class="form-group">
+						<label for="passWord">Password</label>
+						<input type="password" name="" value="" class="form-control" id="passWord" ng-class="{'error-field' : client.errors.password}" ng-model="client.reg.password" ng-change="client.validatePassword(client.reg.password)" required>
+                        <span ng-if="client.errors.password" class="error">{! client.errors.password !}</span>
+					</div><!-- form-group -->
+	      		</div>
+	      		<div class="col-sm-6 col-md-6">
+	      			<div class="form-group">
+						<label for="confirmPassword">Confirm Password</label>
+						<input type="password" name="" value="" class="form-control" id="confirmPassword" ng-class="{'error-field' : client.errors.c_password}" ng-model="client.reg.c_password" ng-change="client.validateConfirmPass(client.reg.c_password)"required>
+                        <span ng-if="client.errors.c_password" class="error">{! client.errors.c_password !}</span>
+					</div><!-- form-group -->
 	      		</div>
 	      	</div>
 	      	<h4 class="form-sectitle"><span>Assign Group</span></h4>
@@ -371,7 +414,7 @@
 	      	</div>
 	      </div>
 	      <div class="modal-footer">
-	      	<a href="" class="btn btn-primary">Save</a>
+	      	<a href="" class="btn btn-primary" ng-click="client.submitRegister()">Save</a>
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 	      </div>
 	    </div><!-- model-content -->
