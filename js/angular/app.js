@@ -27,7 +27,7 @@ angular.module('reme', [
 								localStorage.authorization = response.data.success.token;
 							}
 						}
-
+						
 						if(response.data.status == 401) {
 							localStorage.token_expire = true;
 							localStorage.clear();

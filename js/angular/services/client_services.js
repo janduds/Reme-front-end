@@ -1,11 +1,10 @@
 angular.module('reme.services')
 	.factory('clientService', clientService);
 
-services.factory('clientService', function($http, API_URL) {
+function clientService($http) {
 	var clientApi = {};
-	var remeUrl = API_URL + '/api';
 
 	
 
 	return clientApi;
-});
+};
