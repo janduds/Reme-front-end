@@ -14,7 +14,6 @@ function remeController($scope, apiService) {
 
 		$scope.days =['01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31'];
 		$scope.months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-		//,
 		$scope.genders = ['male','female','others'];
 		$scope.currentYear = new Date().getFullYear();
 		$scope.years = [];
@@ -23,8 +22,7 @@ function remeController($scope, apiService) {
 			$scope.years.push(i);
 		}
 		//initialize user
-		if(localStorage.length > 0) {
-
+		if(localStorage.user != null || localStorage.user != undefined) {
 			$scope.user = JSON.parse(localStorage.user);
 			$scope.old_user = $scope.user;
 		}
