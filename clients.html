@@ -221,9 +221,9 @@
 						<div class="listing-options dropdown">
 							<a href="" data-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></a>
 							<ul class="dropdown-menu dropdown-menu-right">
-								<li><a href="">Edit</a></li>
+								<li><a href="" data-toggle="modal" data-target="#updateClient" ng-click="viewCustomer($index)">Edit</a></li>
 								<li><a href="" data-toggle="modal" data-target="#viewClient" ng-click="viewCustomer($index)">View Profile</a></li>
-								<li><a href="">Archive</a></li>
+								<li><a href="" >Archive</a></li>
 							</ul>
 						</div>
 					</div><!-- wrapper -->
@@ -278,19 +278,19 @@
 	      		<div class="col4">
 	      			<div class="form-group">
 						<label for="birthMonth">Month</label>
-						<input type="text" class="form-control" id="birthMonth">
+						<input type="text" class="form-control" id="Month">
 					</div>
 	      		</div>
 	      		<div class="col4">
 	      			<div class="form-group">
 						<label for="birthDate">Day</label>
-						<input type="text" class="form-control" id="birthDate">
+						<input type="text" class="form-control" id="Date">
 					</div>
 	      		</div>
 	      		<div class="col4">
 	      			<div class="form-group">
 						<label for="birthYear">Year</label>
-						<input type="text" class="form-control" id="birthYear">
+						<input type="text" class="form-control" id="Year">
 					</div>
 	      		</div>
 	      	</div>
@@ -483,6 +483,155 @@
 		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 		      </div> -->
 		    </div><!-- model-content -->
+		    </div>
+		    </div>
+		    </div>
+
+		   
+
+
+
+		    <!-- MODALS  for update of client--> 
+		<div id="updateClient" class="modal fade" role="dialog">
+		  <div class="modal-dialog">
+
+		    <!-- Modal content-->
+		     <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Update Client</h4>
+	        <p class="modal-description">For the client to update his/her profile.</p>
+	      </div>
+	      <div class="modal-body">
+	      	<h4 class="form-sectitle"><span>Complete Name</span></h4>
+	      	<form name="update">
+	      	<div class="col-container">
+
+	      		<div class="col4">
+	      			<div class="form-group">
+						<label for="firstName">First Name</label>
+						<input type="text" class="form-control"  id="firstName" ng-model = "customer.first_name" ng-class="{'error-field' : errors.first_name}" ng-change="requiredValidator(customer.first_name, 'first_name')" required>
+						<span ng-if="errors.first_name" class="error">{!errors.first_name !}</span>
+					</div>
+	      		</div>
+	      		<div class="col4">
+	      			<!-- <div class="form-group">
+						<label for="middleName">Middle Name</label>
+						<input type="text" class="form-control" id="middleName" ng-model = "user.middle_name">
+					</div> -->
+	      		</div>
+	      		<div class="col4">
+	      			<div class="form-group">
+						<label for="lastName">Last Name</label>
+						<input type="text" class="form-control" id="lastName" name="last_name" ng-model = "customer.last_name" ng-class="{'error-field' : errors.last_name}" ng-change="requiredValidator(customer.last_name, 'last_name')" required>
+						
+						<span ng-if="errors.last_name" class="error">{!errors.last_name !}</span>
+					</div>
+	      		</div>
+	      	</div>
+	      	<h4 class="form-sectitle"><span>Birthdate</span></h4>
+	      	<div class="col-container">
+	      		<div class="col4">
+	      			<div class="form-group">
+						<label for="birthMonth">Month</label>
+						<select class="form-control" id="Monthup" name = "month" ng-class="{'error-field' : errors.birth_date}" >
+							<option value="{!$index + 1!}" name="month" ng-repeat="month in months" ng-selected="checkIfSelected($index + 1,customer.birth_date | date:'M')"  >{!month!}</option>
+
+						</select>
+					</div>
+	      		</div>
+	      		<div class="col4">
+	      			<div class="form-group">
+						<label for="birthDate">Day</label>
+						<select class="form-control" id="Dateup" name="day" ng-class="{'error-field' : errors.birth_date}">
+							<option value="{!day!}" ng-repeat="day in days"  ng-selected="checkIfSelected(day,customer.birth_date | date:'dd')"  >{!day!}</option>
+
+						</select>
+					</div>
+	      		</div>
+	      		<div class="col4">
+	      			<div class="form-group">
+						<label for="birthYear">Year</label>
+						<select class="form-control" id="Yearup" ng-class="{'error-field' : errors.birth_date}">
+							<option value="{!year!}" name="year"  ng-repeat="year in years"  ng-selected="checkIfSelected(year,customer.birth_date | date:'yyyy')">{!year!}</option>
+						</select>
+					</div>
+	      		</div>
+	      		<span ng-if="errors.birth_date" class="padded-10 error">{!errors.birth_date !}</span>
+	      	</div>
+	      	<h4 class="form-sectitle"><span>Other Details</span></h4>
+	      	<div class="col-container">
+	      		<div class="col4">
+	      			<div class="form-group">
+						<label for="clientGeneder">Gender</label>
+						<select ng-model="customer.gender" class="capitalize" ng-options="gender for gender in genders" ng-class="{'error-field' : errors.gender}" ng-change="checkGender(customer.gender)" required></select>
+						<span ng-if="errors.gender" class="error" >{!errors.gender !}</span>
+					</div>
+	      		</div>
+	      		<div class="col8">
+	      			<div class="form-group" ng-hide = "true ">
+						<label for="codeAllocate">Code Allocate</label>
+						<select class="form-control" id="codeAllocate">
+							<option value="">13456789</option>
+							<option value="">28765434</option>
+							<option value="">33456789</option>
+							<option value="">44567890</option>
+							<option value="">55654332</option>
+						</select>
+					</div>
+	      		</div>
+	      	</div>
+	      	<h4 class="form-sectitle" ng-hide = "true "><span>Assign Group</span></h4>
+	      	<ul class="form-grouplist" ng-hide = "true ">
+				<li class="custom-checkbox">
+					<input type="checkbox" name="" id="check1">
+					<label for="check1"><span>Pellentesque Fauci</span></label>
+				</li>
+				<li class="custom-checkbox">
+					<input type="checkbox" name="" id="check2">
+					<label for="check2"><span>Curabitur Eget</span></label>
+				</li>
+				<li class="custom-checkbox">
+					<input type="checkbox" name="" id="check3">
+					<label for="check3"><span>Tristique Senectus</span></label>
+				</li>
+				<li class="custom-checkbox">
+					<input type="checkbox" name="" id="check4">
+					<label for="check4"><span>Pellentesque Fauci</span></label>
+				</li>
+				<li class="custom-checkbox">
+					<input type="checkbox" name="" id="check5">
+					<label for="check5"><span>Pellentesque Fauci</span></label>
+				</li>
+	      		<li class="custom-checkbox">
+	      			<input type="checkbox" name="" id="check6">
+	      			<label for="check6"><span>Pellentesque Fauci</span></label>
+	      		</li>
+	      		<li class="custom-checkbox">
+	      			<input type="checkbox" name="" id="check7">
+	      			<label for="check7"><span>Pellentesque Fauci</span></label>
+	      		</li>
+	      		<li class="custom-checkbox">
+	      			<input type="checkbox" name="" id="check8">
+	      			<label for="check8"><span>Pellentesque Fauci</span></label>
+	      		</li>
+	      		<li class="custom-checkbox">
+	      			<input type="checkbox" name="" id="check9">
+	      			<label for="check9"><span>Pellentesque Fauci</span></label>
+	      		</li>
+				<li class="custom-checkbox">
+	      			<input type="checkbox" name="" id="check10">
+	      			<label for="check10"><span>Pellentesque Fauci</span></label>
+	      		</li>
+	      	</ul>
+	      	
+	      </div>
+	      </form>
+	      <div class="modal-footer">
+	      	<a href="" class="btn btn-primary" ng-click="updateClientByOwner()">Save</a>
+	        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancelByOwner()">Close</button>
+	      </div>
+	    </div><!-- model-content -->
 		    </div>
 		    </div>
 	<script type="text/javascript" src="js/scripts.min.js"></script>

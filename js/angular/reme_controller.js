@@ -395,8 +395,64 @@ function remeController($scope, apiService) {
 
 	$scope.viewCustomer = function($index) {
 		$scope.customer = $scope.client_list[$index];
+		$scope.old_customer = $scope.client_list[$index];
+		$scope.customer_index = $index;
 
 	}
+
+	$scope.updateClientByOwner = function($index) {
+		month = document.getElementById("Monthup").value;
+		day = document.getElementById("Dateup").value;
+		year = document.getElementById("Yearup").value;
+		$scope.loader_hide =false;
+
+		if(month <= 9){
+			month = '0'+month;
+		}
+		$scope.customer.birth_date = year+'-'+month+'-'+day;
+
+		console.log(month,day,year);
+
+		$scope.requiredValidator($scope.customer.first_name, 'first_name');
+		$scope.requiredValidator($scope.customer.last_name, 'last_name');
+		$scope.checkGender($scope.customer.gender);
+		$scope.isValidDate($scope.customer.birth_date);
+
+		if($scope.errors.first_name != false || $scope.errors.last_name != false 
+		 || $scope.errors.gender != false ||  $scope.errors.birth_date != false) {
+			return false;
+		}
+
+		$scope.customer.name = $scope.customer.first_name +' '+ $scope.customer.last_name;
+
+
+
+		apiService.updateClient($scope.customer,$scope.customer.id).then(function(res) {
+				$scope.sending = 'off';
+				if(res.data.errors) {
+					$scope.errors.forgot = res.data.errors.email;
+					return;
+				}else {
+
+
+					$scope.success = "Successfully updated client.";
+					localStorage.user = JSON.stringify($scope.user);
+					angular.element('#updateClient').modal('hide');
+					$scope.client_list[$scope.customer_index] = $scope.customer;
+					$scope.loader_hide =true;
+
+				}
+				$scope.landing = 'reset_view';
+			}).catch(function(res) {
+				$scope.sending = 'off';
+				console.log(res);
+			});
+	}
+
+	$scope.cancelByOwner = function() {
+		$scope.client = $scope.old_client;
+	}
+
 
 	$scope.checkIfLogin();
 }
