@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app ="reme">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Re:Me</title>
     <link href="css/styles.min.css" rel="stylesheet">
   </head>
-  <body>
+  <body ng-controller = "remeController">
   	<div class="sidebar">
   		<div class="sidebar-header">
   			<div class="wrapper">
@@ -17,20 +17,20 @@
   		</div><!-- sidebar-header -->
   		<ul class="sidebar-menu">
   			<li>
-  				<a href="clients.html" class="detailed" data-tooltip="Clients">
+  				<a href="clients" class="detailed" data-tooltip="Clients">
   					<span class="menu-icon"><i class="fa fa-users"></i></span>
   					<span class="menu-label">Clients</span>
   					<span class="menu-detail">30 Active Clients</span>
 				</a>
 			</li>
   			<li>
-  				<a href="archive.html" class="active" data-tooltip="Archive Discharge">
+  				<a href="archive" class="active" data-tooltip="Archive Discharge">
   					<span class="menu-icon"><i class="fa fa-archive"></i></span>
   					<span class="menu-label">Archive Discharge</span>
 				</a>
 			</li>
   			<li>
-  				<a href="codes.html" data-tooltip="Activation Codes">
+  				<a href="codes" data-tooltip="Activation Codes">
   					<span class="menu-icon"><i class="fa fa-qrcode"></i></span>
   					<span class="menu-label">Activation Codes</span>
 				</a>
@@ -55,7 +55,7 @@
 				<input type="text" name="" value="" placeholder="Enter keyword to search...">
 			</div>
 			<div class="header-user">
-				<span class="name">Eden McArthur</span>
+				<span class="name">{!user.name | uppercase!}</span>
 				<figure class="profilepic" style="background-image:url(/images/user-default.png);">
 					<img src="/images/user-default.png" alt="" />
 				</figure>
@@ -409,5 +409,9 @@
 	  </div>
 	</div>
 	<script type="text/javascript" src="js/scripts.min.js"></script>
+	<script src="js/angular/angular.min.js"></script>
+	<script src="js/angular/app.js"></script>
+	<script src="js/angular/reme_controller.js"></script>
+	<script src="js/angular/reme_service.js"></script>
   </body>
 </html>
