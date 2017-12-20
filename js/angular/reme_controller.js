@@ -103,6 +103,11 @@ function remeController($scope, apiService) {
 				// window.location.href = '/clients.html'
 				$scope.getUser();
 			}).catch(function(res) {
+				if(res.status == 401) {
+					$scope.errors.login = 'Invalid Credentials';
+					$scope.sending = 'off';
+					return;
+				}
 				$scope.sending = 'off';
 				$scope.errors.login = 'Something is wrong please contact admin';
 			})
@@ -368,6 +373,25 @@ function remeController($scope, apiService) {
 	  }
 	}	
 
-	
+	$scope.checkIfLogin = function() {
 
+		if(window.location.pathname == '/register') {
+			if(localStorage.length != 0) {
+				window.location.href = '/clients';
+			}
+			return false;
+		}
+
+		if(window.location.pathname == '/' || window.location.pathname == '/index') {
+
+			if(localStorage.length != 0 || localStorage.authorization) {
+				window.location.href = '/clients';
+				return;
+			}
+		} else if(localStorage.length == 0){
+			window.location.href = '/';
+		}
+	}
+
+	$scope.checkIfLogin();
 }

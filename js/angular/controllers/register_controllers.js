@@ -10,7 +10,7 @@ function registerController($scope, registerApiService, $location) {
 		self.errors = {};
 		self.reg = {};
 		self.base_url = $location.protocol() + "://" + location.host;
-		self.landing = 'success_reg';
+		self.landing = 'default';
 
 	self.submitRegister = function() {
 		self.errors = {};
