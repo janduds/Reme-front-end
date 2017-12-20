@@ -393,5 +393,10 @@ function remeController($scope, apiService) {
 		}
 	}
 
+	$scope.viewCustomer = function($index) {
+		$scope.customer = $scope.client_list[$index];
+
+	}
+
 	$scope.checkIfLogin();
 }
