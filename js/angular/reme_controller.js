@@ -27,6 +27,28 @@ function remeController($scope, apiService) {
 			$scope.old_user = $scope.user;
 		}
 
+	$scope.checkIfLogin = function() {
+
+		if(window.location.pathname == '/register') {
+			if(localStorage.length != 0) {
+				window.location.href = '/clients';
+			}
+			return false;
+		}
+
+		if(window.location.pathname == '/' || window.location.pathname == '/index') {
+
+			if(localStorage.length != 0 || localStorage.authorization) {
+				window.location.href = '/clients';
+				return;
+			}
+		} else if(localStorage.length == 0){
+			window.location.href = '/';
+		}
+	}
+	
+	$scope.checkIfLogin();
+
 	$scope.requiredValidator = function(text, field) {
 		if(text == '' || text == undefined) {
 			$scope.errors[field] = $scope.ucfirst(field) + ' is required';
@@ -325,6 +347,7 @@ function remeController($scope, apiService) {
 					localStorage.user = JSON.stringify($scope.user);
 					angular.element('#newClient').modal('hide');
 					$scope.loader_hide =true;
+					$scope.user.age = $scope.getAge($scope.user.birth_date) + ' years old';
 
 				}
 				$scope.landing = 'reset_view';
@@ -373,26 +396,6 @@ function remeController($scope, apiService) {
 	  }
 	}	
 
-	$scope.checkIfLogin = function() {
-
-		if(window.location.pathname == '/register') {
-			if(localStorage.length != 0) {
-				window.location.href = '/clients';
-			}
-			return false;
-		}
-
-		if(window.location.pathname == '/' || window.location.pathname == '/index') {
-
-			if(localStorage.length != 0 || localStorage.authorization) {
-				window.location.href = '/clients';
-				return;
-			}
-		} else if(localStorage.length == 0){
-			window.location.href = '/';
-		}
-	}
-
 	$scope.viewCustomer = function($index) {
 		$scope.customer = $scope.client_list[$index];
 		$scope.old_customer = $scope.client_list[$index];
@@ -410,9 +413,6 @@ function remeController($scope, apiService) {
 			month = '0'+month;
 		}
 		$scope.customer.birth_date = year+'-'+month+'-'+day;
-
-		console.log(month,day,year);
-
 		$scope.requiredValidator($scope.customer.first_name, 'first_name');
 		$scope.requiredValidator($scope.customer.last_name, 'last_name');
 		$scope.checkGender($scope.customer.gender);
@@ -436,10 +436,12 @@ function remeController($scope, apiService) {
 
 
 					$scope.success = "Successfully updated client.";
-					localStorage.user = JSON.stringify($scope.user);
+					//localStorage.user = JSON.stringify($scope.user);
+					$scope.customer.age = $scope.getAge($scope.customer.birth_date) + ' years old';
 					angular.element('#updateClient').modal('hide');
 					$scope.client_list[$scope.customer_index] = $scope.customer;
 					$scope.loader_hide =true;
+
 
 				}
 				$scope.landing = 'reset_view';
@@ -454,5 +456,5 @@ function remeController($scope, apiService) {
 	}
 
 
-	$scope.checkIfLogin();
+	
 }

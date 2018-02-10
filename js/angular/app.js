@@ -21,7 +21,6 @@ angular.module('reme', [
 					} 
 
 					, 'response': function (response) {
-						localStorage.token_expire = false;
 						if(response && response.data.success) {
 							if(response.data.success.token) {
 								localStorage.authorization = response.data.success.token;
@@ -29,7 +28,6 @@ angular.module('reme', [
 						}
 						
 						if(response.data.status == 401) {
-							localStorage.token_expire = true;
 							localStorage.clear();
 							window.location.href = '/';	
 						}
@@ -39,4 +37,4 @@ angular.module('reme', [
 				};
 			}]);
 		}
-	]).constant('API_URL', 'http://13.229.48.46');;
+	]).constant('API_URL', 'http://server.reme.cloud');;

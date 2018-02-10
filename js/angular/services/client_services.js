@@ -3,7 +3,7 @@ angular.module('reme.services')
 
 function clientService($http) {
 	var clientApi = {};
-	var regUrl = 'http://13.229.48.46/api';
+	var regUrl = 'http://server.reme.cloud/api';
 
 	clientApi.register = function(data, url) {
 		return $http({

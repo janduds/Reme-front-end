@@ -46,6 +46,7 @@ function clientController($scope, clientService, $location) {
 			clientService.register(self.reg, self.base_url).then(function(res) {
 				if(res.data.success) {
 					self.success = 'Client successfully added.'
+					$scope.getClientList();
 				} else if(res.data.errors) {
 					angular.forEach(res.data.errors, function(value, key) {
 						self.errors[value.field] = value.message;
