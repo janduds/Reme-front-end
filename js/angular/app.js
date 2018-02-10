@@ -37,4 +37,6 @@ angular.module('reme', [
 				};
 			}]);
 		}
+
 	]).constant('API_URL', 'http://server.reme.cloud');;
+
