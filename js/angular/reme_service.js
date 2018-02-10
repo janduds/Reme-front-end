@@ -20,11 +20,21 @@ var services = angular.module('reme.services', []);
 		}
 
 		remeApi.getClientList = function(data) {
+
 			return $http({
 				method 	: 'GET',
 				url 	: remeUrl + '/manage/users?limit=20&offset=0'
 			});
 		}
+
+		remeApi.getClientSubscription = function(data) {
+
+			return $http({
+				method 	: 'GET',
+				url 	: remeUrl + '/manage/client/subscriptions?limit=20&offset=0'
+			});
+		}
+
 		remeApi.updateClient = function(data,id){
 			console.log(remeUrl + '/manage/users/'+ id);
 			return $http({

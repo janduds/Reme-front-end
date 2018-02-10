@@ -456,5 +456,27 @@ function remeController($scope, apiService) {
 	}
 
 
+	$scope.getAllSubscription = function() {
+    	apiService.getClientSubscription().then(function(res) {
+			$scope.client_subscriptions = [];
+			$scope._client_list = res.data.success;
+			$scope.total_client_count = res.data.success.total;
+			$scope.limit = 10;
+			angular.forEach($scope._client_list, function(value, key){
+				if(!isNaN(parseInt(key))) {
+					$scope.client_subscriptions.push(value);
+				}
+			})
+
+			console.log($scope.client_subscriptions);
+
+
+		}).catch(function(res) {
+			$scope.sending = 'off';
+			console.log(res);
+		});
+	}
+
+
 	
 }

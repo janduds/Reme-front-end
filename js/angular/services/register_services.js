@@ -4,7 +4,6 @@ angular.module('reme.services')
 function registerApiService($http) {
 	var register = {};
 	var regUrl = 'http://server.reme.cloud/api';
-
 	register.register = function(data, url) {
 		return $http({
 			method 	: 'POST',
