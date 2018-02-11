@@ -1,0 +1,41 @@
+<div class="page-heading" ng-init = "subscription.getAllSubscription()">
+	<div class="colleft">
+		<div class="canvas">
+			test
+		</div>
+	</div>
+	<div class="colright">
+		<h3 class="page-title">Activation Codes</h3>
+		<p class="page-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eget orci vitae nunc ornare posuere. Ut ultrices odio mi, non feugiat nunc varius eget. Pellentesque venenatis vitae ipsum interdum fermentum. Integer ornare massa nunc. Integer a leo quam.</p>
+		<ul class="nav nav-pills">
+			<li class="active"><a href="#">All</a></li>
+			<li><a href="#">Unassigned</a></li>
+			<li><a href="#">Active</a></li>
+			<li><a href="#">Expired</a></li>
+		</ul>
+	</div><!-- colright -->
+</div><!-- page-heading -->
+<div class="listing-container listing-codes iconed">
+	<div class="listing-header">
+		<div class="wrapper">
+			<div class="listing-column codes-name"><span>Codes<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+			<div class="listing-column codes-gendate"><span>purchased date<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+			<div class="listing-column codes-client"><span>client<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+			<div class="listing-column codes-expiry"><span>Expiry date<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+			<div class="listing-column codes-status"><span>status<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+		</div>
+	</div>
+	<ul class="listing-items">
+		<li ng-repeat ="client_subscription in subscription.client_subscriptions track by $index">
+			<div class="wrapper">
+				<span class="listing-icon"><i class="fa fa-qrcode"></i></span>
+				<div class="listing-column codes-name"><span>{!client_subscription.code!}</span></div>
+				<div class="listing-column codes-gendate"><span>{!client_subscription.purchased_date!}</span></div>
+				<div class="listing-column codes-client"><span>{!client_subscription.user.name | uppercase!}</span></div>
+				<div class="listing-column codes-expiry"><span>{!client_subscription.date_expired!}</span></div>
+				<div class="listing-column codes-status"><span>{!client_subscription.status!}</span></div>
+			</div><!-- wrapper -->
+		</li>
+		
+	</ul>
+</div>

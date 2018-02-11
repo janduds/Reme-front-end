@@ -7,43 +7,9 @@
     <link href="css/styles.min.css" rel="stylesheet">
     <link href="css/custom.css" rel="stylesheet">
   </head>
-  <body ng-controller="remeController" ng-init="checkUser()" ng-cloak>
-	<div class="content">
-		<div class="login-container">
-			<div class="canvas">
-				<div class="login-header">
-					<div class="login-logo">
-						<a href="" class="logo"><img src="/images/logo_dark.png" alt="" /></a>
-						<h1 class="name">Re:Me</h1>
-					</div>
-					<p class="login-description">Aliquam erat volutpat. Quisque malesuada magna in condimentum molestie. Duis sodales arcu non purus porttitor.</p>
-				</div>
-				<div class="login-body">
-					<h4 class="heading">Sign into your <span>Re:Me Professional</span> account</h4>
-					<div class="alert alert-danger fade in" ng-if="errors.login">
-				        <a href="#" class="close" data-dismiss="alert">&times;</a>
-				        <strong>Error!</strong> {! errors.login !}
-				    </div>
-					<div class="form-group">
-						<label for="userName">Email Address</label>
-						<input type="text" name="" value="" class="form-control" id="userName" ng-model="log_details.email" ng-class="{'error-field' : errors.email}"/>
-                        <span ng-if="errors.email" class="error">{! errors.email !}</span>
-					</div><!-- form-group -->
-					<div class="form-group">
-						<label for="userPassword">Password</label>
-						<input type="password" name="" value="" class="form-control" id="userPassword" ng-model="log_details.password" ng-class="{'error-field' : errors.password}">
-                        <span ng-if="errors.password" class="error">{! errors.password !}</span>	
-					</div><!-- form-group -->
-					<p class="login-support"><a href="">Need help? Contact support.</a></p>
-					<button type="button" class="btn btn-primary login-button" ng-click="submitLogin()" ng-if="sending=='off'">Sign In</button> 
-					<button type="button" class="btn btn-primary login-button" ng-if="sending=='on'">Signing In...</button> 
-				</div><!-- login-body -->
-				<div class="login-footer">
-					<a href="register" class="btn btn-default login-register">Register Account</a>
-					<p>Aliquam erat volutpat. Quisque malesuada magna in condimentum molestie. Duis sodales arcu non purus port titor.</p>
-				</div>
-			</div><!-- canvas -->
-		</div><!-- login-container -->
+  <body>
+	<div class="content" ng-controller="publicController">
+		<ui-view></ui-view>
 	</div><!-- content -->
 	<footer>
 		<div class="footer-wrapper">
@@ -54,8 +20,9 @@
 
 	<script type="text/javascript" src="js/scripts.min.js"></script>
 	<script src="js/angular/angular.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.3/angular-ui-router.min.js"></script>
 	<script src="js/angular/app.js"></script>
-	<script src="js/angular/reme_controller.js"></script>
-	<script src="js/angular/reme_service.js"></script>
+	<script src="js/angular/controllers/public_controller.js"></script>
+	<script src="js/angular/services/public_services.js"></script>
   </body>
 </html>
