@@ -1,0 +1,128 @@
+<div class="register-container">
+	<!-- <div class="canvas"> -->
+	<div class="canvas" ng-if="reg.landing == 'default'">
+		<div class="register-header">
+			<div class="register-logo">
+				<a href="" class="logo"><img src="/images/logo_dark.png" alt="" /></a>
+				<h1 class="name">Re:Me</h1>
+			</div>
+			<h4 class="heading">Awesome! Let's get you started, but first we need to create your <span>Re:Me Professional</span> account.</h4>
+			<p class="register-description">Aliquam erat volutpat. Quisque malesuada magna in condimentum molestie. Duis sodales arcu non purus porttitor.</p>
+		</div>
+		<div class="register-body">
+			<div class="register-firstname">
+				<div class="form-group">
+					<label for="firstName">First Name</label>
+					<input type="text" name="" value="" class="form-control" id="firstName" name="firstname" ng-class="{'error-field' : reg.errors.first_name}" ng-model="reg.reg.first_name" ng-change="reg.requiredValidator(reg.reg.first_name, 'first_name')" required>
+                    <span ng-if="reg.errors.first_name" class="error">{! reg.errors.first_name !}</span>
+				</div><!-- form-group -->
+			</div>
+			<div class="register-lastname">
+				<div class="form-group">
+					<label for="lastName">Last Name</label>
+					<input type="text" name="" value="" class="form-control" id="lastName" ng-class="{'error-field' : reg.errors.last_name}" ng-model="reg.reg.last_name" ng-change="reg.requiredValidator(reg.reg.last_name, 'last_name')" required>
+                    <span ng-if="reg.errors.last_name" class="error">{! reg.errors.last_name !}</span>
+				</div><!-- form-group -->
+			</div>
+			<div class="row">
+				<div class="col-sm-12 col-md-12">
+					<div class="form-group">
+						<label for="emailAddress">Email Address</label>
+						<input type="email" name="" value="" class="form-control" id="emailAddress" ng-class="{'error-field' : reg.errors.email}" ng-model="reg.reg.email" ng-change="reg.validateEmail(reg.reg.email)" required>
+                        <span ng-if="reg.errors.email" class="error">{! reg.errors.email !}</span>
+					</div><!-- form-group -->
+				</div>
+
+			</div>
+			<div class="row">
+				<div class="col-sm-12 col-md-12">
+					<div class="form-group">
+						<div class="col4">
+						<label for="birthDate">Birth Date</label>
+						</div>
+				      	<div class="col-container">
+				      		<div class="col4">
+				      			<div class="form-group">
+									<label for="birthMonth">Month</label>
+									<select class="form-control" id="birthMonth" name = "month" ng-class="{'error-field' : reg.errors.birth_date}" ng-model="reg.reg.birth_month">
+										<option value="{!$index + 1!}" name="month" ng-repeat="month in months">{!month!}</option>
+
+									</select>
+								</div>
+				      		</div>
+				      		<div class="col4">
+				      			<div class="form-group">
+									<label for="birthDate">Day</label>
+									<select class="form-control" id="birthDate" name="day" ng-class="{'error-field' : reg.errors.birth_date}" ng-model="reg.reg.birth_day">
+										<option value="{!day!}" ng-repeat="day in days" >{!day!}</option>
+
+									</select>
+								</div>
+				      		</div>
+				      		<div class="col4">
+				      			<div class="form-group">
+									<label for="birthYear">Year</label>
+									<select class="form-control" id="birthYear" ng-class="{'error-field' : reg.errors.birth_date}" ng-model="reg.reg.birth_year">
+										<option value="{!year!}" name="year"  ng-repeat="year in years" ">{!year!}</option>
+									</select>
+								</div>
+				      		</div>
+				      		<span ng-if="reg.errors.birth_date" class="padded-5 error">{!reg.errors.birth_date !}</span>
+			      		</div>
+					</div><!-- form-group -->
+				</div>
+			</div>
+			<div class="register-password">
+				<div class="form-group">
+					<label for="passWord">Password</label>
+					<input type="password" name="" value="" class="form-control" id="passWord" ng-class="{'error-field' : reg.errors.password}" ng-model="reg.reg.password" ng-change="reg.validatePassword(reg.reg.password)" required>
+                    <span ng-if="reg.errors.password" class="error">{! reg.errors.password !}</span>
+				</div><!-- form-group -->
+			</div>
+			<div class="register-confirmpass">
+				<div class="form-group">
+					<label for="confirmPassword">Confirm Password</label>
+					<input type="password" name="" value="" class="form-control" id="confirmPassword" ng-class="{'error-field' : reg.errors.c_password}" ng-model="reg.reg.c_password" ng-change="reg.validateConfirmPass(reg.reg.c_password)"required>
+                    <span ng-if="reg.errors.c_password" class="error">{! reg.errors.c_password !}</span>
+				</div><!-- form-group -->
+			</div>
+			<div class="row">
+				<div class="col-sm-12 col-md-12">
+					<span class="gender-label">Gender</span>
+					<div class="col-md-12 col-sm-12">
+                        <label for="gender" class="radio-inline">
+                            <input type="radio" name="gender" ng-model="reg.reg.gender" ng-click="reg.checkGender(reg.reg.gender)" value="male">Male
+                        </label>
+                        <label for="gender" class="radio-inline">
+                            <input type="radio" name="gender" ng-model="reg.reg.gender" ng-click="reg.checkGender(reg.reg.gender)" value="female">Female
+                        </label>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                <span ng-if="reg.errors.gender" class="error">{! reg.errors.gender !}</span>
+                            </div>
+                        </div>
+                    </div>
+				</div>
+			</div>
+			<p class="register-support"><a href="">Need help? Contact support.</a></p>
+			<button type="button" class="btn btn-primary register-button" ng-click="reg.submitRegister()">Create My New Account</button>
+		</div><!-- register-body -->
+		<div class="register-footer">
+			<a href="/" class="btn btn-default register-register">Login Account</a>
+			<p>Aliquam erat volutpat. Quisque malesuada magna in condimentum molestie. Duis sodales arcu non purus port titor.</p>
+		</div>
+	</div><!-- canvas -->
+	<div class="canvas" ng-if="reg.landing == 'success_reg'">
+		<div class="row">
+			<div class="col-md-12 col-sm-12">
+				<div class="register-header">
+					<div class="register-logo">
+						<a href="" class="logo"><img src="/images/logo_dark.png" alt="" /></a>
+						<h1 class="name">Re:Me</h1>
+					</div>
+					<h4 class="heading">You are successfully registered. Please check your email to activate your account<span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div><!-- register-container -->

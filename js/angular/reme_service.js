@@ -36,7 +36,6 @@ var services = angular.module('reme.services', []);
 		}
 
 		remeApi.updateClient = function(data,id){
-			console.log(remeUrl + '/manage/users/'+ id);
 			return $http({
 				method 	: 'PUT',
 				data 	: data,

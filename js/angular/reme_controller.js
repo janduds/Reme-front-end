@@ -455,7 +455,6 @@ function remeController($scope, apiService) {
 		$scope.client = $scope.old_client;
 	}
 
-
 	$scope.getAllSubscription = function() {
     	apiService.getClientSubscription().then(function(res) {
 			$scope.client_subscriptions = [];
@@ -477,6 +476,5 @@ function remeController($scope, apiService) {
 		});
 	}
 
-
-	
+	// $scope.checkIfLogin();
 }
