@@ -15,6 +15,8 @@
         $scope.currentYear = new Date().getFullYear();
         $scope.years = [];
         $scope.errors = [];
+
+        $scope.code_filter = "all";
         
         for (var i = 1940; i <=$scope.currentYear ; i++) {
             $scope.years.push(i);
@@ -129,7 +131,11 @@
 			}else {
 				return false;
 			}
-		}	
+		}
+
+	    
+
+
     }
 
     function ClientController($scope, $location, clientService)
@@ -323,16 +329,41 @@
 				self.limit = 10;
 				angular.forEach(self._client_list, function(value, key){
 					if(!isNaN(parseInt(key))) {
+
 						self.client_subscriptions.push(value);
 					}
 				})
 
 				console.log(self.client_subscriptions);
-
+				self.all_client_subscription = self.client_subscriptions;
 
 			}).catch(function(res) {
 				$scope.sending = 'off';
 				console.log(res);
 			});
 		}
+
+		self.filterCode = function(filter) {
+			$scope.code_filter = filter;
+
+			if(filter == "all") {
+				self.client_subscriptions = self.all_client_subscription;
+			}else {
+				self.client_subscriptions = [];
+				angular.forEach(self.all_client_subscription, function(value, key){
+					
+					if(value.status == $scope.code_filter) {
+						
+						self.client_subscriptions.push(value);
+					}
+					
+				})
+			}
+			
+
+		}	
+
+	
     }
+
+

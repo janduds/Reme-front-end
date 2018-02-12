@@ -8,10 +8,10 @@
 		<h3 class="page-title">Activation Codes</h3>
 		<p class="page-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eget orci vitae nunc ornare posuere. Ut ultrices odio mi, non feugiat nunc varius eget. Pellentesque venenatis vitae ipsum interdum fermentum. Integer ornare massa nunc. Integer a leo quam.</p>
 		<ul class="nav nav-pills">
-			<li class="active"><a href="#">All</a></li>
-			<li><a href="#">Unassigned</a></li>
-			<li><a href="#">Active</a></li>
-			<li><a href="#">Expired</a></li>
+			<li ng-class = "(code_filter == 'all') ? 'active' : '' " ng-click = "subscription.filterCode('all')"><a>All</a></li>
+			<li ng-class = "(code_filter == 'unassigned') ? 'active' : '' " ng-click = "subscription.filterCode('unassigned')"><a>Unassigned</a></li>
+			<li ng-class = "(code_filter == 'active') ? 'active' : '' " ng-click = "subscription.filterCode('active')"><a>Active</a></li>
+			<li ng-class = "(code_filter == 'expired') ? 'active' : '' " ng-click = "subscription.filterCode('expired')"><a>Expired</a></li>
 		</ul>
 	</div><!-- colright -->
 </div><!-- page-heading -->
@@ -26,16 +26,24 @@
 		</div>
 	</div>
 	<ul class="listing-items">
-		<li ng-repeat ="client_subscription in subscription.client_subscriptions track by $index">
+		<li ng-repeat ="client_subscription in subscription.client_subscriptions track by $index" ng-if = "subscription.client_subscriptions.length > 0">
 			<div class="wrapper">
 				<span class="listing-icon"><i class="fa fa-qrcode"></i></span>
 				<div class="listing-column codes-name"><span>{!client_subscription.code!}</span></div>
-				<div class="listing-column codes-gendate"><span>{!client_subscription.purchased_date!}</span></div>
+				<div class="listing-column codes-gendate"><span>{!client_subscription.purchased_date !}</span></div>
 				<div class="listing-column codes-client"><span>{!client_subscription.user.name | uppercase!}</span></div>
 				<div class="listing-column codes-expiry"><span>{!client_subscription.date_expired!}</span></div>
 				<div class="listing-column codes-status"><span>{!client_subscription.status!}</span></div>
 			</div><!-- wrapper -->
 		</li>
+
+		<li ng-if = "subscription.client_subscriptions.length == 0">
+			<div class="wrapper">
+				<span class="listing-column" >No found data...</span>
+				
+			</div><!-- wrapper -->
+		</li>
+
 		
 	</ul>
 </div>
