@@ -30,9 +30,9 @@
 			<div class="wrapper">
 				<span class="listing-icon"><i class="fa fa-qrcode"></i></span>
 				<div class="listing-column codes-name"><span>{!client_subscription.code!}</span></div>
-				<div class="listing-column codes-gendate"><span>{!client_subscription.purchased_date !}</span></div>
+				<div class="listing-column codes-gendate"><span>{!client_subscription.purchased_date | date : 'medium' !}</span></div>
 				<div class="listing-column codes-client"><span>{!client_subscription.user.name | uppercase!}</span></div>
-				<div class="listing-column codes-expiry"><span>{!client_subscription.date_expired!}</span></div>
+				<div class="listing-column codes-expiry"><span>{!client_subscription.date_expired |  date : 'medium'!}</span></div>
 				<div class="listing-column codes-status"><span>{!client_subscription.status!}</span></div>
 			</div><!-- wrapper -->
 		</li>

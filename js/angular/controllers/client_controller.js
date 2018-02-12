@@ -354,7 +354,8 @@
 				angular.forEach(self.all_client_subscription, function(value, key){
 					
 					if(value.status == $scope.code_filter) {
-
+						value.purchased_date = new Date(value.purchased_date);
+						value.date_expired = new Date(value.date_expired);
 						self.client_subscriptions.push(value);
 					}
 					
