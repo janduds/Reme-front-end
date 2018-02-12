@@ -329,7 +329,8 @@
 				self.limit = 10;
 				angular.forEach(self._client_list, function(value, key){
 					if(!isNaN(parseInt(key))) {
-
+						value.purchased_date = new Date(value.purchased_date);
+						value.date_expired = new Date(value.date_expired);
 						self.client_subscriptions.push(value);
 					}
 				})
@@ -353,7 +354,7 @@
 				angular.forEach(self.all_client_subscription, function(value, key){
 					
 					if(value.status == $scope.code_filter) {
-						
+
 						self.client_subscriptions.push(value);
 					}
 					
