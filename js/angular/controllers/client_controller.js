@@ -15,6 +15,7 @@
         $scope.currentYear = new Date().getFullYear();
         $scope.years = [];
         $scope.errors = [];
+        $scope.saving = false;
 
         $scope.code_filter = "all";
         
@@ -134,7 +135,62 @@
 		}
 
 	    
+		$scope.viewCustomer = function($index) {
+			console.log('xxx');
+            $scope.customer = $scope.client_list[$index];
+            console.log($scope.costumer)
+            $scope.old_customer = $scope.client_list[$index];
+            $scope.customer_index = $index;
 
+        }
+
+        $scope.updateClientByOwner = function($index) {
+            var month = document.getElementById("Monthup").value;
+            var day = document.getElementById("Dateup").value;
+            var year = document.getElementById("Yearup").value;
+            $scope.loader_hide =false;
+
+            if(month <= 9){
+                month = '0'+month;
+            }
+            $scope.customer.birth_date = year+'-'+month+'-'+day;
+
+            $scope.requiredValidator($scope.customer.first_name, 'first_name');
+            $scope.requiredValidator($scope.customer.last_name, 'last_name');
+            $scope.checkGender($scope.customer.gender);
+            $scope.isValidDate($scope.customer.birth_date);
+
+            if($scope.errors.first_name != false || $scope.errors.last_name != false 
+             || $scope.errors.gender != false ||  $scope.errors.birth_date != false) {
+                return false;
+            }
+
+            $scope.customer.name = $scope.customer.first_name +' '+ $scope.customer.last_name;
+
+
+            $scope.saving = true;
+            clientService.updateClient($scope.customer,$scope.customer.id).then(function(res) {
+                    $scope.sending = 'off';
+                    if(res.data.errors) {
+                        $scope.errors.forgot = res.data.errors.email;
+                        return;
+                    }else {
+
+
+                        $scope.success = "Successfully updated client.";
+                        localStorage.user = JSON.stringify($scope.user);
+                        angular.element('#updateClient').modal('hide');
+                        $scope.client_list[$scope.customer_index] = $scope.customer;
+                        $scope.loader_hide =true;
+
+                    }
+                    $scope.saving = false;
+                    $scope.landing = 'reset_view';
+                }).catch(function(res) {
+                    $scope.sending = 'off';
+                    console.log(res);
+                });
+        }
 
     }
 
@@ -257,7 +313,7 @@
 			}else {
 				self.errors.birth_date = 'Birth date is required or must be a valid format'; 
 			}
-		} 
+		}
     }
 
     function ProfileController($scope, clientService)
@@ -320,6 +376,7 @@
     function SubscriptionController($scope, clientService)
     {
     	var self = this;
+    	self.code = {};
 
     	self.getAllSubscription = function() {
 	    	clientService.getClientSubscription().then(function(res) {
@@ -363,6 +420,25 @@
 			}
 			
 
+		}
+
+		self.showAllUsers = function() {
+			clientService.showAllUsers().then(function(res) {
+				self.users = res.data.success;
+
+				self.myConfig = {
+					create: true,
+					valueField: 'id',
+					labelField: 'name',
+					placeholder: 'Pick user',
+					onInitialize: function(selectize){
+					// receives the selectize object as an argument
+				},
+					// maxItems: 1
+				};
+			}).catch(function(res) {
+				console.log(res.error)
+			})
 		}	
 
 	

@@ -1,7 +1,8 @@
 'use-strict'
 
 angular.module('reme', [
-		'ui.router'
+		'ui.router',
+		'selectize'
 	])
 .config(config)
 .run(run)
