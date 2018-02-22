@@ -41,6 +41,13 @@ function clientService($http, baseUrl) {
 			method 	: 'GET',
 			url 	: regUrl + '/manage/client/subscriptions?limit=20&offset=0'
 		});
+	}
+
+	clientApi.showAllUsers = function(data) {
+		return $http({
+			method 	: 'GET',
+			url 	: regUrl + '/manage/users'
+		});
 	}																																																																															
 
 	return clientApi;

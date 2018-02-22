@@ -579,7 +579,8 @@
 	      </div>
 	      </form>
 	      <div class="modal-footer">
-	      	<a href="" class="btn btn-primary" ng-click="updateClientByOwner()">Save</a>
+	      	<a href="" class="btn btn-primary" ng-click="updateClientByOwner()" ng-if="!saving">Save</a>
+	      	<a href="" class="btn btn-primary" ng-if="saving">Saving...</a>
 	        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancelByOwner()">Close</button>
 	      </div>
 	    </div><!-- model-content -->
