@@ -37,6 +37,10 @@
 				$scope.total_client_count = res.data.success.total;
 				$scope.limit = 10;
 				angular.forEach($scope._client_list, function(value, key){
+
+					value.discharged_date = formatDate(value.discharged_date);
+					console.log(value.discharged_date);
+
 					if(!isNaN(parseInt(key))) {
 						if(value.birth_date == null) {
 							value.birth_date = '--';
@@ -143,10 +147,26 @@
 
         }
 
+        function formatDate(date) {
+		    var d = new Date(date),
+		        month = '' + (d.getMonth() + 1),
+		        day = '' + d.getDate(),
+		        year = d.getFullYear();
+
+		    if (month.length < 2) month = '0' + month;
+		    if (day.length < 2) day = '0' + day;
+
+		    return [year, month, day].join('-');
+		}
+
         $scope.archiveUser = function($index, archive) {
         	 $scope.customer = $scope.client_list[$index];
         	 $scope.customer.archive = archive;
+        	 $scope.customer.discharged_date = new Date();
+        	 $scope.customer.discharged_date = formatDate($scope.customer.discharged_date);
         	 $scope.client_list[$index].archive = archive;
+        	 $scope.client_list[$index].discharged_date = $scope.customer.discharged_date;
+
         	clientService.updateClient($scope.customer,$scope.customer.id).then(function(res) {
                     $scope.sending = 'off';
                     if(res.data.errors) {

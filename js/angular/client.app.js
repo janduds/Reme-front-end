@@ -63,6 +63,12 @@ function config($stateProvider, $urlRouterProvider, $interpolateProvider, $httpP
         	controller: 'SubscriptionController',
         	controllerAs: 'subscription'
         })
+        .state('archive', {
+        	url: '/archive',
+        	templateUrl: '/views/archive.html',
+        	controller: 'ClientController',
+        	controllerAs: 'client'
+        })
 }
 function run($rootScope, $state) {
 	$rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
