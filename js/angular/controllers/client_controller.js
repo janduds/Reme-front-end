@@ -136,12 +136,38 @@
 
 	    
 		$scope.viewCustomer = function($index) {
-			console.log('xxx');
+			
             $scope.customer = $scope.client_list[$index];
-            console.log($scope.costumer)
             $scope.old_customer = $scope.client_list[$index];
             $scope.customer_index = $index;
 
+        }
+
+        $scope.archiveUser = function($index, archive) {
+        	 $scope.customer = $scope.client_list[$index];
+        	 $scope.customer.archive = archive;
+        	 $scope.client_list[$index].archive = archive;
+        	clientService.updateClient($scope.customer,$scope.customer.id).then(function(res) {
+                    $scope.sending = 'off';
+                    if(res.data.errors) {
+                        $scope.errors.forgot = res.data.errors.email;
+                        return;
+                    }else {
+
+
+                        $scope.success = "Successfully updated client.";
+                        localStorage.user = JSON.stringify($scope.user);
+                        angular.element('#updateClient').modal('hide');
+                        $scope.client_list[$scope.customer_index] = $scope.customer;
+                        $scope.loader_hide =true;
+
+                    }
+                    $scope.saving = false;
+                    $scope.landing = 'reset_view';
+                }).catch(function(res) {
+                    $scope.sending = 'off';
+                    console.log(res);
+                });
         }
 
         $scope.updateClientByOwner = function($index) {

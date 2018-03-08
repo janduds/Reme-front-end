@@ -127,7 +127,7 @@
 		</div>
 	</div>
 	<ul class="listing-items">
-		<li ng-repeat ="client in client_list track by $index" >
+		<li ng-repeat ="client in client_list track by $index" ng-hide = "client.archive == 1" >
 			<div class="wrapper">
 				<figure class="listing-user" style="background-image:url('/images/user-default.png');">
 					<img src="/images/user-default.png" alt="" />
@@ -142,7 +142,7 @@
 					<ul class="dropdown-menu dropdown-menu-right">
 						<li><a href="" data-toggle="modal" data-target="#updateClient" ng-click="viewCustomer($index)">Edit</a></li>
 						<li><a href="" data-toggle="modal" data-target="#viewClient" ng-click="viewCustomer($index)">View Profile</a></li>
-						<li><a href="" >Archive</a></li>
+						<li><a href="" ng-click="archiveUser($index,1)" >Archive</a></li>
 					</ul>
 				</div>
 			</div><!-- wrapper -->
