@@ -127,7 +127,7 @@
 		</div>
 	</div>
 	<ul class="listing-items">
-		<li ng-repeat ="client in client_list track by $index" ng-hide = "client.archive == 1" >
+		<li ng-repeat ="client in client_list | filter:filterByCustomer() track by $index" ng-hide = "client.archive == 1" >
 			<div class="wrapper">
 				<figure class="listing-user" style="background-image:url('/images/user-default.png');">
 					<img src="/images/user-default.png" alt="" />

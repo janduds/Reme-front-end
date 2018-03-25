@@ -37,10 +37,10 @@
 				$scope.total_client_count = res.data.success.total;
 				$scope.limit = 10;
 				angular.forEach($scope._client_list, function(value, key){
-
-					value.discharged_date = formatDate(value.discharged_date);
-					console.log(value.discharged_date);
-
+					if(value.discharged_date != null) {
+						value.discharged_date = formatDate(value.discharged_date);
+					}
+					
 					if(!isNaN(parseInt(key))) {
 						if(value.birth_date == null) {
 							value.birth_date = '--';
@@ -238,6 +238,29 @@
                 });
         }
 
+        $scope.filterByCustomer = function() {
+
+        	return function (obj) {
+        		if($scope.user["role"] == "admin") {
+        			return true;
+        		}else if($scope.user["role"] == "doctor") {
+        			if($scope.user.customer.length > 0) {
+        				for(i = 0; i < $scope.user.customer.length; i++){
+        					if(obj.id == parseInt($scope.user.customer[i]["customer_id"])) {
+								return true;
+							}
+        				}
+        			}
+        			
+        		}else {
+        			return false;
+        		}
+
+        		return false;
+        	}
+			
+		}
+
     }
 
     function ClientController($scope, $location, clientService)
@@ -360,6 +383,8 @@
 				self.errors.birth_date = 'Birth date is required or must be a valid format'; 
 			}
 		}
+
+		
     }
 
     function ProfileController($scope, clientService)
