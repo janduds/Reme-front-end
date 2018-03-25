@@ -38,8 +38,8 @@ angular.module('selectize', []).value('selectizeConfig', {}).directive("selectiz
         });
 
         selectize.addOption(curr, true);
-
-        selectize.refreshOptions(false); // updates results if user has entered a query
+  
+        selectize.refreshOptions(false);
         setSelectizeValue();
       }
 
@@ -81,7 +81,7 @@ angular.module('selectize', []).value('selectizeConfig', {}).directive("selectiz
       settings.onInitialize = function() {
         selectize = element[0].selectize;
 
-        setSelectizeOptions(scope.options);
+        setSelectizeOptions(scope.options, []);
 
         //provides a way to access the selectize element from an
         //angular controller

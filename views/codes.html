@@ -8,7 +8,7 @@
 		<h3 class="page-title">Activation Codes</h3>
 		<p class="page-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eget orci vitae nunc ornare posuere. Ut ultrices odio mi, non feugiat nunc varius eget. Pellentesque venenatis vitae ipsum interdum fermentum. Integer ornare massa nunc. Integer a leo quam.</p>
 		<p class="pull-right">
-			<button class="btn btn-default hidden" ng-click="subscription.showAllUsers()" data-target="#updateClient" data-toggle="modal">Add Subscription</button>
+			<button class="btn btn-default" ng-click="subscription.showAllUsers('add')">Add Subscription</button>
 		</p>
 		<ul class="nav nav-pills">
 			<li ng-class = "(code_filter == 'all') ? 'active' : '' " ng-click = "subscription.filterCode('all')"><a>All</a></li>
@@ -33,10 +33,17 @@
 			<div class="wrapper">
 				<span class="listing-icon"><i class="fa fa-qrcode"></i></span>
 				<div class="listing-column codes-name"><span>{!client_subscription.code!}</span></div>
-				<div class="listing-column codes-gendate"><span>{!client_subscription.purchased_date | date : 'medium' !}</span></div>
-				<div class="listing-column codes-client"><span>{!client_subscription.user.name | uppercase!}</span></div>
+				<div class="listing-column codes-gendate"><span>{!client_subscription.purchased_date !}</span></div>
+				<div class="listing-column codes-client" style="text-transform: uppercase;"><span>{! client_subscription.user.name ? client_subscription.user.name : '--'!}</span></div>
 				<div class="listing-column codes-expiry"><span>{!client_subscription.date_expired |  date : 'medium'!}</span></div>
 				<div class="listing-column codes-status"><span>{!client_subscription.status!}</span></div>
+				<div class="listing-options dropdown">
+					<a href="" data-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></a>
+					<ul class="dropdown-menu dropdown-menu-right">
+						<li><a href="" ng-click="subscription.updateSubscription($index)">Edit</a></li>
+						<!-- <li><a href="" >Archive</a></li> -->
+					</ul>
+				</div>
 			</div><!-- wrapper -->
 		</li>
 
@@ -57,7 +64,7 @@
 		     <div class="modal-content">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal">&times;</button>
-	        <h4 class="modal-title">Add Subscription</h4>
+	        <h4 class="modal-title">Edit Subscription</h4>
 	        <p class="modal-description">For the client to update his/her profile.</p>
 	      </div>
 	      <div class="modal-body">
@@ -68,7 +75,8 @@
 	      		<div class="col4">
 	      			<div class="form-group">
 						<label for="firstName">Code</label>
-						<input type="text" class="form-control"  id="code" ng-model = "subscription.add.code" required>
+						<input type="text" class="form-control"  id="code" ng-model = "subscription.code.code" disabled="disabled">
+						<!-- <p style="text-transform: uppercase;">{! subscription.code.code !}</p> -->
 					</div>
 	      		</div>
 	      		<div class="col4">
@@ -80,17 +88,19 @@
 	      		<div class="col4">
 	      			<div class="form-group">
 						<label for="lastName">Client Name</label>
-						<selectize placeholder='Choose Name' options='subscription.users' config="subscription.myConfig" ng-model="subscription.add.client_id" ng-disabled='disable' required='true'></selectize>
+						<!-- <selectize options='subscription.options' config="subscription.myConfig" ng-model="subscription.add.client_id" ng-disabled='disable' required='true'></selectize> -->
+						<select id="client-name" placeholder="Choose Client" class="form-control"></select>
 					</div>
 	      		</div>
 	      	</div>
-	      	<h4 class="form-sectitle"><span>Birthdate</span></h4>
+	      	<h4 class="form-sectitle"><span>Purchased Date</span></h4>
 	      	<div class="col-container">
 	      		<div class="col4">
 	      			<div class="form-group">
 						<label for="birthMonth">Month</label>
-						<select class="form-control" id="Monthup" name = "month" ng-class="{'error-field' : errors.birth_date}" >
-							<option value="{!$index + 1!}" name="month" ng-repeat="month in months" ng-selected="checkIfSelected($index + 1,customer.birth_date | date:'M')"  >{!month!}</option>
+						<select class="form-control" id="Pmonthup" name = "month" ng-class="{'error-field' : subscription.errors.purchased_date}" >
+							<option disabled="disabled" selected="selected" ng-if="subscription.subscription.purchased_date == '--'">Month</option>
+							<option value="{!$index + 1!}" name="month" ng-repeat="month in months" ng-selected="checkIfSelected($index + 1, subscription.subscription.purchased_date | date:'M')">{!month!}</option>
 
 						</select>
 					</div>
@@ -98,8 +108,9 @@
 	      		<div class="col4">
 	      			<div class="form-group">
 						<label for="birthDate">Day</label>
-						<select class="form-control" id="Dateup" name="day" ng-class="{'error-field' : errors.birth_date}">
-							<option value="{!day!}" ng-repeat="day in days"  ng-selected="checkIfSelected(day,customer.birth_date | date:'dd')"  >{!day!}</option>
+						<select class="form-control" id="Pdateup" name="day" ng-class="{'error-field' : subscription.errors.purchased_date}">
+							<option disabled="disabled" selected="selected" ng-if="subscription.subscription.purchased_date == '--'">Day</option>
+							<option value="{!day!}" ng-repeat="day in days"  ng-selected="checkIfSelected($index + 1, subscription.subscription.purchased_date | date:'dd')">{!day!}</option>
 
 						</select>
 					</div>
@@ -107,83 +118,161 @@
 	      		<div class="col4">
 	      			<div class="form-group">
 						<label for="birthYear">Year</label>
-						<select class="form-control" id="Yearup" ng-class="{'error-field' : errors.birth_date}">
-							<option value="{!year!}" name="year"  ng-repeat="year in years"  ng-selected="checkIfSelected(year,customer.birth_date | date:'yyyy')">{!year!}</option>
+						<select class="form-control" id="Pyearup" ng-class="{'error-field' : subscription.errors.purchased_date}">
+							<option disabled="disabled" selected="selected" ng-if="subscription.subscription.purchased_date == '--'">Year</option>
+							<option value="{!year!}" name="year"  ng-repeat="year in years"  ng-selected="checkIfSelected($index + 1, subscription.subscription.purchased_date | date:'yyyy')">{!year!}</option>
 						</select>
 					</div>
 	      		</div>
-	      		<span ng-if="errors.birth_date" class="padded-10 error">{!errors.birth_date !}</span>
-	      	</div>
-	      	<h4 class="form-sectitle"><span>Other Details</span></h4>
+	      		<span ng-if="subscription.errors.purchased_date" class="error">{!subscription.errors.purchased_date !}</span>	      	
+	      </div>
+	      <h4 class="form-sectitle"><span>Expiry Date</span></h4>
 	      	<div class="col-container">
 	      		<div class="col4">
 	      			<div class="form-group">
-						<label for="clientGeneder">Gender</label>
-						<select ng-model="customer.gender" class="capitalize" ng-options="gender for gender in genders" ng-class="{'error-field' : errors.gender}" ng-change="checkGender(customer.gender)" required></select>
-						<span ng-if="errors.gender" class="error" >{!errors.gender !}</span>
-					</div>
-	      		</div>
-	      		<div class="col8">
-	      			<div class="form-group" ng-hide = "true ">
-						<label for="codeAllocate">Code Allocate</label>
-						<select class="form-control" id="codeAllocate">
-							<option value="">13456789</option>
-							<option value="">28765434</option>
-							<option value="">33456789</option>
-							<option value="">44567890</option>
-							<option value="">55654332</option>
+						<label for="birthMonth">Month</label>
+						<select class="form-control" id="Emonthup" name = "month" ng-class="{'error-field' : subscription.errors.date_expired}" >
+							<option disabled="disabled" selected>Month</option>
+							<option value="{!$index + 1!}" name="month" ng-repeat="month in months" ng-selected="checkIfSelected($index + 1, subscription.subscription.date_expired | date:'M')">{!month!}</option>
+
 						</select>
 					</div>
 	      		</div>
+	      		<div class="col4">
+	      			<div class="form-group">
+						<label for="birthDate">Day</label>
+						<select class="form-control" id="Edateup" name="day" ng-class="{'error-field' : subscription.errors.date_expired}">
+							<option value="{!day!}" ng-repeat="day in days" ng-repeat="month in months" ng-selected="checkIfSelected($index + 1, subscription.subscription.date_expired | date:'dd')">{!day!}</option>
+
+						</select>
+					</div>
+	      		</div>
+	      		<div class="col4">
+	      			<div class="form-group">
+						<label for="birthYear">Year</label>
+						<select class="form-control" id="Eyearup" ng-class="{'error-field' : subscription.errors.date_expired}">
+							<option value="{!year!}" name="year"  ng-repeat="year in years" ng-repeat="month in months" ng-selected="checkIfSelected($index + 1, subscription.subscription.date_expired | date:'yyyy')">{!year!}</option>
+						</select>
+					</div>
+	      		</div>
+	      		<span ng-if="subscription.errors.date_expired" class="error">{!subscription.errors.date_expired !}</span>
 	      	</div>
-	      	<h4 class="form-sectitle" ng-hide = "true "><span>Assign Group</span></h4>
-	      	<ul class="form-grouplist" ng-hide = "true ">
-				<li class="custom-checkbox">
-					<input type="checkbox" name="" id="check1">
-					<label for="check1"><span>Pellentesque Fauci</span></label>
-				</li>
-				<li class="custom-checkbox">
-					<input type="checkbox" name="" id="check2">
-					<label for="check2"><span>Curabitur Eget</span></label>
-				</li>
-				<li class="custom-checkbox">
-					<input type="checkbox" name="" id="check3">
-					<label for="check3"><span>Tristique Senectus</span></label>
-				</li>
-				<li class="custom-checkbox">
-					<input type="checkbox" name="" id="check4">
-					<label for="check4"><span>Pellentesque Fauci</span></label>
-				</li>
-				<li class="custom-checkbox">
-					<input type="checkbox" name="" id="check5">
-					<label for="check5"><span>Pellentesque Fauci</span></label>
-				</li>
-	      		<li class="custom-checkbox">
-	      			<input type="checkbox" name="" id="check6">
-	      			<label for="check6"><span>Pellentesque Fauci</span></label>
-	      		</li>
-	      		<li class="custom-checkbox">
-	      			<input type="checkbox" name="" id="check7">
-	      			<label for="check7"><span>Pellentesque Fauci</span></label>
-	      		</li>
-	      		<li class="custom-checkbox">
-	      			<input type="checkbox" name="" id="check8">
-	      			<label for="check8"><span>Pellentesque Fauci</span></label>
-	      		</li>
-	      		<li class="custom-checkbox">
-	      			<input type="checkbox" name="" id="check9">
-	      			<label for="check9"><span>Pellentesque Fauci</span></label>
-	      		</li>
-				<li class="custom-checkbox">
-	      			<input type="checkbox" name="" id="check10">
-	      			<label for="check10"><span>Pellentesque Fauci</span></label>
-	      		</li>
-	      	</ul>
-	      	
-	      </div>
 	      </form>
 	      <div class="modal-footer">
-	      	<a href="" class="btn btn-primary" ng-click="updateClientByOwner()">Save</a>
-	        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancelByOwner()">Close</button>
+	      	<a href="" class="btn btn-primary" ng-click="subscription.updateCode(subscription.subscription.id)">Save</a>
+	        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="subscription.cancelByOwner()">Close</button>
 	      </div>
 	    </div><!-- model-content -->
+	</div>
+</div></div>
+
+<div id="addClient" class="modal fade" role="dialog">
+		  <div class="modal-dialog">
+
+		    <!-- Modal content-->
+		     <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Add Subscription</h4>
+	        <p class="modal-description">For the client to update his/her profile.</p>
+	      </div>
+	      <div class="modal-body">
+	      	<h4 class="form-sectitle"><span>Complete Name</span></h4>
+	      	<form name="update">
+	      	<div class="col-container">
+
+	      		<div class="col4">
+	      			<div class="form-group">
+						<label for="firstName">Code</label>
+						<input type="text" class="form-control"  id="code" ng-model = "subscription.code.code" disabled="disabled">
+						<!-- <p style="text-transform: uppercase;">{! subscription.code.code !}</p> -->
+					</div>
+	      		</div>
+	      		<div class="col4">
+	      			<!-- <div class="form-group">
+						<label for="middleName">Middle Name</label>
+						<input type="text" class="form-control" id="middleName" ng-model = "user.middle_name">
+					</div> -->
+	      		</div>
+	      		<div class="col4">
+	      			<div class="form-group">
+						<label for="lastName">Client Name</label>
+						<!-- <selectize options='subscription.options' config="subscription.myConfig" ng-model="subscription.add.client_id" ng-disabled='disable' required='true'></selectize> -->
+						<select id="add-client-name" placeholder="Choose Client" class="form-control"></select>
+					</div>
+	      		</div>
+	      	</div>
+	      	<h4 class="form-sectitle"><span>Purchased Date</span></h4>
+	      	<div class="col-container">
+	      		<div class="col4">
+	      			<div class="form-group">
+						<label for="birthMonth">Month</label>
+						<select class="form-control" id="aPmonthup" name = "month" ng-class="{'error-field' : subscription.errors.purchased_date}" >
+							<option disabled="disabled" selected="selected">Month</option>
+							<option value="{!$index + 1!}" name="month" ng-repeat="month in months">{!month!}</option>
+
+						</select>
+					</div>
+	      		</div>
+	      		<div class="col4">
+	      			<div class="form-group">
+						<label for="birthDate">Day</label>
+						<select class="form-control" id="aPdateup" name="day" ng-class="{'error-field' : subscription.errors.purchased_date}">
+							<option disabled="disabled" selected="selected">Day</option>
+							<option value="{!day!}" ng-repeat="day in days">{!day!}</option>
+
+						</select>
+					</div>
+	      		</div>
+	      		<div class="col4">
+	      			<div class="form-group">
+						<label for="birthYear">Year</label>
+						<select class="form-control" id="aPyearup" ng-class="{'error-field' : subscription.errors.purchased_date}">
+							<option disabled="disabled" selected="selected">Year</option>
+							<option value="{!year!}" name="year"  ng-repeat="year in years">{!year!}</option>
+						</select>
+					</div>
+	      		</div>
+	      		<span ng-if="subscription.errors.purchased_date" class="error">{!subscription.errors.purchased_date !}</span>	      	
+	      </div>
+	      <h4 class="form-sectitle"><span>Expiry Date</span></h4>
+	      	<div class="col-container">
+	      		<div class="col4">
+	      			<div class="form-group">
+						<label for="birthMonth">Month</label>
+						<select class="form-control" id="aEmonthup" name = "month" ng-class="{'error-field' : subscription.errors.date_expired}" >
+							<option disabled="disabled" selected>Month</option>
+							<option value="{!$index + 1!}" name="month" ng-repeat="month in months">{!month!}</option>
+
+						</select>
+					</div>
+	      		</div>
+	      		<div class="col4">
+	      			<div class="form-group">
+						<label for="birthDate">Day</label>
+						<select class="form-control" id="aEdateup" name="day" ng-class="{'error-field' : subscription.errors.date_expired}">
+							<option disabled="disabled" selected>Day</option>
+							<option value="{!day!}" ng-repeat="day in days" ng-repeat="month in months">{!day!}</option>
+
+						</select>
+					</div>
+	      		</div>
+	      		<div class="col4">
+	      			<div class="form-group">
+						<label for="birthYear">Year</label>
+						<select class="form-control" id="aEyearup" ng-class="{'error-field' : subscription.errors.date_expired}">
+							<option disabled="disabled" selected>Year</option>
+							<option value="{!year!}" name="year"  ng-repeat="year in years" ng-repeat="month in months">{!year!}</option>
+						</select>
+					</div>
+	      		</div>
+	      		<span ng-if="subscription.errors.date_expired" class="error">{!subscription.errors.date_expired !}</span>
+	      	</div>
+	      </form>
+	      <div class="modal-footer">
+	      	<a href="" class="btn btn-primary" ng-click="subscription.saveCode()">Save</a>
+	        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="subscription.cancelByOwner()">Close</button>
+	      </div>
+	    </div><!-- model-content -->
+	</div>
+</div></div>
