@@ -78,6 +78,12 @@ function run($rootScope, $state) {
     		window.location.href = '/';
     		event.preventDefault();
     	}
+    	user = JSON.parse(localStorage.user);
+
+    	if(user.role == "customer" && toState.name == "clients" ) {
+
+    		window.location.href = '/clients/#!/codes';
+    	}
 
     	if(public_url.indexOf(toState.name) == -1 && localStorage.length >= 0) return;
 	});

@@ -1,7 +1,7 @@
 angular.module('reme.controllers', [])
 	.controller('remeController', remeController);
 
-function remeController($scope, apiService) {
+function remeController($scope, apiService, $state) {
 		$scope.reg = {};
 		$scope.log_details = {};
 		$scope.reg_error = false;
@@ -30,8 +30,13 @@ function remeController($scope, apiService) {
 	$scope.checkIfLogin = function() {
 
 		if(window.location.pathname == '/register') {
-			if(localStorage.length != 0) {
-				window.location.href = '/clients';
+			if(localStorage.length != 0 ) {
+				if($scope.user.role != "customer") {
+					window.location.href = '/clients';
+				}else {
+					window.location.href = '/clients/#!/codes';
+				}
+				
 			}
 			return false;
 		}
@@ -39,7 +44,11 @@ function remeController($scope, apiService) {
 		if(window.location.pathname == '/' || window.location.pathname == '/index') {
 
 			if(localStorage.length != 0 || localStorage.authorization) {
-				window.location.href = '/clients';
+				if($scope.user.role != "customer") {
+					window.location.href = '/clients';
+				}else {
+					window.location.href = '/clients/#!/codes';
+				}
 				return;
 			}
 		} else if(localStorage.length == 0){
@@ -240,7 +249,12 @@ function remeController($scope, apiService) {
      		var string_val = JSON.stringify(res.data.success);
      		localStorage.user = string_val;
      		$scope.sending = 'off';
-     		window.location.href = '/clients'
+     		if(localStorage.user.role != "customer") {
+     			window.location.href = '/clients';
+     		}else {
+     			window.location.href = '/clients/#!/codes';
+     		}
+     		
      	}).catch(function(res){
      		console.log('something is wrong');
      	})

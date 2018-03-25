@@ -232,7 +232,13 @@
                 var string_val = JSON.stringify(res.data.success);
                 localStorage.user = string_val;
                 $scope.sending = 'off';
-                window.location.href = '/clients'
+
+                if(res.data.success.role != "customer") {
+                    window.location.href = '/clients';
+                }else {
+                    window.location.href = '/clients/#!/codes';
+                }
+                
             }).catch(function(res){
                 console.log('something is wrong');
             })
@@ -388,18 +394,28 @@
         }   
 
         $scope.checkIfLogin = function() {
-
+           
             if(window.location.pathname == '/register') {
                 if(localStorage.length != 0) {
-                    window.location.href = '/clients';
+                    if($scope.user.role != "customer") {
+                        window.location.href = '/clients';
+                    }else {
+                        window.location.href = '/clients/#!/codes';
+                    }
                 }
-                return false;
+
+
             }
 
             if(window.location.pathname == '/' || window.location.pathname == '/index') {
-
                 if(localStorage.length != 0 || localStorage.authorization) {
-                    window.location.href = '/clients';
+
+                    if($scope.user.role != "customer") {
+                        window.location.href = '/clients';
+                    }else {
+                        window.location.href = '/clients/#!/codes';
+                    }
+
                     return;
                 }
             } else if(localStorage.length == 0){
