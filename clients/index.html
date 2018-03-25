@@ -18,14 +18,14 @@
   			<a href="" class="sidebar-toggle" onClick="maxminSidebar(event)"><i class="fa fa-angle-double-right"></i></a>
   		</div><!-- sidebar-header -->
   		<ul class="sidebar-menu">
-  			<li>
-  				<a ui-sref="clients" class="detailed" data-tooltip="Clients" ng-class="{'active' : $state.current.name == 'clients' }">
+  			<li ng-if ="user.role != 'customer'">
+  				<a ui-sref="clients"  class="detailed" data-tooltip="Clients" ng-class="{'active' : $state.current.name == 'clients' }">
   					<span class="menu-icon"><i class="fa fa-users"></i></span>
   					<span class="menu-label">Clients</span>
   					<span class="menu-detail">30 Active Clients</span>
 				</a>
 			</li>
-  			<li>
+  			<li ng-if ="user.role != 'customer'">
   				<a ui-sref="archive" data-tooltip="Archive Discharge">
   					<span class="menu-icon"><i class="fa fa-archive"></i></span>
   					<span class="menu-label">Archive Discharge</span>
@@ -65,7 +65,7 @@
 					<a href="" data-toggle="dropdown"><i class="fa fa-list-ul"></i></a>
 					<ul class="dropdown-menu dropdown-menu-right">
 						<li><a ui-sref="profile">Profile</a></li>
-						<li><a href="/clients">Clients</a></li>
+						<li ng-if= "user.role != 'customer'"><a href="/cliehts">Clients</a></li>
 						<li><a href="">Change Password</a></li>
 						<li><a href="">Settings</a></li>
 						<li><a href="" ng-click="logout()">Logout</a></li>

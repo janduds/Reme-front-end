@@ -37,7 +37,7 @@
 				<div class="listing-column codes-client" style="text-transform: uppercase;"><span>{! client_subscription.user.name ? client_subscription.user.name : '--'!}</span></div>
 				<div class="listing-column codes-expiry"><span>{!client_subscription.date_expired |  date : 'medium'!}</span></div>
 				<div class="listing-column codes-status"><span>{!client_subscription.status!}</span></div>
-				<div class="listing-options dropdown">
+				<div class="listing-options dropdown" ng-if ="user.role != 'customer'">
 					<a href="" data-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></a>
 					<ul class="dropdown-menu dropdown-menu-right">
 						<li><a href="" ng-click="subscription.updateSubscription($index)">Edit</a></li>

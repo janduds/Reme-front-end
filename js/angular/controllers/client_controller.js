@@ -278,7 +278,6 @@
         			}
         			if($scope.user.customer.length > 0) {
         				for(i = 0; i < $scope.user.customer.length; i++){
-        					console.log($scope.user.customer[i]["customer_id"]);
         					if(obj.client_id == parseInt($scope.user.customer[i]["customer_id"])) {
 
 								return true;
@@ -287,7 +286,9 @@
         			}
         			
         		}else {
-        			return false;
+        			if($scope.user.id == obj.client_id) {
+        				return true;
+        			}
     			}
 
     			return false;
