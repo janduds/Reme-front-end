@@ -19,7 +19,7 @@
 
         $scope.code_filter = "all";
         
-        for (var i = 1940; i <=$scope.currentYear ; i++) {
+        for (var i = 1940; i <=$scope.currentYear + 1 ; i++) {
             $scope.years.push(i);
         }
         //initialize user
@@ -419,10 +419,12 @@
 		}
     }
 
-    function SubscriptionController($scope, clientService)
+    function SubscriptionController($scope, clientService, $filter)
     {
     	var self = this;
     	self.code = {};
+    	self.errors = {};
+    	self.edit_subscription = false;
 
     	self.getAllSubscription = function() {
 	    	clientService.getClientSubscription().then(function(res) {
@@ -432,7 +434,7 @@
 				self.limit = 10;
 				angular.forEach(self._client_list, function(value, key){
 					if(!isNaN(parseInt(key))) {
-						value.purchased_date = new Date(value.purchased_date);
+						value.purchased_date = value.purchased_date ? $filter('date')(new Date(value.purchased_date), "MMM d, y h:mm:ss a") : '--';
 						value.date_expired = new Date(value.date_expired);
 						self.client_subscriptions.push(value);
 					}
@@ -468,26 +470,185 @@
 
 		}
 
-		self.showAllUsers = function() {
+		self.showAllUsers = function(flag) {
+			if(flag == 'add') {
+				$('#addClient').modal();
+				self.edit_subscription = false;
+				self.subscription = {};
+				self.code = {};
+			} else {
+				$('#updateClient').modal();
+			}
+        	
+        	if(!self.edit_subscription) {
+        		self.code.code = self.makeRandom(10).toUpperCase();
+        	}
+
+        	var select;
+        	
 			clientService.showAllUsers().then(function(res) {
-				self.users = res.data.success;
+				self.users_list = res.data.success;
+				self.options = [];
 
-				self.myConfig = {
-					create: true,
-					valueField: 'id',
-					labelField: 'name',
-					placeholder: 'Pick user',
-					onInitialize: function(selectize){
-					// receives the selectize object as an argument
-				},
-					// maxItems: 1
-				};
+				angular.forEach(self.users_list, function(value, key) {
+
+					if($.type(value) == 'object') {
+						self.options.push(value);	
+					}
+				});
+
+				if(self.edit_subscription) {
+					select = $('#client-name').selectize({
+						maxItems: 1,
+						valueField: 'id',
+						labelField: 'name',
+						searchField: 'name',
+						options: self.options,
+						create: false,
+						onChange: function(value) {
+							self.code.client_id = value;
+						}
+					});
+					var selectize = select[0].selectize;
+					selectize.setValue(self.subscription.client_id);
+				} else {
+					select = $('#add-client-name').selectize({
+						maxItems: 1,
+						valueField: 'id',
+						labelField: 'name',
+						searchField: 'name',
+						options: self.options,
+						create: false,
+						onChange: function(value) {
+							self.code.client_id = value;
+						}
+					});
+				}
+
 			}).catch(function(res) {
-				console.log(res.error)
+				if(res.error) {
+					console.log(res.error)
+				}
 			})
-		}	
+		}
 
-	
+		self.updateSubscription = function(index) {
+			self.code = {};
+			self.edit_subscription = true;
+			self.showAllUsers('edit');
+
+			self.subscription = angular.copy(self.client_subscriptions[index]);
+			console.log(self.subscription)
+			self.subscription.purchased_date = self.subscription.purchased_date != '--' ? new Date(self.subscription.purchased_date) : '--';
+			console.log(self.subscription)
+			self.code.code = self.subscription.code
+		}
+
+		self.makeRandom = function(len) {
+			var text = "";
+			var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+			for (var i = 0; i < len; i++)
+			text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+			return text;
+		}
+
+		self.updateCode = function(id) {
+			var year = $('#Pyearup').val();
+			var month = $('#Pmonthup').val();
+			var day = $('#Pdateup').val();
+			
+			// either of the date, check if its valid
+			if(year || month || day) {
+				self.code.purchased_date = $('#Pyearup').val() + '-' + $('#Pmonthup').val() + '-' + $('#Pdateup').val();
+				console.log(self.code.purchased_date)
+				self.isValidDate(self.code.purchased_date, 'purchase');
+			}
+
+			// date must be filled
+			if(year && month && day) {
+				self.code.purchased_date = $('#Pyearup').val() + '-' + $('#Pmonthup').val() + '-' + $('#Pdateup').val();
+			}
+
+			self.code.client_id = self.code.client_id ? self.code.client_id : 0;
+
+			self.code.status = self.code.client_id != 0 ? 'active' : 'unassigned';
+			
+			self.code.date_expired = $('#Eyearup').val() + '-' + $('#Emonthup').val() + '-' + $('#Edateup').val();
+			self.isValidDate(self.code.date_expired, 'expired');
+			
+			if(!self.errors.date_expired) {
+				self.errors = {};
+				self.code.date_expired = angular.copy(self.code.date_expired + ' 00:00:00')
+				self.code.purchased_date = self.code.purchased_date ? angular.copy(self.code.purchased_date + ' 00:00:00') : null;
+				clientService.updateSubscription(self.code, id).then(function(res) {
+					if(res.data.success) {
+						self.getAllSubscription();
+						$('#updateClient').modal('hide');
+					}
+				}).catch(function(res) {
+					console.log(res.data.error)
+				})
+			}
+		}
+
+		self.saveCode = function() {
+			var year = $('#aPyearup').val();
+			var month = $('#aPmonthup').val();
+			var day = $('#aPdateup').val();
+			
+			// either of the date, check if its valid
+			if(year || month || day) {
+				self.code.purchased_date = $('#aPyearup').val() + '-' + $('#aPmonthup').val() + '-' + $('#aPdateup').val();
+				console.log(self.code.purchased_date)
+				self.isValidDate(self.code.purchased_date, 'purchase');
+			}
+
+			// date must be filled
+			if(year && month && day) {
+				self.code.purchased_date = $('#aPyearup').val() + '-' + $('#aPmonthup').val() + '-' + $('#aPdateup').val();
+			}
+
+			self.code.client_id = self.code.client_id ? self.code.client_id : 0;
+
+			self.code.status = self.code.client_id != 0 ? 'active' : 'unassigned';
+			
+			self.code.date_expired = $('#Eyearup').val() + '-' + $('#Emonthup').val() + '-' + $('#Edateup').val();
+			self.isValidDate(self.code.date_expired, 'expired');
+			
+			if(!self.errors.date_expired) {
+				self.code.date_expired = angular.copy(self.code.date_expired + ' 00:00:00')
+				self.code.purchased_date = self.code.purchased_date ? angular.copy(self.code.purchased_date + ' 00:00:00') : null;
+				clientService.saveSubscription(self.code).then(function(res) {
+					if(res.data.success) {
+						self.getAllSubscription();
+						$('#addClient').modal('hide');
+					}
+				}).catch(function(res) {
+					console.log(res.data.error)
+				})
+			}
+		}
+
+		self.isValidDate = function(dateString, type) {
+			var regEx = /^\d{4}-\d{2}-\d{2}$/;
+			if(dateString.match(regEx) != null) {
+				if(type == 'expired') {
+					return self.errors.date_expired = false;	
+				} else {
+					return self.errors.purchased_date = false;
+				}
+				
+			}else {
+				if(type == 'expired') {
+					self.errors.date_expired = 'Expiry Date is required or must be a valid format'; 	
+				} else {
+					self.errors.purchased_date = 'Purchase Date must be a valid format'; 
+				}
+				
+			}
+		}
     }
 
 

@@ -48,6 +48,22 @@ function clientService($http, baseUrl) {
 			method 	: 'GET',
 			url 	: regUrl + '/manage/users'
 		});
+	}
+
+	clientApi.saveSubscription = function(data) {
+		return $http({
+			method	: 'POST',
+			url 	: regUrl + '/manage/client/subscriptions',
+			data 	: data
+		})
+	}
+
+	clientApi.updateSubscription = function(data, id) {
+		return $http({
+			method	: 'PUT',
+			url 	: regUrl + '/manage/client/subscriptions/' + id,
+			data 	: data
+		})
 	}																																																																															
 
 	return clientApi;
