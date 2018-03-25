@@ -87,7 +87,7 @@
 				</div>
 			</div>
 			<ul class="listing-items">
-				<li ng-repeat ="client in client_list track by $index" ng-hide = "client.archive == 0">
+				<li ng-repeat ="client in client_list | filter: filterByCustomer() track by $index" ng-hide = "client.archive == 0">
 					<div class="wrapper">
 						<figure class="listing-user" style="background-image:url('/images/user-default.png');">
 							<img src="/images/user-default.png" alt="" />
@@ -96,12 +96,12 @@
 						<div class="listing-column archive-birthdate"><span>{!client.birth_date | date:'MMM. dd, yyyy'!}</span></div>
 						<div class="listing-column archive-age"><span>{!client.age!}</span></div>
 						<div class="listing-column archive-gender"><span>{!client.gender!}</span></div>
-						<div class="listing-column archive-category"><span>Professional</span></div>
+						<div class="listing-column archive-category"><span>{!client.role!}</span></div>
 						<div class="listing-column archive-disdate"><span>{!client.discharged_date | date!}</span></div>
 						<div class="listing-options dropdown">
 							<a href="" data-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></a>
 							<ul class="dropdown-menu dropdown-menu-right">
-								<li><a href="" ng-click="archiveUser($index,0)">Mark Active</a></li>
+								<li><a href="" ng-click="archiveUser(client.original_index,0)">Mark Active</a></li>
 							</ul>
 						</div>
 					</div><!-- wrapper -->

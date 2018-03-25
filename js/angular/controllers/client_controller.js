@@ -37,6 +37,8 @@
 				$scope.total_client_count = res.data.success.total;
 				$scope.limit = 10;
 				angular.forEach($scope._client_list, function(value, key){
+
+
 					if(value.discharged_date != null) {
 						value.discharged_date = formatDate(value.discharged_date);
 					}
@@ -48,6 +50,8 @@
 						}else {
 							value.age = $scope.getAge(value.birth_date) + ' years old';
 						}
+
+				   		value.original_index = key;
 
 						$scope.client_list.push(value);
 					}
@@ -140,7 +144,7 @@
 
 	    
 		$scope.viewCustomer = function($index) {
-			
+			console.log($index);
             $scope.customer = $scope.client_list[$index];
             $scope.old_customer = $scope.client_list[$index];
             $scope.customer_index = $index;
@@ -241,7 +245,7 @@
         $scope.filterByCustomer = function() {
 
         	return function (obj) {
-        		if($scope.user["role"] == "admin") {
+        		if($scope.user["role"] == "admin" && obj["role"] != "admin") {
         			return true;
         		}else if($scope.user["role"] == "doctor") {
         			if($scope.user.customer.length > 0) {
@@ -257,6 +261,38 @@
         		}
 
         		return false;
+        	}
+			
+		}
+
+
+		$scope.filterByClientSubscription = function() {
+
+        	
+    		return function (obj) {
+        		if($scope.user["role"] == "admin") {
+        			return true;
+        		}else if($scope.user["role"] == "doctor") {
+        			if(obj.status == "unassigned"){
+        				return true;
+        			}
+        			if($scope.user.customer.length > 0) {
+        				for(i = 0; i < $scope.user.customer.length; i++){
+        					console.log($scope.user.customer[i]["customer_id"]);
+        					if(obj.client_id == parseInt($scope.user.customer[i]["customer_id"])) {
+
+								return true;
+							}
+        				}
+        			}
+        			
+        		}else {
+        			return false;
+    			}
+
+    			return false;
+
+    			 	
         	}
 			
 		}

@@ -29,7 +29,7 @@
 		</div>
 	</div>
 	<ul class="listing-items">
-		<li ng-repeat ="client_subscription in subscription.client_subscriptions track by $index" ng-if = "subscription.client_subscriptions.length > 0">
+		<li ng-repeat ="client_subscription in subscription.client_subscriptions | filter: filterByClientSubscription() track by $index" ng-if = "subscription.client_subscriptions.length > 0">
 			<div class="wrapper">
 				<span class="listing-icon"><i class="fa fa-qrcode"></i></span>
 				<div class="listing-column codes-name"><span>{!client_subscription.code!}</span></div>

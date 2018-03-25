@@ -136,13 +136,13 @@
 				<div class="listing-column client-birthdate"><span>{!client.birth_date | date:'MMM. dd, yyyy'!}</span></div>
 				<div class="listing-column client-age"><span>{!client.age!}</span></div>
 				<div class="listing-column client-gender"><span>{!client.gender!}</span></div>
-				<div class="listing-column client-category"><span>Professional</span></div>
+				<div class="listing-column client-category"><span>{!client.role!}</span></div>
 				<div class="listing-options dropdown">
 					<a href="" data-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></a>
 					<ul class="dropdown-menu dropdown-menu-right">
-						<li><a href="" data-toggle="modal" data-target="#updateClient" ng-click="viewCustomer($index)">Edit</a></li>
-						<li><a href="" data-toggle="modal" data-target="#viewClient" ng-click="viewCustomer($index)">View Profile</a></li>
-						<li><a href="" ng-click="archiveUser($index,1)" >Archive</a></li>
+						<li><a href="" data-toggle="modal" data-target="#updateClient" ng-click="viewCustomer(client.original_index)">Edit</a></li>
+						<li><a href="" data-toggle="modal" data-target="#viewClient" ng-click="viewCustomer(client.original_index)">View Profile</a></li>
+						<li><a href="" ng-click="archiveUser(client.original_index,1)" >Archive</a></li>
 					</ul>
 				</div>
 			</div><!-- wrapper -->
