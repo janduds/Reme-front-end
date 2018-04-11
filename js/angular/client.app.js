@@ -69,6 +69,12 @@ function config($stateProvider, $urlRouterProvider, $interpolateProvider, $httpP
         	controller: 'ClientController',
         	controllerAs: 'client'
         })
+       .state('change-password', {
+            url: '/change-password',
+            templateUrl: '/views/changepassword.html',
+            controller: 'ClientController',
+            controllerAs: 'client'
+        })
 }
 function run($rootScope, $state) {
 	$rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
