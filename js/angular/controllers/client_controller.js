@@ -5,7 +5,8 @@
         .controller('appController', Controller)
         .controller('ClientController', ClientController)
         .controller('ProfileController', ProfileController)
-        .controller('SubscriptionController', SubscriptionController);
+        .controller('SubscriptionController', SubscriptionController)
+        .controller('ChangeController', ChangeController);
 
     function Controller($scope, $state, clientService)
     {
@@ -301,7 +302,7 @@
     }
 
     function ClientController($scope, $location, clientService)
-    {
+    {	
         var self = this;
 		self.errors = {};
 		self.reg = {};
@@ -711,6 +712,47 @@
 				
 			}
 		}
+    }
+
+
+     function ChangeController($scope, clientService, $filter)
+    {	
+    	 $scope.errors = [];
+    	//$scope.requiredValidator(self.change.email, 'email');
+		//$scope.requiredValidator(self.change.password, 'password');
+		//$scope.requiredValidator(self.change.c_password, 'c_password');
+
+		$scope.submitChangePass = function() {
+			if($scope.errors["password"] == "" && $scope.errors["c_password"] == ""){
+				var data = {
+					"email" : $scope.user.email,
+					"password" : $scope.password
+				}
+				
+			}else{
+				return false;
+			}
+		}
+
+		$scope.checkPassword = function(password,field) {
+			if(password.length < 7) {
+				if(field == "password") {
+					$scope.errors[field] = "password must be equal or greater than 7 characters.";
+				}else {
+					$scope.errors[field] = "password doesn't match.";
+				}
+
+			}else {
+				if(field == "c_password" && $scope.password != password) {
+					$scope.errors[field] = "password doesn't match.";
+				}else{
+					$scope.errors[field] = "";
+				}
+			}
+		}
+
+    	
+		
     }
 
 

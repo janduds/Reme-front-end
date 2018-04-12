@@ -72,7 +72,7 @@ function config($stateProvider, $urlRouterProvider, $interpolateProvider, $httpP
        .state('change-password', {
             url: '/change-password',
             templateUrl: '/views/changepassword.html',
-            controller: 'ClientController',
+            controller: 'ChangeController',
             controllerAs: 'client'
         })
 }
