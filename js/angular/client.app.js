@@ -83,19 +83,7 @@ function config($stateProvider, $urlRouterProvider, $interpolateProvider, $httpP
             controllerAs: ''
         })
 
-        .state('change-password-success', {
-            url: '/change-password-success',
-            templateUrl: '/views/change-password-success.html',
-            controller: '',
-            controllerAs: ''
-        })
-
-        .state('confirm-password', {
-            url: '/confirm-password',
-            templateUrl: '/views/confirm-password.html',
-            controller: 'confirmPasswordController',
-            controllerAs: 'confirm'
-        })
+       
 }
 function run($rootScope, $state) {
 	$rootScope.$on('$stateChangeStart', function (event, toState, toParams) {

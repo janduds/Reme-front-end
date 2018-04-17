@@ -69,8 +69,6 @@ function run($rootScope, $state) {
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
     	var public_url = ['login', 'register','confirm-password'];
 
-    	console.log(toState.name);
-
     	if(public_url.indexOf(toState.name) != -1 && localStorage.length == 0) return;
 
     	if(public_url.indexOf(toState.name) != -1 && localStorage.length >= 1) {
