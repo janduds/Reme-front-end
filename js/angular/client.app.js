@@ -87,12 +87,14 @@ function config($stateProvider, $urlRouterProvider, $interpolateProvider, $httpP
 }
 function run($rootScope, $state) {
 	$rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
-    	var public_url = ['login', 'register'];
+    	var public_url = ['login', 'register', 'confirm-password'];
 
     	if(public_url.indexOf(toState.name) == -1 && localStorage.length == 0) {
     		window.location.href = '/';
     		event.preventDefault();
     	}
+
+       
     	user = JSON.parse(localStorage.user);
 
     	if(user.role == "customer" && toState.name == "clients" ) {
