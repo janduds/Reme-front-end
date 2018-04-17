@@ -487,11 +487,71 @@
 
 
     function LoginController($scope) {
-        // console.log('x');
+     
+
     }
 
-    function confirmPasswordController($scope) {
-        console.log('xxxxx');
+    function confirmPasswordController($scope,$location, publicApiService) {
+       
+        $scope.validateEmail = function(email) {
+            if(email == '' || email == undefined) {
+                $scope.errors.email = 'Email is required';
+                $scope.can_submit = false;
+            } else if(!$scope.checkEmail(email)) {
+                $scope.errors.email = 'Please input a valid email';
+                $scope.can_submit = false;
+            } else {
+                $scope.can_submit = true;
+                return $scope.errors.email = false;
+            }
+        }
+
+         $scope.validateCode = function(code) {
+            if(code == '' || code == undefined) {
+                $scope.errors.code = 'Code is required';
+                $scope.can_submit = false;
+            } else if(!angular.isNumber($scope.code)) {
+                $scope.errors.code = 'Input a valid code';
+                $scope.can_submit = false;     
+            }else {
+                $scope.can_submit = true; 
+            }
+              
+        }
+        
+
+        $scope.submitConfirmPass = function() {
+
+           $scope.validateEmail($scope.email);
+           $scope.validateCode($scope.code);
+           var data = {};
+           if($scope.can_submit) {
+                data = {
+                    "email" : $scope.email,
+                    "password_verification_code" : $scope.code
+                }
+                 publicApiService.confirmChangePassword(data).then(function(res) {
+                    $scope.sending = 'off';
+                    if(res.data.errors) {
+                        $scope.errors.email = res.data.errors.email;
+                        $scope.errors.code = res.data.errors.password_verification_code;
+                        return;
+                    }
+                    if(res.data.error) {
+                        $scope.errors.code = "you've entered wrong confirmation code.";
+                        return;
+                    }
+
+                    if(res.data.success) {
+                        window.location.href = '/#!/confirm-success';
+                    }
+                    $scope.landing = 'reset_view';
+                }).catch(function(res) {
+                    $scope.sending = 'off';
+                    console.log(res);
+                });
+           }
+        }
     }
 
     function RegisterController($scope, $location, publicApiService) {

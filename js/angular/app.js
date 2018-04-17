@@ -63,14 +63,24 @@ function config($stateProvider, $urlRouterProvider, $interpolateProvider, $httpP
         	controller: 'confirmPasswordController',
         	controllerAs: 'con'
         })
+        .state('confirm-success', {
+        	url: '/confirm-success',
+        	templateUrl: 'views/confirm-success.html',
+        	controller: '',
+        	controllerAs: ''
+        })
 }
 
 function run($rootScope, $state) {
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
-    	var public_url = ['login', 'register','confirm-password'];
+    	var public_url = ['login', 'register','confirm-password', 'config-success'];
     	
-
     	if(toState.name == "confirm-password") {
+    		return false;
+    	}
+
+    	if(toState.name == "confirm-success") {
+    		localStorage.clear();
     		return false;
     	}
 

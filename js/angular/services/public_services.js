@@ -58,5 +58,13 @@ function publicApiService($http, baseUrl) {
 		});
 	}
 
+	public.confirmChangePassword = function(data) {
+		return $http({
+			method 	: 'POST',
+			data    : data,
+			url 	: remeUrl + '/confirm/change/password'
+		});
+	}
+
 	return public;
 }
