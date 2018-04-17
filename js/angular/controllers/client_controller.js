@@ -717,17 +717,24 @@
 
      function ChangeController($scope, clientService, $filter)
     {	
-    	 $scope.errors = [];
-    	//$scope.requiredValidator(self.change.email, 'email');
-		//$scope.requiredValidator(self.change.password, 'password');
-		//$scope.requiredValidator(self.change.c_password, 'c_password');
+    	$scope.errors = [];
 
 		$scope.submitChangePass = function() {
 			if($scope.errors["password"] == "" && $scope.errors["c_password"] == ""){
 				var data = {
 					"email" : $scope.user.email,
-					"password" : $scope.password
+					"new_password" : $scope.password
 				}
+
+				clientService.changePassword(data).then(function(res) {
+					if(res.data.success) {
+						window.location.href = '/clients/#!/change-password-success';
+					}
+				}).catch(function(res) {
+					console.log(res.data.error)
+				})
+
+				
 				
 			}else{
 				return false;

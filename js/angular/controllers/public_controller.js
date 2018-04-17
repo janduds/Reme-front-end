@@ -4,7 +4,8 @@
         .module('reme')
         .controller('publicController', Controller)
         .controller('LoginController', LoginController)
-        .controller('RegisterController', RegisterController);
+        .controller('RegisterController', RegisterController)
+        .controller('confirmPasswordController', confirmPasswordController);
 
     function Controller($scope, $state, publicApiService)
     {
@@ -487,6 +488,10 @@
 
     function LoginController($scope) {
         // console.log('x');
+    }
+
+    function confirmPasswordController($scope) {
+        console.log('xxxxx');
     }
 
     function RegisterController($scope, $location, publicApiService) {

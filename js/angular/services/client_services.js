@@ -64,7 +64,16 @@ function clientService($http, baseUrl) {
 			url 	: regUrl + '/manage/client/subscriptions/' + id,
 			data 	: data
 		})
-	}																																																																															
+	}
+
+	clientApi.changePassword = function(data) {
+		return $http({
+			method	: 'POST',
+			url 	: regUrl + '/change/password',
+			data 	: data
+		})
+	}
+
 
 	return clientApi;
 };					
