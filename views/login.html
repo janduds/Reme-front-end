@@ -25,7 +25,7 @@
 			</div><!-- form-group -->
 			<p class="login-support"><a href="">Need help? Contact support.</a></p>
 			<button type="button" class="btn btn-primary login-button" ng-click="submitLogin()" ng-if="sending=='off'">Sign In</button> 
-			<button type="button" class="btn btn-primary login-button" ng-if="sending=='on'">Signing In...</button> 
+			<button type="button" class="btn btn-primary login-button" ng-if="sending=='on'" disabled="disabled">Signing In...</button> 
 		</div><!-- login-body -->
 		<div class="login-footer">
 			<a ui-sref="register" class="btn btn-default login-register">Register Account</a>

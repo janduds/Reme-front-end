@@ -105,7 +105,8 @@
 				</div>
 			</div>
 			<p class="register-support"><a href="">Need help? Contact support.</a></p>
-			<button type="button" class="btn btn-primary register-button" ng-click="reg.submitRegister()">Create My New Account</button>
+			<button type="button" class="btn btn-primary register-button" ng-if="onsubmit==0" ng-click="reg.submitRegister('doctor')">Create My New Account</button>
+			<button type="button" class="btn btn-primary register-button" ng-if="onsubmit==1" ng-click="reg.submitRegister('doctor')" disabled="disabled">Creating Account ...</button>
 		</div><!-- register-body -->
 		<div class="register-footer">
 			<a href="/" class="btn btn-default register-register">Login Account</a>

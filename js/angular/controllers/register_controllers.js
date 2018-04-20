@@ -11,8 +11,9 @@ function registerController($scope, registerApiService, $location) {
 		self.reg = {};
 		self.base_url = $location.protocol() + "://" + location.host;
 		self.landing = 'default';
+		$scope.onsubmit = 0;
 
-	self.submitRegister = function() {
+	self.submitRegister = function(type) {
 		self.errors = {};
 		self.requiredValidator(self.reg.first_name, 'first_name');
 		self.requiredValidator(self.reg.last_name, 'last_name');
@@ -42,8 +43,9 @@ function registerController($scope, registerApiService, $location) {
 			self.reg.profession_type = 1;
 			self.reg.group_type = 1;
 			self.reg.user_type = 1;
-			self.reg.role = 'customer';
+			self.reg.role = type;
 			self.reg.age = 23;
+			$scope.onsubmit = 1;
 			registerApiService.register(self.reg, self.base_url).then(function(res) {
 				if(res.data.success) {
 					console.log('x');
