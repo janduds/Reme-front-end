@@ -88,11 +88,28 @@ function config($stateProvider, $urlRouterProvider, $interpolateProvider, $httpP
 function run($rootScope, $state) {
 	$rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
     	var public_url = ['login', 'register', 'confirm-password'];
+        $rootScope.client_page_load = false;
+        $rootScope.sub_page_load = false;
 
     	if(public_url.indexOf(toState.name) == -1 && localStorage.length == 0) {
     		window.location.href = '/';
     		event.preventDefault();
     	}
+
+        if(toState.name == "clients") {
+           $rootScope.client_page_load = true; 
+        }
+
+        if(toState.name == "archive") {
+            $rootScope.sub_page_load = true; 
+        }
+
+        if($rootScope.sub_page_load || $rootScope.client_page_load) {
+            setTimeout(function(){ 
+                $(".loader-head").addClass("hidden");
+             }, 200);
+            
+        }
 
        
     	user = JSON.parse(localStorage.user);
@@ -100,6 +117,7 @@ function run($rootScope, $state) {
     	if(user.role == "customer" && toState.name == "clients" ) {
 
     		window.location.href = '/clients/#!/codes';
+
     	}
 
     	if(public_url.indexOf(toState.name) == -1 && localStorage.length >= 0) return;
