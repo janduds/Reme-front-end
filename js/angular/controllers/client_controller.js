@@ -9,7 +9,7 @@
         .controller('ChangeController', ChangeController);
 
     function Controller($scope, $state, clientService)
-    {
+    {	
     	$scope.days =['01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31'];
         $scope.months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
         $scope.genders = ['male','female','others'];
@@ -57,6 +57,8 @@
 						$scope.client_list.push(value);
 					}
 				})
+
+				$(".loader-head").addClass("hidden");
 
 
 			}).catch(function(res) {
@@ -502,9 +504,9 @@
 						self.client_subscriptions.push(value);
 					}
 				})
-
 				console.log(self.client_subscriptions);
 				self.all_client_subscription = self.client_subscriptions;
+				$(".loader-head").addClass("hidden"); 
 
 			}).catch(function(res) {
 				$scope.sending = 'off';
@@ -663,8 +665,10 @@
 			
 			// either of the date, check if its valid
 			if(year || month || day) {
-				self.code.purchased_date = $('#aPyearup').val() + '-' + $('#aPmonthup').val() + '-' + $('#aPdateup').val();
-				console.log(self.code.purchased_date)
+
+				month = month < 10 ? 0+month : month;
+				self.code.purchased_date = $('#aPyearup').val() + '-' + month + '-' + $('#aPdateup').val();
+				
 				self.isValidDate(self.code.purchased_date, 'purchase');
 			}
 
@@ -676,8 +680,9 @@
 			self.code.client_id = self.code.client_id ? self.code.client_id : 0;
 
 			self.code.status = self.code.client_id != 0 ? 'active' : 'unassigned';
+			var emonth =  $('#aEmonthup').val() < 10 ? 0+$('#aEmonthup').val():$('#aEmonthup').val();
+			self.code.date_expired = $('#aEyearup').val() + '-' + emonth + '-' + $('#aEdateup').val();
 			
-			self.code.date_expired = $('#Eyearup').val() + '-' + $('#Emonthup').val() + '-' + $('#Edateup').val();
 			self.isValidDate(self.code.date_expired, 'expired');
 			
 			if(!self.errors.date_expired) {
