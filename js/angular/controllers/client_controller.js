@@ -58,6 +58,8 @@
 					}
 				})
 
+				$scope.original_client_list =$scope.client_list;
+
 				$(".loader-head").addClass("hidden");
 
 
@@ -152,6 +154,44 @@
             $scope.old_customer = $scope.client_list[$index];
             $scope.customer_index = $index;
 
+        }
+
+        // $scope.searchFn = function() {
+
+
+        //   var category = $("#category").find(":selected").text();
+        //   var gender = $("#gender").find(":selected").text();
+        //   var min = $("#minimum").val();
+        //   var max = $("#maximum").val();
+        //   var name = $("#name").val();
+          	
+        //   $scope.client_list == $scope.original_client_list;
+
+        //   $scope.filtered_client_list = [];
+
+        // //   if(category == "--") {
+        // //   	$scope.client_list == $scope.original_client_list;
+        // //   }else {
+
+        // //   	 if(category != "--") {
+	       // //     	angular.forEach($scope.client_list, function(value, index) {
+		      // // 	   	if(category == value.role) {
+		  			 // // $scope.filtered_client_list.push(value);	
+		      // // 	    }
+	       // //      })
+		      // //  $scope.client_list = $scope.filtered_client_list;
+	       // //    }
+
+        // //   }
+
+        // }
+
+        $scope.filterCategory = function() {
+        	$scope.filter_cat = $('#category').val();
+        }
+
+        $scope.filterGender = function() {
+        	$scope.filter_gender = $('#gender').val();
         }
 
         function formatDate(date) {
@@ -424,6 +464,10 @@
 			}
 		}
 
+		self.search = function () {
+
+		}
+
 		
     }
 
@@ -514,8 +558,26 @@
 			});
 		}
 
-		self.filterCode = function(filter) {
+		self.filterCode = function(filter, flag = null) {
 			$scope.code_filter = filter;
+
+			if(flag == 'search') {
+				self.client_subscriptions = [];
+				angular.forEach(self.all_client_subscription, function(value, key){
+					if(value.user != null) {
+						name = angular.uppercase(value.user.name);
+						if(name.search(angular.uppercase($scope.filter_search)) !== -1) {
+							value.purchased_date = new Date(value.purchased_date);
+							value.date_expired = new Date(value.date_expired);
+							self.client_subscriptions.push(value);
+						}
+					}else if ($scope.filter_search == '' || $scope.filter_search == null || $scope.filter_search == undefined) {
+						self.client_subscriptions == self.all_client_subscription
+					}
+				})
+
+				return;
+			}
 
 			if(filter == "all") {
 				self.client_subscriptions = self.all_client_subscription;

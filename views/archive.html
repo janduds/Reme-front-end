@@ -7,72 +7,39 @@
 						<div class="col-container">
 							<div class="col6">
 								<div class="form-group">
-									<label for="fromDate">From Date</label>
-									<input type="text" name="" value="--" class="form-control datepicker" id="fromDate" readonly>
+									<label for="">Category</label>
+									<select class="form-control" ng-model="filter_category">
+										<option value="">--</option>
+										<option value="customer">customer</option>
+										<option value="doctor">doctor</option>
+									</select>
 								</div><!-- form-group -->
 							</div>
 							<div class="col6">
 								<div class="form-group">
-									<label for="toDate">To Date</label>
-									<input type="text" name="" value="--" class="form-control datepicker" id="toDate" readonly>
-								</div><!-- form-group -->
-							</div>
-						</div><!-- col-container -->
-						<div class="col-container">
-							<div class="col4">
-								<div class="form-group">
-									<label for="">Category</label>
-									<select class="form-control">
-										<option value="">--</option>
-										<option value="">test</option>
-										<option value="">test</option>
-										<option value="">test</option>
-										<option value="">test</option>
-									</select>
-								</div><!-- form-group -->
-							</div>
-							<div class="col4">
-								<div class="form-group">
 									<label for="">Gender</label>
-									<select class="form-control">
+									<select class="form-control" ng-model="filter_gender">
 										<option value="">--</option>
-										<option value="">Male</option>
-										<option value="">Female</option>
-										<option value="">Others</option>
+										<option value="male">Male</option>
+										<option value="female">Female</option>
 									</select>
-								</div><!-- form-group -->
-							</div>
-							<div class="col4">
-								<div class="form-group">
-									<label for="">Age Range</label>
-									<div class="col-container">
-										<div class="col6 padleft-none">
-											<input type="number" name="" value="" placeholder="--">
-										</div>
-										<div class="col6 padright-none">
-											<input type="number" name="" value="" placeholder="--">
-										</div>
-									</div><!-- col-container -->
 								</div><!-- form-group -->
 							</div>
 						</div><!-- col-container -->
 						<div class="col-container">
-							<div class="col8">
+							<div class="col12">
 								<div class="form-group">
 									<label for="">Search</label>
-									<input type="text" name="" value="" class="form-control" id="" placeholder="Enter keyword here..." />
+									<input type="text" name="" value="" class="form-control" ng-model="filter_search" id="" placeholder="Enter keyword here..." />
 								</div><!-- form-group -->
 							</div><!-- col8 -->
-							<div class="col4">
-								<button class="btn btn-primary btn-block btn-search">Search</button>
-							</div><!-- col4 -->
 						</div><!-- col-container -->
 					</div><!-- searchfilter-container -->
 				</div><!-- canvas -->
 			</div><!-- colleft -->
 			<div class="colright">
 				<h3 class="page-title">Discharged Archive</h3>
-				<p class="page-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eget orci vitae nunc ornare posuere. Ut ultrices odio mi, non feugiat nunc varius eget. Pellentesque venenatis vitae ipsum interdum fermentum. Integer ornare massa nunc. Integer a leo quam.</p>
+				<p class="page-description"></p>
 			</div>
 		</div>
 		<div class="listing-container listing-archive iconed optioned">
@@ -87,7 +54,7 @@
 				</div>
 			</div>
 			<ul class="listing-items">
-				<li ng-repeat ="client in client_list | filter: filterByCustomer() track by $index" ng-hide = "client.archive == 0">
+				<li ng-repeat ="client in client_list | filter: filterByCustomer() | filter: {'name' : filter_search} | filter: {'role' : filter_category} | filter: {'gender' : filter_gender} track by $index" ng-hide = "client.archive == 0">
 					<div class="wrapper">
 						<figure class="listing-user" style="background-image:url('/images/user-default.png');">
 							<img src="/images/user-default.png" alt="" />
