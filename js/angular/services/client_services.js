@@ -17,7 +17,7 @@ function clientService($http, baseUrl) {
 
 		return $http({
 			method 	: 'GET',
-			url 	: regUrl + '/manage/users?limit=20&offset=0'
+			url 	: regUrl + '/manage/users'
 		});
 	}
 
@@ -39,7 +39,7 @@ function clientService($http, baseUrl) {
 	clientApi.getClientSubscription = function(data) {
 		return $http({
 			method 	: 'GET',
-			url 	: regUrl + '/manage/client/subscriptions?limit=20&offset=0'
+			url 	: regUrl + '/manage/client/subscriptions'
 		});
 	}
 
