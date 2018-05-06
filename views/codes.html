@@ -45,7 +45,7 @@
 				<div class="listing-column codes-gendate"><span>{!client_subscription.purchased_date !}</span></div>
 				<div class="listing-column codes-client" style="text-transform: uppercase;"><span>{! client_subscription.user.name ? client_subscription.user.name : '--'!}</span></div>
 				<div class="listing-column codes-expiry"><span>{!client_subscription.date_expired |  date : 'medium'!}</span></div>
-				<div class="listing-column codes-status"><span>{!client_subscription.status!}</span></div>
+				<div class="listing-column codes-status"><span>{!client_subscription.status | uppercase !}</span></div>
 				<div class="listing-options dropdown" ng-if ="user.role != 'customer'">
 					<a href="" data-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></a>
 					<ul class="dropdown-menu dropdown-menu-right">
@@ -112,16 +112,6 @@
 	      	<div class="col-container">
 	      		<div class="col4">
 	      			<div class="form-group">
-						<label for="birthMonth">Month</label>
-						<select class="form-control" id="Pmonthup" name = "month" ng-class="{'error-field' : subscription.errors.purchased_date}" >
-							<option disabled="disabled" selected="selected" ng-if="subscription.subscription.purchased_date == '--'">Month</option>
-							<option value="{!$index + 1!}" name="month" ng-repeat="month in months" ng-selected="checkIfSelected($index + 1, subscription.subscription.purchased_date | date:'M')">{!month!}</option>
-
-						</select>
-					</div>
-	      		</div>
-	      		<div class="col4">
-	      			<div class="form-group">
 						<label for="birthDate">Day</label>
 						<select class="form-control" id="Pdateup" name="day" ng-class="{'error-field' : subscription.errors.purchased_date}">
 							<option disabled="disabled" selected="selected" ng-if="subscription.subscription.purchased_date == '--'">Day</option>
@@ -130,6 +120,17 @@
 						</select>
 					</div>
 	      		</div>
+	      		<div class="col4">
+	      			<div class="form-group">
+						<label for="birthMonth">Month</label>
+						<select class="form-control" id="Pmonthup" name = "month" ng-class="{'error-field' : subscription.errors.purchased_date}" >
+							<option disabled="disabled" selected="selected" ng-if="subscription.subscription.purchased_date == '--'">Month</option>
+							<option value="{!$index + 1!}" name="month" ng-repeat="month in months" ng-selected="checkIfSelected($index + 1, subscription.subscription.purchased_date | date:'M')">{!month!}</option>
+
+						</select>
+					</div>
+	      		</div>
+	      		
 	      		<div class="col4">
 	      			<div class="form-group">
 						<label for="birthYear">Year</label>
@@ -145,6 +146,15 @@
 	      	<div class="col-container">
 	      		<div class="col4">
 	      			<div class="form-group">
+						<label for="birthDate">Day</label>
+						<select class="form-control" id="Edateup" name="day" ng-class="{'error-field' : subscription.errors.date_expired}">
+							<option value="{!day!}" ng-repeat="day in days" ng-repeat="month in months" ng-selected="checkIfSelected($index + 1, subscription.subscription.date_expired | date:'dd')">{!day!}</option>
+
+						</select>
+					</div>
+	      		</div>
+	      		<div class="col4">
+	      			<div class="form-group">
 						<label for="birthMonth">Month</label>
 						<select class="form-control" id="Emonthup" name = "month" ng-class="{'error-field' : subscription.errors.date_expired}" >
 							<option disabled="disabled" selected>Month</option>
@@ -153,15 +163,7 @@
 						</select>
 					</div>
 	      		</div>
-	      		<div class="col4">
-	      			<div class="form-group">
-						<label for="birthDate">Day</label>
-						<select class="form-control" id="Edateup" name="day" ng-class="{'error-field' : subscription.errors.date_expired}">
-							<option value="{!day!}" ng-repeat="day in days" ng-repeat="month in months" ng-selected="checkIfSelected($index + 1, subscription.subscription.date_expired | date:'dd')">{!day!}</option>
-
-						</select>
-					</div>
-	      		</div>
+	      		
 	      		<div class="col4">
 	      			<div class="form-group">
 						<label for="birthYear">Year</label>
@@ -221,16 +223,6 @@
 	      	<div class="col-container">
 	      		<div class="col4">
 	      			<div class="form-group">
-						<label for="birthMonth">Month</label>
-						<select class="form-control" id="aPmonthup" name = "month" ng-class="{'error-field' : subscription.errors.purchased_date}" >
-							<option disabled="disabled" selected="selected">Month</option>
-							<option value="{!$index + 1!}" name="month" ng-repeat="month in months">{!month!}</option>
-
-						</select>
-					</div>
-	      		</div>
-	      		<div class="col4">
-	      			<div class="form-group">
 						<label for="birthDate">Day</label>
 						<select class="form-control" id="aPdateup" name="day" ng-class="{'error-field' : subscription.errors.purchased_date}">
 							<option disabled="disabled" selected="selected">Day</option>
@@ -239,6 +231,17 @@
 						</select>
 					</div>
 	      		</div>
+	      		<div class="col4">
+	      			<div class="form-group">
+						<label for="birthMonth">Month</label>
+						<select class="form-control" id="aPmonthup" name = "month" ng-class="{'error-field' : subscription.errors.purchased_date}" >
+							<option disabled="disabled" selected="selected">Month</option>
+							<option value="{!$index + 1!}" name="month" ng-repeat="month in months">{!month!}</option>
+
+						</select>
+					</div>
+	      		</div>
+	      		
 	      		<div class="col4">
 	      			<div class="form-group">
 						<label for="birthYear">Year</label>
@@ -254,16 +257,6 @@
 	      	<div class="col-container">
 	      		<div class="col4">
 	      			<div class="form-group">
-						<label for="birthMonth">Month</label>
-						<select class="form-control" id="aEmonthup" name = "month" ng-class="{'error-field' : subscription.errors.date_expired}" >
-							<option disabled="disabled" selected>Month</option>
-							<option value="{!$index + 1!}" name="month" ng-repeat="month in months">{!month!}</option>
-
-						</select>
-					</div>
-	      		</div>
-	      		<div class="col4">
-	      			<div class="form-group">
 						<label for="birthDate">Day</label>
 						<select class="form-control" id="aEdateup" name="day" ng-class="{'error-field' : subscription.errors.date_expired}">
 							<option disabled="disabled" selected>Day</option>
@@ -272,6 +265,17 @@
 						</select>
 					</div>
 	      		</div>
+	      		<div class="col4">
+	      			<div class="form-group">
+						<label for="birthMonth">Month</label>
+						<select class="form-control" id="aEmonthup" name = "month" ng-class="{'error-field' : subscription.errors.date_expired}" >
+							<option disabled="disabled" selected>Month</option>
+							<option value="{!$index + 1!}" name="month" ng-repeat="month in months">{!month!}</option>
+
+						</select>
+					</div>
+	      		</div>
+	      		
 	      		<div class="col4">
 	      			<div class="form-group">
 						<label for="birthYear">Year</label>

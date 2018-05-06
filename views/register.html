@@ -43,15 +43,6 @@
 				      	<div class="col-container">
 				      		<div class="col4">
 				      			<div class="form-group">
-									<label for="birthMonth">Month</label>
-									<select class="form-control" id="birthMonth" name = "month" ng-class="{'error-field' : reg.errors.birth_date}" ng-model="reg.reg.birth_month">
-										<option value="{!$index + 1!}" name="month" ng-repeat="month in months">{!month!}</option>
-
-									</select>
-								</div>
-				      		</div>
-				      		<div class="col4">
-				      			<div class="form-group">
 									<label for="birthDate">Day</label>
 									<select class="form-control" id="birthDate" name="day" ng-class="{'error-field' : reg.errors.birth_date}" ng-model="reg.reg.birth_day">
 										<option value="{!day!}" ng-repeat="day in days" >{!day!}</option>
@@ -59,6 +50,16 @@
 									</select>
 								</div>
 				      		</div>
+				      		<div class="col4">
+				      			<div class="form-group">
+									<label for="birthMonth">Month</label>
+									<select class="form-control" id="birthMonth" name = "month" ng-class="{'error-field' : reg.errors.birth_date}" ng-model="reg.reg.birth_month">
+										<option value="{!$index + 1!}" name="month" ng-repeat="month in months">{!month!}</option>
+
+									</select>
+								</div>
+				      		</div>
+				      		
 				      		<div class="col4">
 				      			<div class="form-group">
 									<label for="birthYear">Year</label>
@@ -86,8 +87,25 @@
                     <span ng-if="reg.errors.c_password" class="error">{! reg.errors.c_password !}</span>
 				</div><!-- form-group -->
 			</div>
+			
 			<div class="row">
-				<div class="col-sm-12 col-md-12">
+				<div class="col-sm-6 col-md-6">
+					<span class="gender-label">Role</span>
+					<div class="col-md-12 col-sm-12">
+                        <label for="gender" class="radio-inline">
+                            <input type="radio" name="role" ng-model="reg.reg.role" ng-click="reg.checkRole(reg.reg.role)" value="doctor">Doctor
+                        </label>
+                        <label for="gender" class="radio-inline">
+                            <input type="radio" name="role" ng-model="reg.reg.role" ng-click="reg.checkRole(reg.reg.role)" value="customer">Customer
+                        </label>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                <span ng-if="reg.errors.role" class="error">{! reg.errors.role !}</span>
+                            </div>
+                        </div>
+                    </div>
+				</div>
+					<div class="col-sm-6 col-md-6">
 					<span class="gender-label">Gender</span>
 					<div class="col-md-12 col-sm-12">
                         <label for="gender" class="radio-inline">
@@ -105,8 +123,8 @@
 				</div>
 			</div>
 			<p class="register-support"><a href="">Need help? Contact support.</a></p>
-			<button type="button" class="btn btn-primary register-button" ng-if="onsubmit==0" ng-click="reg.submitRegister('doctor')">Create My New Account</button>
-			<button type="button" class="btn btn-primary register-button" ng-if="onsubmit==1" ng-click="reg.submitRegister('doctor')" disabled="disabled">Creating Account ...</button>
+			<button type="button" class="btn btn-primary register-button" ng-if="onsubmit==0" ng-click="reg.submitRegister()">Create My New Account</button>
+			<button type="button" class="btn btn-primary register-button" ng-if="onsubmit==1" ng-click="reg.submitRegister()" disabled="disabled">Creating Account ...</button>
 		</div><!-- register-body -->
 		<div class="register-footer">
 			<a href="/" class="btn btn-default register-register">Login Account</a>

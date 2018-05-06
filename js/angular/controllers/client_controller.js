@@ -359,6 +359,7 @@
 			self.validatePassword(self.reg.password);
 			self.validateConfirmPass(self.reg.c_password, 'confpassword');
 			self.checkGender(self.reg.gender);
+			self.checkRole(self.reg.role);
 			if(self.reg.birth_month <= 9){
 
 				month = '0'+self.reg.birth_month;
@@ -451,6 +452,14 @@
 				self.errors.gender = 'Gender is required';
 			} else {
 				return self.errors.gender = false;
+			}
+		}
+
+		self.checkRole = function(role) {
+			if(role == '' || role == undefined) {
+				self.errors.role = 'Role is required';
+			} else {
+				return self.errors.role = false;
 			}
 		}
 

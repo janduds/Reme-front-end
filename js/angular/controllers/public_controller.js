@@ -88,6 +88,15 @@
             }
         }
 
+        $scope.checkRole = function(role) {
+            if(role == '' || role == undefined) {
+                $scope.errors.role = 'Role is required';
+            } else {
+                return $scope.errors.role = false;
+            }
+        }
+
+
         $scope.submitLogin = function() {
             $scope.errors = {};
             $scope.validateEmail($scope.log_details.email);
@@ -570,6 +579,7 @@
             self.validatePassword(self.reg.password);
             self.validateConfirmPass(self.reg.c_password, 'confpassword');
             self.checkGender(self.reg.gender);
+            self.checkRole(self.reg.role);
             var month,day,year;
             if(self.reg.birth_month <= 9){
                 month = '0'+self.reg.birth_month;
@@ -592,7 +602,7 @@
                 self.reg.profession_type = 1;
                 self.reg.group_type = 1;
                 self.reg.user_type = 1;
-                self.reg.role = 'doctor';
+                self.reg.role = self.reg.role;
                 self.reg.age = 23;
                 $scope.onsubmit = 1;
                 publicApiService.register(self.reg, self.base_url).then(function(res) {
@@ -665,6 +675,14 @@
                 return self.errors.gender = false;
             }
         }
+
+         self.checkRole = function(role) {
+            if(role == '' || role == undefined) {
+               self.errors.role = 'Role is required';
+            } else {
+                return $scope.errors.role = false;
+            }
+        }   
 
         self.isValidDate = function(dateString) {
           console.log(dateString);

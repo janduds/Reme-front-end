@@ -63,8 +63,8 @@
 				<div class="listing-column client-name"><span>{!client.name | uppercase!}</span></div>
 				<div class="listing-column client-birthdate"><span>{!client.birth_date | date:'MMM. dd, yyyy'!}</span></div>
 				<div class="listing-column client-age"><span>{!client.age!}</span></div>
-				<div class="listing-column client-gender"><span>{!client.gender!}</span></div>
-				<div class="listing-column client-category"><span>{!client.role!}</span></div>
+				<div class="listing-column client-gender"><span>{!client.gender |uppercase !}</span></div>
+				<div class="listing-column client-category"><span>{!client.role |uppercase !}</span></div>
 				<div class="listing-options dropdown">
 					<a href="" data-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></a>
 					<ul class="dropdown-menu dropdown-menu-right">
@@ -126,15 +126,6 @@
 	      	<div class="col-container">
 	      		<div class="col4">
 	      			<div class="form-group">
-						<label for="birthMonth">Month</label>
-						<select class="form-control" id="birthMonth" name = "month" ng-class="{'error-field' : client.errors.birth_date}" ng-model="client.reg.birth_month">
-							<option value="{!$index + 1!}" name="month" ng-repeat="month in months">{!month!}</option>
-
-						</select>
-					</div>
-	      		</div>
-	      		<div class="col4">
-	      			<div class="form-group">
 						<label for="birthDate">Day</label>
 						<select class="form-control" id="birthDate" name="day" ng-class="{'error-field' : client.errors.birth_date}" ng-model="client.reg.birth_day">
 							<option value="{!day!}" ng-repeat="day in days" >{!day!}</option>
@@ -142,6 +133,16 @@
 						</select>
 					</div>
 	      		</div>
+	      		<div class="col4">
+	      			<div class="form-group">
+						<label for="birthMonth">Month</label>
+						<select class="form-control" id="birthMonth" name = "month" ng-class="{'error-field' : client.errors.birth_date}" ng-model="client.reg.birth_month">
+							<option value="{!$index + 1!}" name="month" ng-repeat="month in months">{!month!}</option>
+
+						</select>
+					</div>
+	      		</div>
+	      		
 	      		<div class="col4">
 	      			<div class="form-group">
 						<label for="birthYear">Year</label>
@@ -162,18 +163,19 @@
 	                                <span ng-if="client.errors.email" class="error">{! client.errors.email !}</span>
 			      		</div>
 		      		</div>
-	      		</div>
-	      		<div class="col4">
+		      		<div class="col4">
 	      			<div class="form-group">
 						<label for="clientGeneder">Gender</label>
-						<select class="form-control" id="clientGender" ng-model="client.reg.gender">
+						<select class="form-control"  ng-class="{'error-field' : client.errors.gender}" id="clientGender" ng-model="client.reg.gender">
 							<option value="female">Female</option>
 							<option value="male">Male</option>
 						</select>
 						<span ng-if="client.errors.gender" class="error">{! client.errors.gender !}</span>
 					</div>
 	      		</div>
-	      		<div class="col8">
+	      		</div>
+	      		
+	      		<div class="col8 hidden">
 	      			<div class="form-group">
 						<label for="codeAllocate">Code Allocate</label>
 						<select class="form-control" id="codeAllocate">
@@ -203,8 +205,8 @@
 					</div><!-- form-group -->
 	      		</div>
 	      	</div>
-	      	<h4 class="form-sectitle"><span>Assign Group</span></h4>
-	      	<ul class="form-grouplist">
+	      	<h4 class="form-sectitle hidden" ><span>Assign Group</span></h4>
+	      	<ul class="form-grouplist hidden">
 				<li class="custom-checkbox">
 					<input type="checkbox" name="" id="check1">
 					<label for="check1"><span>Pellentesque Fauci</span></label>

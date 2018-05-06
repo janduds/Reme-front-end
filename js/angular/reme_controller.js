@@ -401,6 +401,14 @@ function remeController($scope, apiService, $state) {
 		}
 	}
 
+	$scope.checkRole = function(role) {
+		if(role == '' || role == undefined) {
+			$scope.errors.role = 'Role is required';
+		} else {
+			return $scope.errors.role = false;
+		}
+	}
+
 	$scope.isValidDate = function(dateString) {
 	  var regEx = /^\d{4}-\d{2}-\d{2}$/;
 	  if(dateString.match(regEx) != null) {
