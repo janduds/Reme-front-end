@@ -613,6 +613,7 @@
                         angular.forEach(res.data.errors, function(value, key) {
                             self.errors[value.field] = value.message;
                         })
+                        $scope.onsubmit = 0;
                         // $scope.errors = res.data.errors;
                     }
                 }).catch(function(res){
