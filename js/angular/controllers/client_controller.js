@@ -359,7 +359,6 @@
 			self.validatePassword(self.reg.password);
 			self.validateConfirmPass(self.reg.c_password, 'confpassword');
 			self.checkGender(self.reg.gender);
-			self.checkRole(self.reg.role);
 			if(self.reg.birth_month <= 9){
 
 				month = '0'+self.reg.birth_month;
@@ -370,14 +369,16 @@
 			self.isValidDate(self.reg.birth_date);
 
 
-
 			var err = $.map(self.errors, function(e) {
+				console.log(e);
 				if(e != false) {
 					return e;
 				}
 			});
+			console.log(self.errors,'erros');
 
 			if(err.length == 0) {
+				
 				// temporarily set static values
 				self.reg.profession_type = 1;
 				self.reg.group_type = 1;
@@ -389,6 +390,7 @@
 						self.success = 'Client successfully added.'
 						$('#newClient').animate({scrollTop:0}, 'slow');
 						$scope.getClientList();
+						self.reg = [];
 					} else if(res.data.errors) {
 						angular.forEach(res.data.errors, function(value, key) {
 							self.errors[value.field] = value.message;
