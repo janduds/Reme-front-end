@@ -1,0 +1,504 @@
+<div class="page-heading">
+	<div class="colleft">
+		<div class="canvas">
+					<h3 class="searchfilter-title">Search Filter</h3>
+					<div class="searchfilter-container">
+						<div class="col-container">
+							<div class="col6">
+								<div class="form-group">
+									<label for="">Category</label>
+									<select class="form-control" id = "category" ng-change="filterCategory()" ng-model="filter_category">
+										<option value="">--</option>
+										<option value="customer">CUSTOMER</option>
+										<option value="doctor">DOCTOR</option>
+									</select>
+								</div><!-- form-group -->
+							</div>
+							<div class="col6">
+								<div class="form-group">
+									<label for="">Gender</label>
+									<select class="form-control" id = "gender" ng-change="filterGender()" ng-model="gender">
+										<option value="">--</option>
+										<option value="male">Male</option>
+										<option value="female">Female</option>
+									</select>
+								</div><!-- form-group -->
+							</div>
+						</div><!-- col-container -->
+						<div class="col-container">
+							<div class="col12">
+								<div class="form-group">
+									<label for="">Search</label>
+									<input type="text" name="" value="" ng-model="client_name" class="form-control" id="name" placeholder="Enter keyword here..." />
+								</div><!-- form-group -->
+							</div><!-- col12 -->
+						</div><!-- col-container -->
+					</div><!-- searchfilter-container -->
+				</div><!-- canvas -->
+	</div><!-- colleft -->
+	<div class="colright">
+		<h3 class="page-title">Clients</h3>
+		<p class="page-description"></p>
+		<a href="" class="btn btn-primary" data-toggle="modal" data-target="#newClient" ng-click="errors = {}">
+			<i class="fa fa-user-plus fa-left-sm"></i>New Client
+		</a>
+	</div>
+</div>
+<div class="listing-container listing-client iconed optioned">
+	<div class="listing-header">
+		<div class="wrapper">
+			<div class="listing-column client-name"><span>Name<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+			<div class="listing-column client-birthdate"><span>birthdate<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+			<div class="listing-column client-age"><span>age<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+			<div class="listing-column client-gender"><span>gender<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+			<div class="listing-column client-category"><span>category<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+		</div>
+	</div>
+	<ul class="listing-items">
+		<li ng-repeat ="client in client_list | filter:filterByCustomer() | filter: {'name' : client_name} | filter: {'role' : filter_cat} | filter: {'gender' : filter_gender} track by $index" ng-hide = "client.archive == 1" >
+			<div class="wrapper">
+				<figure class="listing-user" style="background-image:url('/images/user-default.png');">
+					<img src="/images/user-default.png" alt="" />
+				</figure>
+				<div class="listing-column client-name"><span>{!client.name | uppercase!}</span></div>
+				<div class="listing-column client-birthdate"><span>{!client.birth_date | date:'MMM. dd, yyyy'!}</span></div>
+				<div class="listing-column client-age"><span>{!client.age!}</span></div>
+				<div class="listing-column client-gender"><span>{!client.gender |uppercase !}</span></div>
+				<div class="listing-column client-category"><span>{!client.role |uppercase !}</span></div>
+				<div class="listing-options dropdown">
+					<a href="" data-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></a>
+					<ul class="dropdown-menu dropdown-menu-right">
+						<li><a href="" data-toggle="modal" data-target="#updateClient" ng-click="viewCustomer(client.original_index)">Edit</a></li>
+						<li><a href="" data-toggle="modal" data-target="#viewClient" ng-click="viewCustomer(client.original_index)">View Profile</a></li>
+						<li><a href="" ng-click="archiveUser(client.original_index,1)" >Archive</a></li>
+					</ul>
+				</div>
+			</div><!-- wrapper -->
+		</li>
+		<li >
+			<div class="wrapper loader-head">
+				<div class="listing-column client-name loader"></div>
+				
+			</div><!-- wrapper -->
+		</li>
+	</ul>
+</div>
+	<!-- MODALS -->
+	<div id="newClient" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">New Client</h4>
+	        <p class="modal-description">A small description for this form. lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tristique consequat arcu, vitae finibus.</p>
+	      </div>
+	      <div class="modal-body">
+	      	<div class="alert alert-success fade in" ng-if="client.success">
+		        <a href="#" class="close" data-dismiss="alert">&times;</a>
+		        <strong>Success!</strong> {! client.success !}
+		    </div>
+	      	<h4 class="form-sectitle"><span>Complete Name</span></h4>
+	      	<div class="col-container">
+	      		<div class="col6">
+	      			<div class="form-group">
+						<label for="firstName">First Name</label>
+						<input type="text" class="form-control" id="firstName" ng-class="{'error-field' : client.errors.first_name}" ng-model="client.reg.first_name" ng-change="client.requiredValidator(client.reg.first_name, 'first_name')" required>
+                            <span ng-if="client.errors.first_name" class="error">{! client.errors.first_name !}</span>
+					</div>
+	      		</div>
+	      		<!-- <div class="col4">
+	      			<div class="form-group">
+						<label for="middleName">Middle Name</label>
+						<input type="text" class="form-control" id="middleName">
+					</div>
+	      		</div> -->
+	      		<div class="col6">
+	      			<div class="form-group">
+						<label for="lastName">Last Name</label>
+						<input type="text" class="form-control" id="lastName" ng-class="{'error-field' : client.errors.last_name}" ng-model="client.reg.last_name" ng-change="client.requiredValidator(client.reg.last_name, 'last_name')" required>
+                            <span ng-if="client.errors.last_name" class="error">{! client.errors.last_name !}</span>
+					</div>
+	      		</div>
+	      	</div>
+	      	<h4 class="form-sectitle"><span>Birthdate</span></h4>
+	      	<div class="col-container">
+	      		<div class="col4">
+	      			<div class="form-group">
+						<label for="birthDate">Day</label>
+						<select class="form-control" id="birthDate" name="day" ng-class="{'error-field' : client.errors.birth_date}" ng-model="client.reg.birth_day">
+							<option value="{!day!}" ng-repeat="day in days" >{!day!}</option>
+
+						</select>
+					</div>
+	      		</div>
+	      		<div class="col4">
+	      			<div class="form-group">
+						<label for="birthMonth">Month</label>
+						<select class="form-control" id="birthMonth" name = "month" ng-class="{'error-field' : client.errors.birth_date}" ng-model="client.reg.birth_month">
+							<option value="{!$index + 1!}" name="month" ng-repeat="month in months">{!month!}</option>
+
+						</select>
+					</div>
+	      		</div>
+	      		
+	      		<div class="col4">
+	      			<div class="form-group">
+						<label for="birthYear">Year</label>
+						<select class="form-control" id="birthYear" ng-class="{'error-field' : client.errors.birth_date}" ng-model="client.reg.birth_year">
+							<option value="{!year!}" name="year"  ng-repeat="year in years" ">{!year!}</option>
+						</select>
+					</div>
+	      		</div>
+	      		<span ng-if="client.errors.birth_date" class="padded-5 error">{!client.errors.birth_date !}</span>
+	  		</div>
+	  		<h4 class="form-sectitle"><span>Others</span></h4>
+	      	<div class="col-container">
+	      		<div class="row">
+	      			<div class="col-sm-6 col-md-6">
+		      			<div class="form-group">
+			      			<label for="email">Email</label>
+			      			<input type="text" class="form-control" id="email" ng-class="{'error-field' : client.errors.email}" ng-model="client.reg.email" ng-change="client.validateEmail(client.reg.email)" required>
+	                                <span ng-if="client.errors.email" class="error">{! client.errors.email !}</span>
+			      		</div>
+		      		</div>
+		      		<div class="col4">
+	      			<div class="form-group">
+						<label for="clientGeneder">Gender</label>
+						<select class="form-control"  ng-class="{'error-field' : client.errors.gender}" id="clientGender" ng-model="client.reg.gender">
+							<option value="female">Female</option>
+							<option value="male">Male</option>
+						</select>
+						<span ng-if="client.errors.gender" class="error">{! client.errors.gender !}</span>
+					</div>
+	      		</div>
+	      		</div>
+	      		
+	      		<div class="col8 hidden">
+	      			<div class="form-group">
+						<label for="codeAllocate">Code Allocate</label>
+						<select class="form-control" id="codeAllocate">
+							<option value="">13456789</option>
+							<option value="">28765434</option>
+							<option value="">33456789</option>
+							<option value="">44567890</option>
+							<option value="">55654332</option>
+						</select>
+					</div>
+	      		</div>
+
+	      	</div>
+	      	<div class="row">
+	      		<div class="col-sm-6 col-md-6">
+	      			<div class="form-group">
+						<label for="passWord">Password</label>
+						<input type="password" name="" value="" class="form-control" id="passWord" ng-class="{'error-field' : client.errors.password}" ng-model="client.reg.password" ng-change="client.validatePassword(client.reg.password)" required>
+                        <span ng-if="client.errors.password" class="error">{! client.errors.password !}</span>
+					</div><!-- form-group -->
+	      		</div>
+	      		<div class="col-sm-6 col-md-6">
+	      			<div class="form-group">
+						<label for="confirmPassword">Confirm Password</label>
+						<input type="password" name="" value="" class="form-control" id="confirmPassword" ng-class="{'error-field' : client.errors.c_password}" ng-model="client.reg.c_password" ng-change="client.validateConfirmPass(client.reg.c_password)"required>
+                        <span ng-if="client.errors.c_password" class="error">{! client.errors.c_password !}</span>
+					</div><!-- form-group -->
+	      		</div>
+	      	</div>
+	      	<h4 class="form-sectitle hidden" ><span>Assign Group</span></h4>
+	      	<ul class="form-grouplist hidden">
+				<li class="custom-checkbox">
+					<input type="checkbox" name="" id="check1">
+					<label for="check1"><span>Pellentesque Fauci</span></label>
+				</li>
+				<li class="custom-checkbox">
+					<input type="checkbox" name="" id="check2">
+					<label for="check2"><span>Curabitur Eget</span></label>
+				</li>
+				<li class="custom-checkbox">
+					<input type="checkbox" name="" id="check3">
+					<label for="check3"><span>Tristique Senectus</span></label>
+				</li>
+				<li class="custom-checkbox">
+					<input type="checkbox" name="" id="check4">
+					<label for="check4"><span>Pellentesque Fauci</span></label>
+				</li>
+				<li class="custom-checkbox">
+					<input type="checkbox" name="" id="check5">
+					<label for="check5"><span>Pellentesque Fauci</span></label>
+				</li>
+	      		<li class="custom-checkbox">
+	      			<input type="checkbox" name="" id="check6">
+	      			<label for="check6"><span>Pellentesque Fauci</span></label>
+	      		</li>
+	      		<li class="custom-checkbox">
+	      			<input type="checkbox" name="" id="check7">
+	      			<label for="check7"><span>Pellentesque Fauci</span></label>
+	      		</li>
+	      		<li class="custom-checkbox">
+	      			<input type="checkbox" name="" id="check8">
+	      			<label for="check8"><span>Pellentesque Fauci</span></label>
+	      		</li>
+	      		<li class="custom-checkbox">
+	      			<input type="checkbox" name="" id="check9">
+	      			<label for="check9"><span>Pellentesque Fauci</span></label>
+	      		</li>
+				<li class="custom-checkbox">
+	      			<input type="checkbox" name="" id="check10">
+	      			<label for="check10"><span>Pellentesque Fauci</span></label>
+	      		</li>
+	      	</ul>
+	      	<div class="col-container">
+	      		<div class="col12">
+	      			<div class="form-group">
+						<label for="clientnotes">Notes (Professional Users Comments)</label>
+						<textarea class="form-control" id="clientnotes"></textarea>
+					</div>
+	      		</div>
+	      	</div>
+	      </div>
+	      <div class="modal-footer">
+	      	<a href="" class="btn btn-primary" ng-click="client.submitRegister()">Save</a>
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div><!-- model-content -->
+
+
+	    	
+
+
+	  </div>
+	</div>
+
+	<!-- MODALS  for viewing of client--> 
+		<div id="viewClient" class="modal fade" role="dialog">
+		  <div class="modal-dialog">
+
+		    <!-- Modal content-->
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal">&times;</button>
+		        <h4 class="modal-title">View Client</h4>
+		       <!--  <p class="modal-description"></p> -->
+		      </div>
+		      <div class="modal-body">
+		      	<h4 class="form-sectitle"><span>Complete Name</span></h4>
+		      	<div class="col-container">
+		      		<div class="col4">
+		      			<div class="form-group">
+							<label for="firstName">First Name</label>
+							{!customer.first_name | uppercase!}
+						</div>
+		      		</div>
+		      		<!-- <div class="col4">
+		      			<div class="form-group">
+							<label for="middleName">Middle Name</label>
+							<input type="text" class="form-control" id="middleName">
+						</div>
+		      		</div> -->
+		      		<div class="col4">
+		      			<div class="form-group">
+							<label for="lastName">Last Name</label>
+							{!customer.last_name | uppercase!}
+						</div>
+		      		</div>
+		      	</div>
+		      	<h4 class="form-sectitle"><span>Birthdate</span></h4>
+		      	<div class="col-container">
+		      		<div class="col4">
+		      			<div class="form-group">
+							<label for="birthMonth">Month</label>
+							{!customer.birth_date | date:'MMMM'!}
+						</div>
+		      		</div>
+		      		<div class="col4">
+		      			<div class="form-group">
+							<label for="birthDate">Day</label>
+							{!customer.birth_date | date:'dd'!}
+						</div>
+		      		</div>
+		      		<div class="col4">
+		      			<div class="form-group">
+							<label for="birthYear">Year</label>
+							{!customer.birth_date | date:'yyyy'!}
+						</div>
+		      		</div>
+		      	</div>
+		      	<h4 class="form-sectitle"><span>Other Details</span></h4>
+		      	<div class="col-container">
+		      		<div class="col4">
+		      			<div class="form-group">
+							<label for="clientGeneder">Gender</label>
+							{!customer.gender | date:'yyyy'!}
+						</div>
+		      		</div>
+		      	</div>
+		      
+		      <!-- 	<div class="col-container">
+		      		<div class="col12">
+		      			<div class="form-group">
+							<label for="clientnotes">Notes (Professional Users Comments)</label>
+							<textarea class="form-control" id="clientnotes"></textarea>
+						</div>
+		      		</div>
+		      	</div>
+		      </div>
+		      <div class="modal-footer">
+		      	<a href="" class="btn btn-primary">Save</a>
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		      </div> -->
+		    </div><!-- model-content -->
+		    </div>
+		    </div>
+		    </div>
+
+		   
+
+
+
+		    <!-- MODALS  for update of client--> 
+		<div id="updateClient" class="modal fade" role="dialog">
+		  <div class="modal-dialog">
+
+		    <!-- Modal content-->
+		     <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Update Client</h4>
+	        <p class="modal-description">For the client to update his/her profile.</p>
+	      </div>
+	      <div class="modal-body">
+	      	<h4 class="form-sectitle"><span>Complete Name</span></h4>
+	      	<form name="update">
+	      	<div class="col-container">
+
+	      		<div class="col4">
+	      			<div class="form-group">
+						<label for="firstName">First Name</label>
+						<input type="text" class="form-control"  id="firstName" ng-model = "customer.first_name" ng-class="{'error-field' : errors.first_name}" ng-change="requiredValidator(customer.first_name, 'first_name')" required>
+						<span ng-if="errors.first_name" class="error">{!errors.first_name !}</span>
+					</div>
+	      		</div>
+	      		<div class="col4">
+	      			<!-- <div class="form-group">
+						<label for="middleName">Middle Name</label>
+						<input type="text" class="form-control" id="middleName" ng-model = "user.middle_name">
+					</div> -->
+	      		</div>
+	      		<div class="col4">
+	      			<div class="form-group">
+						<label for="lastName">Last Name</label>
+						<input type="text" class="form-control" id="lastName" name="last_name" ng-model = "customer.last_name" ng-class="{'error-field' : errors.last_name}" ng-change="requiredValidator(customer.last_name, 'last_name')" required>
+						
+						<span ng-if="errors.last_name" class="error">{!errors.last_name !}</span>
+					</div>
+	      		</div>
+	      	</div>
+	      	<h4 class="form-sectitle"><span>Birthdate</span></h4>
+	      	<div class="col-container">
+	      		<div class="col4">
+	      			<div class="form-group">
+						<label for="birthMonth">Month</label>
+						<select class="form-control" id="Monthup" name = "month" ng-class="{'error-field' : errors.birth_date}" >
+							<option value="{!$index + 1!}" name="month" ng-repeat="month in months" ng-selected="checkIfSelected($index + 1,customer.birth_date | date:'M')"  >{!month!}</option>
+
+						</select>
+					</div>
+	      		</div>
+	      		<div class="col4">
+	      			<div class="form-group">
+						<label for="birthDate">Day</label>
+						<select class="form-control" id="Dateup" name="day" ng-class="{'error-field' : errors.birth_date}">
+							<option value="{!day!}" ng-repeat="day in days"  ng-selected="checkIfSelected(day,customer.birth_date | date:'dd')"  >{!day!}</option>
+
+						</select>
+					</div>
+	      		</div>
+	      		<div class="col4">
+	      			<div class="form-group">
+						<label for="birthYear">Year</label>
+						<select class="form-control" id="Yearup" ng-class="{'error-field' : errors.birth_date}">
+							<option value="{!year!}" name="year"  ng-repeat="year in years"  ng-selected="checkIfSelected(year,customer.birth_date | date:'yyyy')">{!year!}</option>
+						</select>
+					</div>
+	      		</div>
+	      		<span ng-if="errors.birth_date" class="padded-10 error">{!errors.birth_date !}</span>
+	      	</div>
+	      	<h4 class="form-sectitle"><span>Other Details</span></h4>
+	      	<div class="col-container">
+	      		<div class="col4">
+	      			<div class="form-group">
+						<label for="clientGeneder">Gender</label>
+						<select ng-model="customer.gender" class="capitalize" ng-options="gender for gender in genders" ng-class="{'error-field' : errors.gender}" ng-change="checkGender(customer.gender)" required></select>
+						<span ng-if="errors.gender" class="error" >{!errors.gender !}</span>
+					</div>
+	      		</div>
+	      		<div class="col8">
+	      			<div class="form-group" ng-hide = "true ">
+						<label for="codeAllocate">Code Allocate</label>
+						<select class="form-control" id="codeAllocate">
+							<option value="">13456789</option>
+							<option value="">28765434</option>
+							<option value="">33456789</option>
+							<option value="">44567890</option>
+							<option value="">55654332</option>
+						</select>
+					</div>
+	      		</div>
+	      	</div>
+	      	<h4 class="form-sectitle" ng-hide = "true "><span>Assign Group</span></h4>
+	      	<ul class="form-grouplist" ng-hide = "true ">
+				<li class="custom-checkbox">
+					<input type="checkbox" name="" id="check1">
+					<label for="check1"><span>Pellentesque Fauci</span></label>
+				</li>
+				<li class="custom-checkbox">
+					<input type="checkbox" name="" id="check2">
+					<label for="check2"><span>Curabitur Eget</span></label>
+				</li>
+				<li class="custom-checkbox">
+					<input type="checkbox" name="" id="check3">
+					<label for="check3"><span>Tristique Senectus</span></label>
+				</li>
+				<li class="custom-checkbox">
+					<input type="checkbox" name="" id="check4">
+					<label for="check4"><span>Pellentesque Fauci</span></label>
+				</li>
+				<li class="custom-checkbox">
+					<input type="checkbox" name="" id="check5">
+					<label for="check5"><span>Pellentesque Fauci</span></label>
+				</li>
+	      		<li class="custom-checkbox">
+	      			<input type="checkbox" name="" id="check6">
+	      			<label for="check6"><span>Pellentesque Fauci</span></label>
+	      		</li>
+	      		<li class="custom-checkbox">
+	      			<input type="checkbox" name="" id="check7">
+	      			<label for="check7"><span>Pellentesque Fauci</span></label>
+	      		</li>
+	      		<li class="custom-checkbox">
+	      			<input type="checkbox" name="" id="check8">
+	      			<label for="check8"><span>Pellentesque Fauci</span></label>
+	      		</li>
+	      		<li class="custom-checkbox">
+	      			<input type="checkbox" name="" id="check9">
+	      			<label for="check9"><span>Pellentesque Fauci</span></label>
+	      		</li>
+				<li class="custom-checkbox">
+	      			<input type="checkbox" name="" id="check10">
+	      			<label for="check10"><span>Pellentesque Fauci</span></label>
+	      		</li>
+
+
+	      	</ul>
+	      	
+	      </div>
+	      </form>
+	      <div class="modal-footer">
+	      	<a href="" class="btn btn-primary" ng-click="updateClientByOwner()" ng-if="!saving">Save</a>
+	      	<a href="" class="btn btn-primary" ng-if="saving">Saving...</a>
+	        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancelByOwner()">Close</button>
+	      </div>
+	    </div><!-- model-content -->
+		    </div>
+		    </div>
