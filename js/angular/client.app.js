@@ -63,6 +63,12 @@ function config($stateProvider, $urlRouterProvider, $interpolateProvider, $httpP
         	controller: 'SubscriptionController',
         	controllerAs: 'subscription'
         })
+        .state('musics', {
+            url: '/musics',
+            templateUrl: '/views/musics.html',
+            controller: 'musicController',
+            controllerAs: 'music'
+        })
         .state('archive', {
         	url: '/archive',
         	templateUrl: '/views/archive.html',
