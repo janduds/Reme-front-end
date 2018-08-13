@@ -1,0 +1,227 @@
+<div class="main-content">
+	<h4 class="form-sectitle sectitle-bold"><span>Complete Name</span></h4>
+  	<div class="col-container">
+  		<div class="col6">
+  			<div class="form-group">
+				<label for="firstName">First Name</label>
+				{!user.first_name | uppercase!}
+			</div>
+  		</div>
+  		<div class="col6">
+  			<div class="form-group">
+				<label for="lastName">Last Name</label>
+				{!user.last_name | uppercase!}
+			</div>
+  		</div>
+  	</div>
+  	<h4 class="form-sectitle sectitle-bold"><span>Email Address</span></h4>
+  	<div class="col-container">
+  		<div class="col6">
+  			<div class="form-group">
+				<label for="birthMonth">Email</label>
+				{!user.email!} &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-primary btn-xs hidden" data-toggle="modal" data-target="#newClient" >new</button>
+
+			</div>
+			
+
+  		</div>
+  		
+  		
+  	</div>
+  	<h4 class="form-sectitle sectitle-bold"><span>Birthdate</span></h4>
+  	<div class="col-container">
+  		<div class="col4">
+  			<div class="form-group">
+				<label for="birthMonth">Month</label>
+				{!user.birth_date | date:'MMMM'!}
+			</div>
+  		</div>
+  		<div class="col4">
+  			<div class="form-group">
+				<label for="birthDate">Day</label>
+				{!user.birth_date | date:'dd'!}
+			</div>
+  		</div>
+  		<div class="col4">
+  			<div class="form-group">
+				<label for="birthYear">Year</label>
+				{!user.birth_date | date:'yyyy'!}
+			</div>
+  		</div>
+  	</div>
+  	<h4 class="form-sectitle sectitle-bold"><span>Other Details</span></h4>
+  	<div class="col-container">
+  		<div class="col4">
+  			<div class="form-group">
+				<label for="birthMonth">Gender</label>
+				{!user.gender | uppercase!}
+			</div>
+  		</div>
+  		<div class="col4">
+  			<div class="form-group">
+				<label for="birthDate">Code</label>
+				12344
+			</div>
+  		</div>
+  		<div class="col4">
+  			<div class="form-group">
+				<label for="birthYear">Assigned Group</label>
+				Professional
+			</div>
+  		</div>
+  	</div>
+</div>
+<div class="col-container">
+<div class="update-button">
+	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newClient">Update</button>
+</div>
+
+</div>
+<!-- MODALS -->
+<div id="newClient" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Update Client</h4>
+        <p class="modal-description">For the client to update his/her profile.</p>
+      </div>
+      <div class="modal-body">
+      	<h4 class="form-sectitle"><span>Complete Name</span></h4>
+      	<form name="update">
+      	<div class="col-container">
+
+      		<div class="col4">
+      			<div class="form-group">
+					<label for="firstName">First Name</label>
+					<input type="text" class="form-control"  id="firstName" ng-model = "profile.user.first_name" ng-class="{'error-field' : errors.first_name}" ng-change="requiredValidator(profile.user.first_name, 'first_name')" required>
+					<span ng-if="errors.first_name" class="error">{!errors.first_name !}</span>
+				</div>
+      		</div>
+      		<div class="col4">
+      			<!-- <div class="form-group">
+					<label for="middleName">Middle Name</label>
+					<input type="text" class="form-control" id="middleName" ng-model = "user.middle_name">
+				</div> -->
+      		</div>
+      		<div class="col4">
+      			<div class="form-group">
+					<label for="lastName">Last Name</label>
+					<input type="text" class="form-control" id="lastName" name="last_name" ng-model = "profile.user.last_name" ng-class="{'error-field' : errors.last_name}" ng-change="requiredValidator(profile.user.last_name, 'last_name')" required>
+					
+					<span ng-if="errors.last_name" class="error">{!errors.last_name !}</span>
+				</div>
+      		</div>
+      	</div>
+      	<h4 class="form-sectitle"><span>Birthdate</span></h4>
+      	<div class="col-container">
+      		<div class="col4">
+      			<div class="form-group">
+					<label for="birthMonth">Month</label>
+					<select class="form-control" id="birthMonth" name = "month" ng-class="{'error-field' : errors.birth_date}" >
+						<option value="{!$index + 1!}" name="month" ng-repeat="month in months" ng-selected="checkIfSelected($index + 1,user.birth_date | date:'M')"  >{!month!}</option>
+
+					</select>
+				</div>
+      		</div>
+      		<div class="col4">
+      			<div class="form-group">
+					<label for="birthDate">Day</label>
+					<select class="form-control" id="birthDate" name="day" ng-class="{'error-field' : errors.birth_date}">
+						<option value="{!day!}" ng-repeat="day in days"  ng-selected="checkIfSelected(day,user.birth_date | date:'dd')"  >{!day!}</option>
+
+					</select>
+				</div>
+      		</div>
+      		<div class="col4">
+      			<div class="form-group">
+					<label for="birthYear">Year</label>
+					<select class="form-control" id="birthYear" ng-class="{'error-field' : errors.birth_date}">
+						<option value="{!year!}" name="year"  ng-repeat="year in years"  ng-selected="checkIfSelected(year,user.birth_date | date:'yyyy')">{!year!}</option>
+					</select>
+				</div>
+      		</div>
+      		<span ng-if="errors.birth_date" class="padded-10 error">{!errors.birth_date !}</span>
+      	</div>
+      	<h4 class="form-sectitle"><span>Other Details</span></h4>
+      	<div class="col-container">
+      		<div class="col4">
+      			<div class="form-group">
+					<label for="clientGeneder">Gender</label>
+					<select ng-model="profile.user.gender" class="capitalize" ng-options="gender for gender in genders" ng-class="{'error-field' : errors.gender}" ng-change="checkGender(profile.user.gender)" required></select>
+					<span ng-if="errors.gender" class="error" >{!errors.gender !}</span>
+				</div>
+      		</div>
+      		<div class="col8">
+      			<div class="form-group" ng-hide = "true ">
+					<label for="codeAllocate">Code Allocate</label>
+					<select class="form-control" id="codeAllocate">
+						<option value="">13456789</option>
+						<option value="">28765434</option>
+						<option value="">33456789</option>
+						<option value="">44567890</option>
+						<option value="">55654332</option>
+					</select>
+				</div>
+      		</div>
+      	</div>
+      	<h4 class="form-sectitle" ng-hide = "true "><span>Assign Group</span></h4>
+      	<ul class="form-grouplist" ng-hide = "true ">
+			<li class="custom-checkbox">
+				<input type="checkbox" name="" id="check1">
+				<label for="check1"><span>Pellentesque Fauci</span></label>
+			</li>
+			<li class="custom-checkbox">
+				<input type="checkbox" name="" id="check2">
+				<label for="check2"><span>Curabitur Eget</span></label>
+			</li>
+			<li class="custom-checkbox">
+				<input type="checkbox" name="" id="check3">
+				<label for="check3"><span>Tristique Senectus</span></label>
+			</li>
+			<li class="custom-checkbox">
+				<input type="checkbox" name="" id="check4">
+				<label for="check4"><span>Pellentesque Fauci</span></label>
+			</li>
+			<li class="custom-checkbox">
+				<input type="checkbox" name="" id="check5">
+				<label for="check5"><span>Pellentesque Fauci</span></label>
+			</li>
+      		<li class="custom-checkbox">
+      			<input type="checkbox" name="" id="check6">
+      			<label for="check6"><span>Pellentesque Fauci</span></label>
+      		</li>
+      		<li class="custom-checkbox">
+      			<input type="checkbox" name="" id="check7">
+      			<label for="check7"><span>Pellentesque Fauci</span></label>
+      		</li>
+      		<li class="custom-checkbox">
+      			<input type="checkbox" name="" id="check8">
+      			<label for="check8"><span>Pellentesque Fauci</span></label>
+      		</li>
+      		<li class="custom-checkbox">
+      			<input type="checkbox" name="" id="check9">
+      			<label for="check9"><span>Pellentesque Fauci</span></label>
+      		</li>
+			<li class="custom-checkbox">
+      			<input type="checkbox" name="" id="check10">
+      			<label for="check10"><span>Pellentesque Fauci</span></label>
+      		</li>
+      	</ul>
+      	
+      </div>
+      </form>
+      <div class="modal-footer">
+      	<a href="" class="btn btn-primary" ng-click="profile.updateClient()">Save</a>
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="profile.cancel()">Close</button>
+      </div>
+    </div><!-- model-content -->
+
+
+
+
+  <!--   <div class="loading" ng-hide= "loader_hide == true">
+	  <p><img src="images/giphy.gif" /></p>
+	</div> -->

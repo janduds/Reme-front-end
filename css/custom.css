@@ -1,0 +1,126 @@
+.error-field {
+	border-color: #e47b7b !important;
+}
+
+.error {
+	color: #f73a3a;
+}
+
+
+.main-content {
+	padding: 45px;
+}
+
+.sectitle-bold {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.listing-column1 {
+    width: auto;
+    height: auto;
+    margin: 0;
+    color: #757575;
+    font-size: 20px;
+    font-weight: bold;
+}    
+
+.row .gender-label {
+	display: block;
+    width: 100%;
+    height: auto;
+    padding: 0 0 5px;
+    margin: 0;
+    font-size: 12px;
+    color: #757575;
+    font-weight: 700;
+}
+.update-button{
+	float:right;
+	padding-right: 45px;
+}
+
+.capitalize {
+   text-transform: capitalize;
+}
+
+.modal-description-green{
+	display: block;
+    width: 100%;
+    height: auto;
+    font-size: 14px;
+    font-weight: bold;
+    color: green;
+}
+
+.padded-10 {
+    padding-left: 190px;
+}
+
+.padded-5 {
+    padding-left: 10px;
+}
+
+
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+.loading {
+    margin-left: 150px;
+}
+
+.loader {
+  border: 10px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 10px solid #34bcdb;
+    width: 70px !important;
+    height: 70px !important;
+    margin-left:50%;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+
+/* Nav custom css */
+
+#navbarSupportedContent {
+    padding: 0 !important;
+}
+
+.nav-pills > li > a {
+    background-color: inherit;
+    color: #fff;
+    box-shadow: none;
+}
+
+.nav-item > .nav-link {
+    padding: 18px;
+}
+
+.nav-pills>li.active>a,.nav-pills>li.active>a:focus,.nav-pills>li.active>a:hover {
+    background-color: #00BCD4;
+    box-shadow: 0 0 0 1000px rgba(0,0,0,.05) inset;
+}
+
+.nav-pills>li>a:focus,.nav-pills>li>a:hover {
+    color: #FFFFFF;
+    background-color: #00BCD4 !important;
+    box-shadow: 0 0 0 1000px rgba(0,0,0,.05) inset;
+}
+
+.nav-pills>li,
+.nav-pills>li+li {
+    margin: 0 !important;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
