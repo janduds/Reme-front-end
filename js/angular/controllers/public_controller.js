@@ -244,8 +244,14 @@
                 localStorage.user = string_val;
                 $scope.sending = 'off';
 
-                if(res.data.success.role != "customer") {
-                    window.location.href = '/clients';
+                if(res.data.success.role != "client") {
+
+                    if(res.data.success.role == "admin") {
+                        window.location.href = '/clients/#!/musics';
+                    } else {
+                        window.location.href = '/clients'; 
+                    }
+                   
                 }else {
                     window.location.href = '/clients/#!/codes';
                 }
@@ -492,20 +498,6 @@
 
         $scope.cancelByOwner = function() {
             $scope.client = $scope.old_client;
-        }
-
-        $scope.getUrl = function() {
-
-            setTimeout(function(){
-                var sPageURL = decodeURIComponent(
-                    window.location.hash
-                        .replace('#!', '')
-                        .replace('?', '')
-                        .replace(/^\//g, '')
-                );
-
-                $scope.current_url = sPageURL;
-            })
         }
     }
 
