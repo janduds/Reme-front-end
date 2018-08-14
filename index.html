@@ -4,21 +4,63 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Re:Me</title>
-    <link href="css/styles.min.css" rel="stylesheet">
-    <link href="css/custom.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/selectize.css">
+    <link href="/css/styles.min.css" rel="stylesheet">
+    <link href="/css/custom.css" rel="stylesheet">
   </head>
-  <body>
-	<div class="content" ng-controller="publicController">
+  <body ng-controller = "publicController">
+	<header>
+		<div class="wrapper">
+			<div class="header-logo">
+				<a href="" class="logo-image"><img src="/images/logo.png" alt="" /></a>
+				<span class="logo-name">Re:Me</span>
+				<span class="logo-description">Therapeutically Designed Music<br/>&amp; Multilingual Spoken Word Guided Interventions</span>
+			</div>
+		</div>
+		<div class="collapse navbar-collapse header-user" id="navbarSupportedContent" ng-init="getUrl()">
+	        <ul class="nav-pills nav">
+	            <li class="nav-item" ng-class="{'active' : current_url == '' }">
+	                <a class="nav-link" ui-sref="about" ng-click="current_url = ''">
+	                    About Re Me
+	                </a>
+	            </li>
+	            <li class="nav-item" ng-class="{'active' : current_url == 'free-trial' }">
+	                <a class="nav-link" ui-sref="free" ng-click="current_url = 'free-trial'">
+	                    Free Trial
+	                </a>
+	            </li>
+	            <li class="nav-item" ng-class="{'active' : current_url == 'purchase' }">
+	               <a class="nav-link" ui-sref="purchase" ng-click="current_url = 'purchase'">
+	               		Purchase
+	               </a>
+	            </li>
+	            <li class="nav-item" ng-class="{'active' : current_url == 'updates' }">
+	                <a class="nav-link" ui-sref="updates" ng-click="current_url = 'updates'">
+	                    Updates
+	                </a>
+	            </li>
+	            <li class="nav-item" ng-class="{'active' : current_url == 'research' }">
+	                <a class="nav-link" ui-sref="research" ng-click="current_url = 'research'">
+	                    Research
+	                </a>
+	            </li>
+	            <li class="nav-item"  ng-class="{'active' : current_url == 'auth/login' }">
+	                <a class="nav-link" ui-sref="login" ng-click="current_url = 'auth/login'">
+	                    Pro Login
+	                </a>
+	            </li>
+	        </ul>
+	    </div>
+	</header>
+	<div class="content">
 		<ui-view></ui-view>
-	</div><!-- content -->
-	
+	</div>
 	<footer>
 		<div class="footer-wrapper">
 			<p class="footer-copyright">Copyright © 2017 Re:Me All rights reserved. <a href="#">Terms of use</a> | <a href="#">Privacy Policy</a></p>
 			<p class="footer-made">Hand-crafted &amp; made with Love.</p>
 		</div>
 	</footer>
-
 	<script type="text/javascript" src="js/scripts.min.js"></script>
 	<script src="js/angular/angular.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.3/angular-ui-router.min.js"></script>

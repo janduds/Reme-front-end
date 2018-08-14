@@ -44,27 +44,63 @@ function config($stateProvider, $urlRouterProvider, $interpolateProvider, $httpP
 	$urlRouterProvider.otherwise("/");
 
 	$stateProvider
-		.state('login', {
+		// .state('login', {
+  //           url: '/',
+  //           templateUrl: '/views/login.html',
+  //           controller: 'LoginController',
+  //           controllerAs: 'login'
+  //       })
+        .state('about', {
             url: '/',
+            templateUrl: '/views/about.html',
+            controller: '',
+            controllerAs: ''
+        })
+        .state('free', {
+            url: '/free-trial',
+            templateUrl: '/views/free.html',
+            controller: '',
+            controllerAs: ''
+        })
+        .state('purchase', {
+            url: '/purchase',
+            templateUrl: '/views/purchase.html',
+            controller: '',
+            controllerAs: ''
+        })
+        .state('updates', {
+            url: '/updates',
+            templateUrl: '/views/updates.html',
+            controller: '',
+            controllerAs: ''
+        })
+        .state('research', {
+            url: '/research',
+            templateUrl: '/views/research.html',
+            controller: '',
+            controllerAs: ''
+        })
+        .state('login', {
+            url: '/auth/login',
             templateUrl: '/views/login.html',
             controller: 'LoginController',
             controllerAs: 'login'
         })
         .state('register', {
-        	url: '/register',
+        	url: '/auth/register',
         	templateUrl: 'views/register.html',
         	controller: 'RegisterController',
         	controllerAs: 'reg'
         })
 
         .state('confirm-password', {
-        	url: '/confirm-password',
+        	url: '/auth/confirm-password',
         	templateUrl: 'views/confirm-password.html',
         	controller: 'confirmPasswordController',
         	controllerAs: 'con'
         })
         .state('confirm-success', {
-        	url: '/confirm-success',
+        	url: '/auth/confirm-success',
         	templateUrl: 'views/confirm-success.html',
         	controller: '',
         	controllerAs: ''
@@ -72,6 +108,12 @@ function config($stateProvider, $urlRouterProvider, $interpolateProvider, $httpP
 }
 
 function run($rootScope, $state) {
+    // setTimeout(function(){
+    //     $rootScope.current_url = $state.current.name;
+    //     console.log($state.current.name )
+    // })
+
+    console.log($state.current.name);
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
     	var public_url = ['login', 'register','confirm-password', 'config-success'];
     	

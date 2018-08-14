@@ -82,6 +82,38 @@
     animation: spin 2s linear infinite;
 }
 
+/* Nav custom css */
+
+#navbarSupportedContent {
+    padding: 0 !important;
+}
+
+.nav-pills > li > a {
+    background-color: inherit;
+    color: #fff;
+    box-shadow: none;
+}
+
+.nav-item > .nav-link {
+    padding: 18px;
+}
+
+.nav-pills>li.active>a,.nav-pills>li.active>a:focus,.nav-pills>li.active>a:hover {
+    background-color: #00BCD4;
+    box-shadow: 0 0 0 1000px rgba(0,0,0,.05) inset;
+}
+
+.nav-pills>li>a:focus,.nav-pills>li>a:hover {
+    color: #FFFFFF;
+    background-color: #00BCD4 !important;
+    box-shadow: 0 0 0 1000px rgba(0,0,0,.05) inset;
+}
+
+.nav-pills>li,
+.nav-pills>li+li {
+    margin: 0 !important;
+}
+
 /* Safari */
 @-webkit-keyframes spin {
   0% { -webkit-transform: rotate(0deg); }
