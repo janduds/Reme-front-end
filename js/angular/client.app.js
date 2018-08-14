@@ -63,6 +63,12 @@ function config($stateProvider, $urlRouterProvider, $interpolateProvider, $httpP
         	controller: 'SubscriptionController',
         	controllerAs: 'subscription'
         })
+        .state('musics', {
+            url: '/musics',
+            templateUrl: '/views/musics.html',
+            controller: 'musicController',
+            controllerAs: 'music'
+        })
         .state('archive', {
         	url: '/archive',
         	templateUrl: '/views/archive.html',
@@ -90,7 +96,6 @@ function run($rootScope, $state) {
     	var public_url = ['login', 'register', 'confirm-password'];
         $rootScope.client_page_load = false;
         $rootScope.sub_page_load = false;
-        console.log(toState.name); return;
 
     	if(public_url.indexOf(toState.name) == -1 && localStorage.length == 0) {
     		window.location.href = '/';

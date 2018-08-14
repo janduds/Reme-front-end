@@ -27,12 +27,14 @@
         if(localStorage.user != null || localStorage.user != undefined) {
             $scope.user = JSON.parse(localStorage.user);
             $scope.old_user = $scope.user;
-            console.log($scope.user)
         }
 
         $scope.getClientList = function() {
 	    	$scope.user = JSON.parse(localStorage.user);
-	    	clientService.getClientList().then(function(res) {
+	    	var data = [];
+	    	data["doctor_id"] = $scope.user["id"];
+	    	data["role"] =  $scope.user["role"];
+	    	clientService.getClientList(data).then(function(res) {
 				$scope.client_list = [];
 				$scope._client_list = res.data.success;
 				$scope.total_client_count = res.data.success.total;
@@ -288,6 +290,7 @@
         $scope.filterByCustomer = function() {
 
         	return function (obj) {
+<<<<<<< HEAD
         		if($scope.user["role"] == "admin" && obj["role"] != "admin") {
         			return true;
         		}else if($scope.user["role"] == "doctor") {
@@ -298,6 +301,13 @@
 							}
         				}
         			}
+=======
+
+        		if($scope.user["role"] == "admin" && obj["role"] != "admin") {
+        			return true;
+        		}else if($scope.user["role"] == "professional") {
+        			return true;
+>>>>>>> 1a6f1efdde7223a0c17a958ff73f276305c7cd02
         			
         		}else {
         			return false;
@@ -315,18 +325,16 @@
     		return function (obj) {
         		if($scope.user["role"] == "admin") {
         			return true;
-        		}else if($scope.user["role"] == "doctor") {
-        			if(obj.status == "unassigned"){
-        				return true;
-        			}
-        			if($scope.user.customer.length > 0) {
-        				for(i = 0; i < $scope.user.customer.length; i++){
-        					if(obj.client_id == parseInt($scope.user.customer[i]["customer_id"])) {
+        		}else if($scope.user["role"] == "professional") {
+ 					return true;
+       //  			if($scope.user.customer.length > 0) {
+       //  				for(i = 0; i < $scope.user.customer.length; i++){
+       //  					if(obj.client_id == parseInt($scope.user.customer[i]["customer_id"])) {
 
-								return true;
-							}
-        				}
-        			}
+							// 	return true;
+							// }
+       //  				}
+       //  			}
         			
         		}else {
         			if($scope.user.id == obj.client_id) {
@@ -353,6 +361,8 @@
 
 		self.submitRegister = function() {
 			self.errors = {};
+			self.reg.password = "1234567";
+			self.reg.c_password = "1234567";
 			self.requiredValidator(self.reg.first_name, 'first_name');
 			self.requiredValidator(self.reg.last_name, 'last_name');
 			self.validateEmail(self.reg.email);
@@ -383,8 +393,9 @@
 				self.reg.profession_type = 1;
 				self.reg.group_type = 1;
 				self.reg.user_type = 1;
-				self.reg.role = 'customer';
+				self.reg.role = 'client';
 				self.reg.age = 23;
+				self.reg.owner_id = $scope.user["id"];
 				clientService.register(self.reg, self.base_url).then(function(res) {
 					if(res.data.success) {
 						self.success = 'Client successfully added.'

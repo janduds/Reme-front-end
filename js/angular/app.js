@@ -44,12 +44,6 @@ function config($stateProvider, $urlRouterProvider, $interpolateProvider, $httpP
 	$urlRouterProvider.otherwise("/");
 
 	$stateProvider
-		// .state('login', {
-  //           url: '/',
-  //           templateUrl: '/views/login.html',
-  //           controller: 'LoginController',
-  //           controllerAs: 'login'
-  //       })
         .state('about', {
             url: '/',
             templateUrl: '/views/about.html',
@@ -95,6 +89,7 @@ function config($stateProvider, $urlRouterProvider, $interpolateProvider, $httpP
 
         .state('confirm-password', {
         	url: '/auth/confirm-password',
+
         	templateUrl: 'views/confirm-password.html',
         	controller: 'confirmPasswordController',
         	controllerAs: 'con'
@@ -108,12 +103,6 @@ function config($stateProvider, $urlRouterProvider, $interpolateProvider, $httpP
 }
 
 function run($rootScope, $state) {
-    // setTimeout(function(){
-    //     $rootScope.current_url = $state.current.name;
-    //     console.log($state.current.name )
-    // })
-
-    console.log($state.current.name);
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
     	var public_url = ['login', 'register','confirm-password', 'config-success'];
     	

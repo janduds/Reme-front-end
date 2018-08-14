@@ -18,20 +18,20 @@
   			<a href="" class="sidebar-toggle" onClick="maxminSidebar(event)"><i class="fa fa-angle-double-right"></i></a>
   		</div><!-- sidebar-header -->
   		<ul class="sidebar-menu">
-  			<li ng-if ="user.role != 'customer'">
+  			<li ng-if ="user.role == 'professional'">
   				<a ui-sref="clients"  class="detailed" data-tooltip="Clients" ng-class="{'active' : $state.current.name == 'clients' }">
   					<span class="menu-icon"><i class="fa fa-users"></i></span>
   					<span class="menu-label">Clients</span>
   					<span class="menu-detail">30 Active Clients</span>
 				</a>
 			</li>
-  			<li ng-if ="user.role != 'customer'">
+  			<li ng-if ="user.role == 'professional'">
   				<a ui-sref="archive" data-tooltip="Archive Discharge">
   					<span class="menu-icon"><i class="fa fa-archive"></i></span>
   					<span class="menu-label">Archive Discharge</span>
 				</a>
 			</li>
-  			<li>
+  			<li ng-if ="user.role == 'professional'">
   				<a ui-sref="codes" data-tooltip="Activation Codes" ng-class="{'active' : $state.current.name == 'codes' }">
   					<span class="menu-icon"><i class="fa fa-qrcode"></i></span>
   					<span class="menu-label">Activation Codes</span>

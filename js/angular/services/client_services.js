@@ -15,9 +15,14 @@ function clientService($http, baseUrl) {
 
 	clientApi.getClientList = function(data) {
 
+		if(data["doctor_id"] && data["role"] != "admin") {
+			url = regUrl + '/manage/users?doctor_id='+data["doctor_id"];
+		} else {
+			url = regUrl + '/manage/users';
+		}
 		return $http({
 			method 	: 'GET',
-			url 	: regUrl + '/manage/users'
+			url 	: url
 		});
 	}
 
