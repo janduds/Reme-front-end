@@ -1,38 +1,25 @@
 'user strict';
 
 angular.module('reme.controllers')
-		.controller('registerController', registerController);
+		.controller('ValidatorController', ValidatorController);
 
-registerController.$inject = ['$scope', 'registerApiService', '$location'];
+registerController.$inject = ['$scope', '$location'];
 
-function registerController($scope, registerApiService, $location) {
+function registerController($scope, $location) {
 	var self = this;
 		self.errors = {};
 		self.reg = {};
 		self.base_url = $location.protocol() + "://" + location.host;
 		self.landing = 'default';
-		$scope.onsubmit = 0;
 
-	self.submitRegister = function(type) {
-		console.log('registerController');
+	self.submitRegister = function() {
 		self.errors = {};
-		self.requiredValidator(self.reg.first_name, 'first_name');
-		self.requiredValidator(self.reg.last_name, 'last_name');
-		self.validateEmail(self.reg.email);
-		self.validatePassword(self.reg.password);
+		self.requiredValidator(self.first_name, 'first_name');
+		self.requiredValidator(self.last_name, 'last_name');
+		self.validateEmail(self.email);
+		self.validatePassword(self.password);
 		self.validateConfirmPass(self.reg.c_password, 'confpassword');
 		self.checkGender(self.reg.gender);
-		self.checkRole(self.reg.role);
-		if(self.reg.birth_month <= 9){
-
-			month = '0'+self.reg.birth_month;
-		}else{
-			month = self.reg.birth_month;
-		}
-		self.reg.birth_date = self.reg.birth_year+'-'+month+'-'+self.reg.birth_day;
-		self.isValidDate(self.reg.birth_date);
-
-
 
 		var err = $.map(self.errors, function(e) {
 			if(e != false) {
@@ -45,12 +32,10 @@ function registerController($scope, registerApiService, $location) {
 			self.reg.profession_type = 1;
 			self.reg.group_type = 1;
 			self.reg.user_type = 1;
-			self.reg.role = type;
+			self.reg.role = 'customer';
 			self.reg.age = 23;
-			$scope.onsubmit = 1;
 			registerApiService.register(self.reg, self.base_url).then(function(res) {
 				if(res.data.success) {
-					console.log('x');
 					self.landing = 'success_reg';
 				} else if(res.data.errors) {
 					angular.forEach(res.data.errors, function(value, key) {
@@ -118,22 +103,4 @@ function registerController($scope, registerApiService, $location) {
 			return self.errors.gender = false;
 		}
 	}
-
-	self.checkRole = function(role) {
-		if(role == '' || role == undefined) {
-			self.errors.role = 'Role is required';
-		} else {
-			return self.errors.role = false;
-		}
-	}
-
-	self.isValidDate = function(dateString) {
-	  console.log(dateString);
-	  var regEx = /^\d{4}-\d{2}-\d{2}$/;
-	  if(dateString.match(regEx) != null) {
-	  	return self.errors.birth_date = false;
-	  }else {
-	  	self.errors.birth_date = 'Birth date is required or must be a valid format'; 
-	  }
-	}	
 }

@@ -12,5 +12,43 @@ var services = angular.module('reme.services', []);
 			});
 		}
 
+		remeApi.getUser = function() {
+			return $http({
+				method 	: 'GET'
+				, url 	: remeUrl + '/user'
+			});
+		}
+
+		remeApi.getClientList = function(data) {
+
+			return $http({
+				method 	: 'GET',
+				url 	: remeUrl + '/manage/users'
+			});
+		}
+
+		remeApi.getClientSubscription = function(data) {
+
+			return $http({
+				method 	: 'GET',
+				url 	: remeUrl + '/manage/client/subscriptions'
+			});
+		}
+
+		remeApi.updateClient = function(data,id){
+			return $http({
+				method 	: 'PUT',
+				data 	: data,
+				url 	: remeUrl + '/manage/users/'+ id
+			});
+		}
+
+		remeApi.logout = function() {
+			return $http({
+				method 	: 'GET',
+				url 	: remeUrl + '/logout'
+			});
+		}
+
 		return remeApi;
 	});

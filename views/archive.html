@@ -1,0 +1,85 @@
+
+		<div class="page-heading">
+			<div class="colleft">
+				<div class="canvas">
+					<h3 class="searchfilter-title">Search Filter</h3>
+					<div class="searchfilter-container">
+						<div class="col-container">
+							<div class="col6">
+								<div class="form-group">
+									<label for="">Category</label>
+									<select class="form-control" ng-model="filter_category">
+										<option value="">--</option>
+										<option value="customer">CUSTOMER</option>
+										<option value="doctor">DOCTOR</option>
+									</select>
+								</div><!-- form-group -->
+							</div>
+							<div class="col6">
+								<div class="form-group">
+									<label for="">Gender</label>
+									<select class="form-control" ng-model="filter_gender">
+										<option value="">--</option>
+										<option value="male">MALE</option>
+										<option value="female">FEMALE</option>
+									</select>
+								</div><!-- form-group -->
+							</div>
+						</div><!-- col-container -->
+						<div class="col-container">
+							<div class="col12">
+								<div class="form-group">
+									<label for="">Search</label>
+									<input type="text" name="" value="" class="form-control" ng-model="filter_search" id="" placeholder="Enter keyword here..." />
+								</div><!-- form-group -->
+							</div><!-- col8 -->
+						</div><!-- col-container -->
+					</div><!-- searchfilter-container -->
+				</div><!-- canvas -->
+			</div><!-- colleft -->
+			<div class="colright">
+				<h3 class="page-title">Discharged Archive</h3>
+				<p class="page-description"></p>
+			</div>
+		</div>
+		<div class="listing-container listing-archive iconed optioned">
+			<div class="listing-header">
+				<div class="wrapper">
+					<div class="listing-column archive-name"><span>Name<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+					<div class="listing-column archive-birthdate"><span>birthdate<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+					<div class="listing-column archive-age"><span>age<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+					<div class="listing-column archive-gender"><span>gender<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+					<div class="listing-column archive-category"><span>category<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+					<div class="listing-column archive-category"><span>discharge date<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+				</div>
+			</div>
+			<ul class="listing-items">
+				<li ng-repeat ="client in client_list | filter: filterByCustomer() | filter: {'name' : filter_search} | filter: {'role' : filter_category} | filter: {'gender' : filter_gender} track by $index" ng-hide = "client.archive == 0">
+					<div class="wrapper">
+						<figure class="listing-user" style="background-image:url('/images/user-default.png');">
+							<img src="/images/user-default.png" alt="" />
+						</figure>
+						<div class="listing-column archive-name"><span>{!client.name | uppercase!}</span></div>
+						<div class="listing-column archive-birthdate"><span>{!client.birth_date | date:'MMM. dd, yyyy'!}</span></div>
+						<div class="listing-column archive-age"><span>{!client.age!}</span></div>
+						<div class="listing-column archive-gender"><span>{!client.gender |uppercase!}</span></div>
+						<div class="listing-column archive-category"><span>{!client.role |uppercase!}</span></div>
+						<div class="listing-column archive-disdate"><span>{!client.discharged_date | date!}</span></div>
+						<div class="listing-options dropdown">
+							<a href="" data-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></a>
+							<ul class="dropdown-menu dropdown-menu-right">
+								<li><a href="" ng-click="archiveUser(client.original_index,0)">Mark Active</a></li>
+							</ul>
+						</div>
+					</div><!-- wrapper -->
+				</li>
+				<li >
+					<div class="wrapper loader-head">
+						<div class="listing-column client-name loader"></div>
+						
+					</div><!-- wrapper -->
+				</li>
+
+				
+			</ul>
+		</div>
