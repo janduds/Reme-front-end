@@ -6,7 +6,8 @@
         .controller('ClientController', ClientController)
         .controller('ProfileController', ProfileController)
         .controller('SubscriptionController', SubscriptionController)
-        .controller('ChangeController', ChangeController);
+        .controller('ChangeController', ChangeController)
+        .controller('MusicController', MusicController);
 
     function Controller($scope, $state, clientService)
     {	
@@ -543,7 +544,7 @@
     }
 
     function SubscriptionController($scope, clientService, $filter)
-    {
+    {	
     	var self = this;
     	self.code = {};
     	self.errors = {};
@@ -842,4 +843,87 @@
     	
 		
     }
+
+   function MusicController($scope, clientService, $filter) {
+   	
+  		var self = this;
+    	self.code = {};
+    	self.errors = {};
+    	self.new = {};
+    	self.edit_subscription = false;
+
+    	self.getAllMusic = function() {
+	    	clientService.getAllMusic().then(function(res) {
+				self.all_music = [];
+				self._all_music = res.data.success;
+				self.total_client_count = res.data.success.total;
+				self.limit = 10;
+				angular.forEach(self._all_music, function(value, key){
+					if(!isNaN(parseInt(key))) {
+
+						if(value.selected_session == 1) {
+							value.selected_session_name = "2 minutes";
+						}
+
+						if(value.selected_session == 2) {
+							value.selected_session_name = "5 minutes";
+						}
+
+						if(value.selected_session == 3) {
+							value.selected_session_name = "20 minutes";
+						}
+
+
+						self.all_music.push(value);
+					}
+				})
+
+				console.log(self.all_music);
+				$(".loader-head").addClass("hidden"); 
+
+			}).catch(function(res) {
+				$scope.sending = 'off';
+				console.log(res);
+			});
+		}
+
+		self.submitMusic = function() {
+			var file = $("#file");
+			
+		    if(self.new.name == undefined) {
+		 	  self.errors.name = "Name is Required";
+		    }else {
+		      self.errors.name = "";	
+		    }
+			
+			if(file.length == 0) {
+			 	self.errors.file = "File is Required";
+		    }else {
+		    	self.errors.file = "";
+		    }
+
+		    if(self.new.selected_session == undefined) {
+			 	self.errors.selected_session = "For is Required";
+		    }else {
+		    	self.errors.selected_session = "";
+		    }
+
+		    if(self.new.music_type == undefined || self.new.music_type == " ") {
+			 	self.errors.music_type = "Music Type is Required";
+		    }else {
+		    	self.errors.music_type = "";
+		    }
+		    self.new.file = file[0].value;
+
+		    clientService.addMusic(self.new).then(function(res) {
+					console.log(res);
+				}).catch(function(res) {
+					console.log(res.data.error)
+				})
+
+	    	
+		}
+			
+		
+   }
 

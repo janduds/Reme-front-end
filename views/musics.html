@@ -1,0 +1,127 @@
+		<div class="page-heading" ng-init = "music.getAllMusic()">
+			<div class="colleft">
+				<div class="canvas">
+					<h3 class="searchfilter-title">Search Filter</h3>
+					<div class="searchfilter-container">
+						<div class="col-container">
+							<div class="col12">
+								<div class="form-group">
+									<label for="">Search</label>
+									<input type="text" name="" value="" class="form-control" ng-model="filter_search" id="" placeholder="Enter keyword here..." />
+								</div><!-- form-group -->
+							</div><!-- col8 -->
+						</div><!-- col-container -->
+					</div><!-- searchfilter-container -->
+				</div><!-- canvas -->
+			</div><!-- colleft -->
+			<div class="colright">
+				<h3 class="page-title">List Of Music</h3>
+				<p class="page-description"></p>
+				<a href="" class="btn btn-primary" data-toggle="modal" data-target="#newMusic" ng-click="errors = {}">
+					<i class="fa fa-user-plus fa-left-sm"></i>New Music
+				</a>
+			</div>
+		</div>
+		<div class="listing-container listing-archive iconed optioned">
+			<div class="listing-header">
+				<div class="wrapper">
+					<div class="listing-column archive-name"><span>Name<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+					<div class="listing-column archive-age"><span>Duration<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+					<div class="listing-column archive-age"><span>Music Type<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+					<div class="listing-column archive-birthdate"> <span>Url<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+				</div>
+			</div>
+			<ul class="listing-items">
+				<li ng-repeat ="music in music.all_music">
+					<div class="wrapper">
+						<div class="listing-column archive-name"><span>{!music.name | uppercase!}</span></div>
+						<div class="listing-column archive-age"><span>{!music.selected_session_name!}</span></div>
+						<div class="listing-column archive-age"><span>guitar</span></div>
+						<div class="listing-column archive-birthdate"><span>{!music.url!}</span></div>
+					</div><!-- wrapper -->
+				</li>
+				<li >
+					<div class="wrapper loader-head">
+						<div class="listing-column client-name loader"></div>
+						
+					</div><!-- wrapper -->
+				</li>
+
+				
+			</ul>
+		</div>
+
+
+		<div id="newMusic" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">New Client</h4>
+	        <p class="modal-description">A small description for this form. lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tristique consequat arcu, vitae finibus.</p>
+	      </div>
+	      <div class="modal-body">
+	      	<div class="alert alert-success fade in" ng-if="music.success">
+		        <a href="#" class="close" data-dismiss="alert">&times;</a>
+		        <strong>Success!</strong> {! client.success !}
+		    </div>
+	      	<h4 class="form-sectitle"><span>Music Details</span></h4>
+	      	<div class="col-container">
+	      		<div class="col6">
+	      			<div class="form-group">
+						<label for="firstName">Name</label>
+						<input type="text" class="form-control" id="firstName" ng-class="{'error-field' : music.errors.name}" ng-model="music.new.name" required>
+                            <span ng-if="music.errors.name" class="error">{! music.errors.name !}</span>
+					</div>
+	      		</div>
+	      		<div class="col6">
+	      			<div class="form-group">
+						<label for="lastName">File</label>
+						<input type="file" class="form-control" id="file" ng-class="{'error-field' : music.errors.file}" ng-model="music.new.file" required>
+                            <span ng-if="music.errors.file" class="error">{! music.errors.file !}</span>
+					</div>
+	      		</div>
+	      	</div>
+	      	<div class="col-container">
+	      		<div class="col6">
+	      			<div class="form-group">
+						<label for="firstName">For</label>
+						<select class="form-control" id="aPdateup" name="day" ng-class="{'error-field' : music.errors.selected_session}" ng-model = "music.new.selected_session">
+							<option value = "" selected="selected">Select</option>
+							<option value = "1" >2 Minutes</option>
+							<option value = "2" >5 Minutes</option>
+							<option value = "3" >20 Minutes</option>
+
+						</select>
+                            <span ng-if="music.errors.selected_session" class="error">{! music.errors.selected_session !}</span>
+					</div>
+	      		</div>
+	      		<div class="col6">
+	      			<div class="form-group">
+						<label for="lastName">Type</label>
+						<select class="form-control" id="aPdateup" name="day" ng-class="{'error-field' : music.errors.music_type}" ng-model = "music.new.music_type">
+							<option value = "" selected="selected">Select</option>
+							<option value = "1" >Guitar</option>
+							<option value = "2" >Piano</option>
+
+						</select>
+                            <span ng-if="music.errors.music_type" class="error">{! music.errors.music_type !}</span>
+					</div>
+	      		</div>
+	      	</div>
+	      	
+	      </div>
+	      <div class="modal-footer">
+	      	<a href="" class="btn btn-primary" ng-click="music.submitMusic()">Save</a>
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div><!-- model-content -->
+
+
+	    	
+
+
+	  </div>
+	</div>

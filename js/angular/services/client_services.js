@@ -78,6 +78,23 @@ function clientService($http, baseUrl) {
 		})
 	}
 
+	clientApi.getAllMusic = function(data) {
+		return $http({
+			method	: 'GET',
+			url 	: regUrl + '/manage/music',
+			data 	: data
+		})
+	}
+
+
+	clientApi.addMusic = function(data) {
+		return $http({
+			method	: 'POST',
+			url 	: 'http://127.0.0.1:8000/api/manage/music',
+			data 	: data
+		})
+	}
+
 
 	return clientApi;
 };					
