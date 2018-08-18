@@ -392,6 +392,7 @@
 				console.log(self.reg);
 				clientService.register(self.reg, self.base_url).then(function(res) {
 					if(res.data.success) {
+						location.reload();
 						self.success = 'Client successfully added.'
 						$('#newClient').animate({scrollTop:0}, 'slow');
 						$scope.getClientList();
