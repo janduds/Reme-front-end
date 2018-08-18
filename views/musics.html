@@ -32,7 +32,7 @@
 				</div>
 			</div>
 			<ul class="listing-items">
-				<li ng-repeat ="music in music.all_music">
+				<li ng-repeat ="music in music.all_music | filter: {'name' : filter_search}">
 					<div class="wrapper">
 						<div class="listing-column archive-name"><span>{!music.name | uppercase!}</span></div>
 						<div class="listing-column archive-age"><span>{!music.selected_session_name!}</span></div>
@@ -54,13 +54,13 @@
 
 		<div id="newMusic" class="modal fade" role="dialog">
 	  <div class="modal-dialog">
-
+	  <form enctype="multipart/form-data">
 	    <!-- Modal content-->
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal">&times;</button>
-	        <h4 class="modal-title">New Client</h4>
-	        <p class="modal-description">A small description for this form. lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tristique consequat arcu, vitae finibus.</p>
+	        <h4 class="modal-title">New Music</h4>
+	        <p class="modal-description">Adding new music.</p>
 	      </div>
 	      <div class="modal-body">
 	      	<div class="alert alert-success fade in" ng-if="music.success">
@@ -111,14 +111,13 @@
 					</div>
 	      		</div>
 	      	</div>
-	      	
-	      </div>
+	      		      </div>
 	      <div class="modal-footer">
 	      	<a href="" class="btn btn-primary" ng-click="music.submitMusic()">Save</a>
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 	      </div>
 	    </div><!-- model-content -->
-
+	  </form>
 
 	    	
 

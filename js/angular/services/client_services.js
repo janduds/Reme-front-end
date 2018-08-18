@@ -90,8 +90,10 @@ function clientService($http, baseUrl) {
 	clientApi.addMusic = function(data) {
 		return $http({
 			method	: 'POST',
-			url 	: 'http://127.0.0.1:8000/api/manage/music',
-			data 	: data
+			url 	: regUrl + '/manage/music',
+			headers : { 'Content-Type': undefined },
+			data 	: data,
+
 		})
 	}
 

@@ -38,6 +38,13 @@
   					<span class="menu-label">Activation Codes</span>
 				</a>
 			</li>
+
+			<li ng-if ="user.role == 'admin'">
+  				<a ui-sref="musics" data-tooltip="List of Music" ng-class="{'active' : $state.current.name == 'musics' }">
+  					<span class="menu-icon"><i class="fa fa-music"></i></span>
+  					<span class="menu-label">Activation Codes</span>
+				</a>
+			</li>
   		</ul>
   	</div><!-- sidebar -->
 	<header>

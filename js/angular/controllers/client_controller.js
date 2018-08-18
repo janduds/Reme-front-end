@@ -18,6 +18,7 @@
         $scope.years = [];
         $scope.errors = [];
         $scope.saving = false;
+        $scope.base_view_music = 'http://server.reme.cloud/api/manage/music-view/';
 
         $scope.code_filter = "all";
         
@@ -888,7 +889,7 @@
 		}
 
 		self.submitMusic = function() {
-			var file = $("#file");
+			var file = document.getElementById('file').files[0];
 			
 		    if(self.new.name == undefined) {
 		 	  self.errors.name = "Name is Required";
@@ -896,7 +897,7 @@
 		      self.errors.name = "";	
 		    }
 			
-			if(file.length == 0) {
+			if(file == undefined) {
 			 	self.errors.file = "File is Required";
 		    }else {
 		    	self.errors.file = "";
@@ -913,13 +914,25 @@
 		    }else {
 		    	self.errors.music_type = "";
 		    }
-		    self.new.file = file[0].value;
+		    var payload = new FormData();
+		   
+		    payload.append("name",self.new.name);
+		    payload.append("file",file);
+		    payload.append("selected_session",self.new.selected_session);
+		    payload.append("music_type",self.new.music_type);
 
-		    clientService.addMusic(self.new).then(function(res) {
-					console.log(res);
-				}).catch(function(res) {
+		    if(self.errors.name == "" && self.errors.file == "" && self.errors.selected_session == "" && self.errors.music_type == "") {
+		    	clientService.addMusic(payload).then(function(res) {
+
+				    if(res.data.success) {
+				    	location.reload();
+				    }
+			    }).catch(function(res) {
 					console.log(res.data.error)
-				})
+			    })
+		    }
+		    
+		  
 
 	    	
 		}
