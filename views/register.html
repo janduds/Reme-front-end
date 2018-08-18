@@ -6,7 +6,7 @@
 				<a href="" class="logo"><img src="/images/logo_dark.png" alt="" /></a>
 				<h1 class="name">Re:Me</h1>
 			</div>
-			<h4 class="heading">Awesome! Let's get you started, but first we need to create your <span>Re:Me Professional</span> account.</h4>
+			<h4 class="heading">Let's get you started, but first we need to create your <span>Re:Me Professional</span> account.</h4>
 			<p class="register-description">Aliquam erat volutpat. Quisque malesuada magna in condimentum molestie. Duis sodales arcu non purus porttitor.</p>
 		</div>
 		<div class="register-body">
@@ -93,10 +93,7 @@
 					<span class="gender-label">Role</span>
 					<div class="col-md-12 col-sm-12">
                         <label for="gender" class="radio-inline">
-                            <input type="radio" name="role" ng-model="reg.reg.role" ng-click="reg.checkRole(reg.reg.role)" value="doctor">Doctor
-                        </label>
-                        <label for="gender" class="radio-inline">
-                            <input type="radio" name="role" ng-model="reg.reg.role" ng-click="reg.checkRole(reg.reg.role)" value="customer">Customer
+                            <input type="radio" name="role" ng-model="reg.reg.role" ng-click="reg.checkRole(reg.reg.role)" value="professional" disabled>Professional
                         </label>
                         <div class="row">
                             <div class="col-md-12 col-sm-12">
@@ -113,6 +110,12 @@
                         </label>
                         <label for="gender" class="radio-inline">
                             <input type="radio" name="gender" ng-model="reg.reg.gender" ng-click="reg.checkGender(reg.reg.gender)" value="female">Female
+                        </label>
+                        <label for="gender" class="radio-inline">
+                            <input type="radio" name="gender" ng-model="reg.reg.gender" ng-click="reg.checkGender(reg.reg.gender)" value="other">Other
+                        </label>
+                        <label for="gender" class="radio-inline">
+                            <input type="radio" name="gender" ng-model="reg.reg.gender" ng-click="reg.checkGender(reg.reg.gender)" value="rather not to say">Rather not to say
                         </label>
                         <div class="row">
                             <div class="col-md-12 col-sm-12">
