@@ -7,7 +7,8 @@
         .controller('ProfileController', ProfileController)
         .controller('SubscriptionController', SubscriptionController)
         .controller('ChangeController', ChangeController)
-        .controller('MusicController', MusicController);
+        .controller('MusicController', MusicController)
+        .controller('JournalController', JournalController);
 
     function Controller($scope, $state, clientService)
     {	
@@ -932,12 +933,57 @@
 					console.log(res.data.error)
 			    })
 		    }
-		    
-		  
-
-	    	
 		}
-			
-		
+   }
+
+
+   function JournalController($scope, clientService, $filter){
+    	var self = this;
+    	
+
+    	self.getAllJournal = function() {
+    		clientService.getAllJournal().then(function(res) {
+				self.all_journal = [];
+				self._all_journal = res.data.success;
+				self.total_client_count = res.data.success.total;
+				self.limit = 10;
+				angular.forEach(self._all_journal, function(value, key){
+					
+					if(value.selected_session == 1) {
+							value.selected_session_name = "2 minutes";
+					}
+
+					if(value.selected_session == 2) {
+						value.selected_session_name = "5 minutes";
+					}
+
+					if(value.selected_session == 3) {
+						value.selected_session_name = "20 minutes";
+					}
+
+					if(!isNaN(parseInt(key))) {
+						value.name = value.user.name;
+						console.log(value.customer_doctor);
+						if((value.customer_doctor != null || value.customer_doctor != undefined) && $scope.user.id == value.customer_doctor.doctor_id) {
+							self.all_journal.push(value);
+						}
+						
+					}
+
+				})
+
+				console.log(self.all_journal);
+
+				
+				$(".loader-head").addClass("hidden"); 
+
+			}).catch(function(res) {
+				$scope.sending = 'off';
+				console.log(res);
+			});
+    	}
+
+    	
+
    }
 

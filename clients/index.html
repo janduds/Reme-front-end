@@ -39,6 +39,13 @@
 				</a>
 			</li>
 
+			<li ng-if ="user.role == 'professional'">
+  				<a ui-sref="journals" data-tooltip="Journals" ng-class="{'active' : $state.current.name == 'journals' }">
+  					<span class="menu-icon"><i class="fa fa-address-book"></i></span>
+  					<span class="menu-label">Journals</span>
+				</a>
+			</li>
+
 			<li ng-if ="user.role == 'admin'">
   				<a ui-sref="musics" data-tooltip="List of Music" ng-class="{'active' : $state.current.name == 'musics' }">
   					<span class="menu-icon"><i class="fa fa-music"></i></span>

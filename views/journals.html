@@ -1,0 +1,59 @@
+		<div class="page-heading" ng-init = "journal.getAllJournal()";>
+			<div class="colleft">
+				<div class="canvas">
+					<h3 class="searchfilter-title">Search Filter</h3>
+					<div class="searchfilter-container">
+						<div class="col-container">
+							<div class="col12">
+								<div class="form-group">
+									<label for="">Search</label>
+									<input type="text" name="" value="" class="form-control" ng-model="filter_search" id="" placeholder="Enter keyword here..." />
+								</div><!-- form-group -->
+							</div><!-- col8 -->
+						</div><!-- col-container -->
+					</div><!-- searchfilter-container -->
+				</div><!-- canvas -->
+			</div><!-- colleft -->
+			<div class="colright">
+				<h3 class="page-title">List Of Journal</h3>
+				<p class="page-description"></p>
+			</div>
+		</div>
+		<div class="listing-container listing-codes iconed">
+			<div class="listing-header">
+				<div class="wrapper">
+					<div class="listing-column codes-name"><span>Client Name<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+					<div class="listing-column journal-column"><span>Duration<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+					<div class="listing-column journal-column"><span>Mood Before<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+					<div class="listing-column journal-column"><span>Mood After<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+					<div class="listing-column journal-column"><span>Comment<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+					<div class="listing-column journal-column"><span>Date Created<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+				</div>
+			</div>
+
+			<ul class="listing-items">
+				<li ng-repeat ="journal in journal.all_journal | filter: {'name' : filter_search}">
+					<div class="wrapper">
+						<span class="listing-icon"><i class="fa fa-address-book"></i></span>
+						<div class="listing-column codes-name" style="text-transform: uppercase;"><span>{!journal.user.name!}</span></div>
+						<div class="listing-column journal-column"><span>{!journal.selected_session_name !}</span></div>
+						<div class="listing-column journal-column"><span>{!journal.mood_before !}</span></div>
+						<div class="listing-column journal-column"><span>{!journal.mood_before !}</span></div>
+						<div class="listing-column journal-column"><span>{!journal.comment!}</span></div>
+						<div class="listing-column journal-column"><span>{!journal.created_at !}</span></div>
+					</div><!-- wrapper -->
+				</li>
+				<li >
+					<div class="wrapper loader-head">
+						<div class="listing-column client-name loader"></div>
+						
+					</div><!-- wrapper -->
+				</li>
+
+				
+			</ul>
+					
+		</div>
+
+	  </div>
+	</div>

@@ -97,6 +97,15 @@ function clientService($http, baseUrl) {
 		})
 	}
 
+	clientApi.getAllJournal = function(data) {
+		return $http({
+			method	: 'GET',
+			url 	: regUrl + '/manage/client/journal',
+			data 	: data,
+
+		})
+	}
+
 
 	return clientApi;
 };					
