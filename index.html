@@ -19,7 +19,7 @@
 		</div>
 		<div class="collapse navbar-collapse header-user" id="navbarSupportedContent" ng-init="getUrl()">
 	        <ul class="nav-pills nav">
-	            <li class="nav-item" ng-class="{'active' : current_url == '' }">
+	            <li class="nav-item active" ng-class="{'active' : current_url == '' || current_url == undefined }">
 	                <a class="nav-link" ui-sref="about" ng-click="current_url = ''">
 	                    About Re Me
 	                </a>
