@@ -188,5 +188,16 @@ section {
 }
 
 
+.nav-pills > li > a.filter {
+    color: #333;
+}
+
+.nav-pills > li.active {
+    color: #fff;
+}
+
+
+
+
 
 

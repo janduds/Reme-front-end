@@ -20,10 +20,10 @@
 			<button class="btn btn-default" ng-click="subscription.showAllUsers('add')">Add Subscription</button>
 		</p>
 		<ul class="nav nav-pills">
-			<li ng-class = "(code_filter == 'all') ? 'active' : '' " ng-click = "subscription.filterCode('all')"><a>All</a></li>
-			<li ng-class = "(code_filter == 'unassigned') ? 'active' : '' " ng-click = "subscription.filterCode('unassigned')"><a>Unassigned</a></li>
-			<li ng-class = "(code_filter == 'active') ? 'active' : '' " ng-click = "subscription.filterCode('active')"><a>Active</a></li>
-			<li ng-class = "(code_filter == 'expired') ? 'active' : '' " ng-click = "subscription.filterCode('expired')"><a>Expired</a></li>
+			<li ng-class = "(code_filter == 'all') ? 'active' : '' " ng-click = "subscription.filterCode('all')"><a class="filter">All</a></li>
+			<li ng-class = "(code_filter == 'unassigned') ? 'active' : '' " ng-click = "subscription.filterCode('unassigned')"><a class="filter">Unassigned</a></li>
+			<li ng-class = "(code_filter == 'active') ? 'active' : '' " ng-click = "subscription.filterCode('active')"><a class="filter">Active</a></li>
+			<li ng-class = "(code_filter == 'expired') ? 'active' : '' " ng-click = "subscription.filterCode('expired')"><a class="filter">Expired</a></li>
 		</ul>
 	</div><!-- colright -->
 </div><!-- page-heading -->
