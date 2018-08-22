@@ -192,8 +192,12 @@ section {
     color: #333;
 }
 
-.nav-pills > li.active {
-    color: #fff;
+.nav-pills > li.active >a {
+    color:#fff;
+}
+
+.nav-pills > li:hover >a {
+    color:#fff;
 }
 
 
