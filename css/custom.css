@@ -200,6 +200,16 @@ section {
     color:#fff;
 }
 
+.media-container-row {
+    padding-top: 20px;
+}
+
+.plan {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin: 10px;
+}
+
 
 
 
