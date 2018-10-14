@@ -69,6 +69,12 @@ function config($stateProvider, $urlRouterProvider, $interpolateProvider, $httpP
             controller: 'MusicController',
             controllerAs: 'music'
         })
+        .state('language', {
+            url: '/language',
+            templateUrl: '/views/language.html',
+            controller: 'LanguageController',
+            controllerAs: 'language'
+        })
         .state('journals', {
             url: '/journals',
             templateUrl: '/views/journals.html',

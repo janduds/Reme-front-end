@@ -8,7 +8,8 @@
         .controller('SubscriptionController', SubscriptionController)
         .controller('ChangeController', ChangeController)
         .controller('MusicController', MusicController)
-        .controller('JournalController', JournalController);
+        .controller('JournalController', JournalController)
+        .controller('LanguageController', LanguageController);
 
     function Controller($scope, $state, clientService)
     {	
@@ -973,6 +974,38 @@
 				})
 
 				console.log(self.all_journal);
+
+				
+				$(".loader-head").addClass("hidden"); 
+
+			}).catch(function(res) {
+				$scope.sending = 'off';
+				console.log(res);
+			});
+    	}
+
+    	
+
+   }
+
+   function LanguageController($scope, clientService, $filter){
+    	var self = this;
+    	self.getAllLanguage = function() {
+    		clientService.getAllLanguage().then(function(res) {
+				self.all_language = [];
+				self._all_language = res.data.success;
+				self.total_client_count = res.data.success.total;
+				self.limit = 10;
+				angular.forEach(self._all_language, function(value, key){
+					
+					if(!isNaN(parseInt(key))) {
+						
+						self.all_language.push(value);
+					}
+
+				})
+
+				console.log(self.all_language);
 
 				
 				$(".loader-head").addClass("hidden"); 

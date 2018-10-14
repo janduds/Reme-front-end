@@ -106,6 +106,15 @@ function clientService($http, baseUrl) {
 		})
 	}
 
+	clientApi.getAllLanguage = function(data) {
+		return $http({
+			method	: 'GET',
+			url 	: regUrl + '/manage/languages',
+			data 	: data,
+
+		})
+	}
+
 
 	return clientApi;
 };					

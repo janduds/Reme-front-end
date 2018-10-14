@@ -1,0 +1,117 @@
+		<div class="page-heading" ng-init = "language.getAllLanguage()">
+			<div class="colleft">
+				<div class="canvas">
+					<h3 class="searchfilter-title">Search Filter</h3>
+					<div class="searchfilter-container">
+						<div class="col-container">
+							<div class="col12">
+								<div class="form-group">
+									<label for="">Search</label>
+									<input type="text" name="" value="" class="form-control" ng-model="filter_search" id="" placeholder="Enter keyword here..." />
+								</div><!-- form-group -->
+							</div><!-- col8 -->
+						</div><!-- col-container -->
+					</div><!-- searchfilter-container -->
+				</div><!-- canvas -->
+			</div><!-- colleft -->
+			<div class="colright">
+				<h3 class="page-title">List Of Language</h3>
+				<p class="page-description"></p>
+				<a href="" class="btn btn-primary" data-toggle="modal" data-target="#newMusic" ng-click="errors = {}">
+					<i class="fa fa-user-plus fa-left-sm"></i>New Language
+				</a>
+			</div>
+		</div>
+		<div class="listing-container listing-codes iconed">
+			<div class="listing-header">
+				<div class="wrapper">
+					<div class="listing-column codes-name"><span>Language<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+					<div class="listing-column codes-name"><span>Status<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+					<div class="listing-column codes-name"><span>Created<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+					<div class="listing-column codes-name"><span>Updated<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+				</div>
+			</div>
+
+			<ul class="listing-items">
+				<li ng-repeat ="language in language.all_language | filter: {'name' : filter_search}">
+					<div class="wrapper">
+						<span class="listing-icon"><i class="fa fa-book"></i></span>
+						<div class="listing-column codes-name" style="text-transform: uppercase;"><span>{!language.language!}</span></div>
+						<div class="listing-column codes-name" style="text-transform: uppercase;"><span>{!language.status!}</span></div>
+						<div class="listing-column codes-client"><span>{!language.created_at !}</span></div>
+						<div class="listing-column codes-client"><span>{!language.updated_at !}</span></div>
+						<div class="listing-options dropdown">
+							<a href="" data-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></a>
+							<ul class="dropdown-menu dropdown-menu-right">
+								<li><a href="" data-toggle="modal" data-target="#updateClient" ng-click="viewCustomer(client.original_index)">Active</a></li>
+								<li><a href="" data-toggle="modal" data-target="#viewClient" ng-click="viewCustomer(client.original_index)">Inactive</a></li>
+							</ul>
+						</div>
+					</div><!-- wrapper -->
+				</li>
+				<li >
+					<div class="wrapper loader-head">
+						<div class="listing-column client-name loader"></div>
+						
+					</div><!-- wrapper -->
+				</li>
+
+				
+			</ul>
+					
+		</div>
+
+	  </div>
+	</div>
+
+
+		<div id="newMusic" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+	  <form enctype="multipart/form-data">
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">New Language</h4>
+	        <p class="modal-description">Adding new language.</p>
+	      </div>
+	      <div class="modal-body">
+	      	<div class="alert alert-success fade in" ng-if="language.success">
+		        <a href="#" class="close" data-dismiss="alert">&times;</a>
+		        <strong>Success!</strong> {! client.success !}
+		    </div>
+	      	<h4 class="form-sectitle"><span>Language Details</span></h4>
+	      	<div class="col-container">
+	      		<div class="col6">
+	      			<div class="form-group">
+						<label for="firstName">Language</label>
+						<input type="text" class="form-control" id="firstName" ng-class="{'error-field' : language.errors.language}" ng-model="language.new.language" required>
+                            <span ng-if="muslanguageic.errors.name" class="error">{! language.errors.name !}</span>
+					</div>
+	      		</div>
+	      		<div class="col6">
+	      			<div class="form-group">
+						<label for="lastName">Status</label>
+						<select class="form-control" id="birthDate" name="status" ng-class="{'error-field' : language.errors.status}" ng-model="language.status">
+							<option value="Active" >Active</option>
+							<option value="Inactive" >Inactive</option>
+
+						</select>
+                        <span ng-if="language.errors.file" class="error">{! language.errors.file !}</span>
+					</div>
+	      		</div>
+	      	</div>
+	      	
+	      		      </div>
+	      <div class="modal-footer">
+	      	<a href="" class="btn btn-primary" ng-click="language.submitLanguage()">Submit</a>
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div><!-- model-content -->
+	  </form>
+
+	    	
+
+
+	  </div>
+	</div>
