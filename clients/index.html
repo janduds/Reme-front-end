@@ -47,9 +47,15 @@
 			</li>
 
 			<li ng-if ="user.role == 'admin'">
-  				<a ui-sref="musics" data-tooltip="List of Music" ng-class="{'active' : $state.current.name == 'musics' }">
+  				<a ui-sref="music" data-tooltip="List of Music" ng-class="{'active' : $state.current.name == 'music' }">
   					<span class="menu-icon"><i class="fa fa-music"></i></span>
-  					<span class="menu-label">Musics</span>
+  					<span class="menu-label">Music</span>
+				</a>
+			</li>
+			<li ng-if ="user.role == 'admin'">
+  				<a ui-sref="language" data-tooltip="List of Music" ng-class="{'active' : $state.current.name == 'language' }">
+  					<span class="menu-icon"><i class="fa fa-music"></i></span>
+  					<span class="menu-label">Language</span>
 				</a>
 			</li>
   		</ul>

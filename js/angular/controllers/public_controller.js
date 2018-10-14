@@ -247,7 +247,7 @@
                 if(res.data.success.role != "client") {
 
                     if(res.data.success.role == "admin") {
-                        window.location.href = '/clients/#!/musics';
+                        window.location.href = '/clients/#!/music';
                     } else {
                         window.location.href = '/clients'; 
                     }
