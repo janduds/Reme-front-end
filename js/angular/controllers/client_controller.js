@@ -990,6 +990,8 @@
 
    function LanguageController($scope, clientService, $filter){
     	var self = this;
+    	self.errors = {};
+    	self.new = {};
     	self.getAllLanguage = function() {
     		clientService.getAllLanguage().then(function(res) {
 				self.all_language = [];
@@ -1014,6 +1016,31 @@
 				$scope.sending = 'off';
 				console.log(res);
 			});
+    	}
+
+    	self.submitLanguage = function() {
+
+    		self.new.lang_code = 123;
+		    if(self.new.language == undefined) {
+		 	  self.errors.language = "Language is Required";
+		    }else {
+		      self.errors.language = "";	
+		    }
+
+		    if(self.errors.language == "") {
+		    	clientService.addLanguage(self.new).then(function(res) {
+				    if(res.data.success) {
+				    	location.reload();
+				    }
+			    }).catch(function(res) {
+					console.log(res.data.error)
+			    })
+		    }
+
+
+
+			
+
     	}
 
     	

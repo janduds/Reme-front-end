@@ -115,6 +115,15 @@ function clientService($http, baseUrl) {
 		})
 	}
 
+	clientApi.addLanguage = function(data) {
+		return $http({
+			method	: 'POST',
+			url 	: regUrl + '/manage/languages',
+			data 	: data,
+
+		})
+	}
+
 
 	return clientApi;
 };					
