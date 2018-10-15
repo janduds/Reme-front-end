@@ -86,7 +86,7 @@
 	      			<div class="form-group">
 						<label for="firstName">Language</label>
 						<input type="text" class="form-control" id="firstName" ng-class="{'error-field' : language.errors.language}" ng-model="language.new.language" required>
-                            <span ng-if="muslanguageic.errors.name" class="error">{! language.errors.name !}</span>
+                            <span ng-if="language.errors.language" class="error">{! language.errors.language !}</span>
 					</div>
 	      		</div>
 	      		<div class="col6">
