@@ -25,7 +25,7 @@
 		<div class="listing-container listing-codes iconed">
 			<div class="listing-header">
 				<div class="wrapper">
-					<div class="listing-column codes-name"><span>Language<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+					<div class="listing-column codes-name" ><span>Language<i class="fa fa-caret-down fa-right-sm"></i></span></div>
 					<div class="listing-column codes-name"><span>Status<i class="fa fa-caret-down fa-right-sm"></i></span></div>
 					<div class="listing-column codes-name"><span>Created<i class="fa fa-caret-down fa-right-sm"></i></span></div>
 					<div class="listing-column codes-name"><span>Updated<i class="fa fa-caret-down fa-right-sm"></i></span></div>
@@ -39,12 +39,12 @@
 						<div class="listing-column codes-name" style="text-transform: uppercase;"><span>{!language.language!}</span></div>
 						<div class="listing-column codes-name" style="text-transform: uppercase;"><span>{!language.status!}</span></div>
 						<div class="listing-column codes-client"><span>{!language.created_at !}</span></div>
-						<div class="listing-column codes-client"><span>{!language.updated_at !}</span></div>
+						<div class="listing-column codes-client" ><span>{!language.updated_at !}</span></div>
 						<div class="listing-options dropdown">
 							<a href="" data-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></a>
 							<ul class="dropdown-menu dropdown-menu-right">
-								<li><a href="" data-toggle="modal" data-target="#updateClient" ng-click="viewCustomer(client.original_index)">Active</a></li>
-								<li><a href="" data-toggle="modal" data-target="#viewClient" ng-click="viewCustomer(client.original_index)">Inactive</a></li>
+								<li><a href=""  ng-click = "updateStatus(language.id,'Active')" >Active</a></li>
+								<li><a href=""  ng-click = "updateStatus(language.id,'Inactive')">Inactive</a></li>
 							</ul>
 						</div>
 					</div><!-- wrapper -->
@@ -86,13 +86,13 @@
 	      			<div class="form-group">
 						<label for="firstName">Language</label>
 						<input type="text" class="form-control" id="firstName" ng-class="{'error-field' : language.errors.language}" ng-model="language.new.language" required>
-                            <span ng-if="language.errors.language" class="error">{! language.errors.language !}</span>
+                            <span ng-if="language.errors.language" class="error">{! language.errors.languageter !}</span>
 					</div>
 	      		</div>
 	      		<div class="col6">
 	      			<div class="form-group">
 						<label for="lastName">Status</label>
-						<select class="form-control" id="birthDate" name="status" ng-class="{'error-field' : language.errors.status}" ng-model="language.status">
+						<select class="form-control" id="birthDate" name="status" ng-model="language.status">
 							<option value="Active" >Active</option>
 							<option value="Inactive" >Inactive</option>
 

@@ -1036,11 +1036,26 @@
 					console.log(res.data.error)
 			    })
 		    }
+    	}
+
+    	$scope.updateStatus = function(id,status) {
+    		var language = "";
+    		self.all_language.forEach(function(value) {
+  				if(value.id == id) {
+  					value.status = status;
+  					value.lang_code = 123;
+  					clientService.updateStatus(id,value).then(function(res) {
+				   
+				    }).catch(function(res) {
+						console.log(res.data.error)
+				    })
+  				}
+  			})
 
 
+  			
 
-			
-
+		    
     	}
 
     	

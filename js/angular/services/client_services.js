@@ -124,6 +124,15 @@ function clientService($http, baseUrl) {
 		})
 	}
 
+	clientApi.updateStatus = function(id,data) {
+		return $http({
+			method	: 'PUT',
+			url 	: regUrl + '/manage/languages/'+id,
+			data 	: data,
+
+		})
+	}
+
 
 	return clientApi;
 };					
