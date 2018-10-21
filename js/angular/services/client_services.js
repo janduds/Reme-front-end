@@ -3,7 +3,7 @@ angular.module('reme')
 
 function clientService($http, baseUrl) {
 	var clientApi = {};
-	var regUrl = 'http://127.0.0.1:8000' + '/api';
+	var regUrl = baseUrl + '/api';
 
 	clientApi.register = function(data, url) {
 		return $http({
