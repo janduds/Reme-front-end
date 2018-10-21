@@ -37,11 +37,15 @@
 <div class="listing-container listing-client iconed optioned">
 	<div class="listing-header">
 		<div class="wrapper">
-			<div class="listing-column client-name"><span>Name<i class="fa fa-caret-down fa-right-sm"></i></span></div>
-			<div class="listing-column client-birthdate"><span>birthdate<i class="fa fa-caret-down fa-right-sm"></i></span></div>
-			<div class="listing-column client-age"><span>age<i class="fa fa-caret-down fa-right-sm"></i></span></div>
-			<div class="listing-column client-gender"><span>gender<i class="fa fa-caret-down fa-right-sm"></i></span></div>
-			<div class="listing-column client-category"><span>category<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+			<div class="listing-column client-name-small"><span>Name<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+			<div class="listing-column small-tabs"><span>birthdate<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+			<div class="listing-column small-tabs"><span>age<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+			<div class="listing-column small-tabs"><span>gender<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+			<div class="listing-column small-tabs"><span>category<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+			<div class="listing-column small-tabs"><span>group<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+			<div class="listing-column small-tabs"><span>code<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+			<div class="listing-column small-tabs"><span>purchased date<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+			<div class="listing-column small-tabs"><span>expiration date<i class="fa fa-caret-down fa-right-sm"></i></span></div>
 		</div>
 	</div>
 	<ul class="listing-items">
@@ -50,11 +54,15 @@
 				<figure class="listing-user" style="background-image:url('/images/user-default.png');">
 					<img src="/images/user-default.png" alt="" />
 				</figure>
-				<div class="listing-column client-name"><span>{!client.name | uppercase!}</span></div>
-				<div class="listing-column client-birthdate"><span>{!client.birth_date | date:'MMM. dd, yyyy'!}</span></div>
-				<div class="listing-column client-age"><span>{!client.age!}</span></div>
-				<div class="listing-column client-gender"><span>{!client.gender |uppercase !}</span></div>
-				<div class="listing-column client-category"><span>{!client.role |uppercase !}</span></div>
+				<div class="listing-column client-name-small"><span>{!client.name | uppercase!}</span></div>
+				<div class="listing-column small-tabs"><span>{!client.birth_date | date:'MMM. dd, yyyy'!}</span></div>
+				<div class="listing-column small-tabs"><span>{!client.age!}</span></div>
+				<div class="listing-column small-tabs"><span>{!client.gender |uppercase !}</span></div>
+				<div class="listing-column small-tabs"><span>{!client.category |uppercase !}</span></div>
+				<div class="listing-column small-tabs"><span>{!client.group.name |uppercase !}</span></div>
+				<div class="listing-column small-tabs"><span>{!client.code!}</span></div>
+				<div class="listing-column small-tabs"><span>{!client.purchased_date!}</span></div>
+				<div class="listing-column small-tabs"><span>{!client.expired!}</span></div>
 				<div class="listing-options dropdown">
 					<a href="" data-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></a>
 					<ul class="dropdown-menu dropdown-menu-right">
@@ -67,7 +75,7 @@
 		</li>
 		<li >
 			<div class="wrapper loader-head">
-				<div class="listing-column client-name loader"></div>
+				<div class="listing-column  client-name loader"></div>
 				
 			</div><!-- wrapper -->
 		</li>
@@ -183,6 +191,7 @@
 	      		</div>
 
 	      	</div>
+	      	</div>
 
 	      	<div class="col-container">
 	      		<div class="row">
@@ -209,6 +218,7 @@
 						<span ng-if="client.errors.group_type" class="error">{! client.errors.group_type !}</span>
 					</div>
 	      		</div>
+	      	</div>	
 
 
 	      	</div>
@@ -469,6 +479,32 @@
 					</div>
 	      		</div>
 	      	</div>
+	      	<div class="col-container">
+	      		<div class="row">
+	      			<div class="col-sm-6 col-md-6">
+		      			<div class="form-group">
+			      			<label for="email">Category</label>
+			      			<select class="form-control"  ng-class="{'error-field' : client.errors.category}" id="clientGender" ng-model="customer.category">
+								<option value="PRIVATE PRACTICE" ng-selected ="customer.category == 'PRIVATE PRACTICE'">PRIVATE PRACTICE</option>
+								<option value="PUBLIC HOSPITAL" ng-selected ="customer.category == 'PUBLIC HOSPITAL'">PUBLIC HOSPITAL</option>
+								<option value="GENERAL PRACTICE ADULTS" ng-selected ="customer.category == 'GENERAL PRACTICE ADULTS'">GENERAL PRACTICE ADULTS</option>
+								<option value="GENERAL PRACTICE YOUNG ADULTS" ng-selected ="customer.category == 'GENERAL PRACTICE YOUNG ADULTS'">GENERAL PRACTICE YOUNG ADULTS</option>
+
+							</select>
+							<span ng-if="client.errors.gender" class="error">{! client.errors.category !}</span>
+			      		</div>
+		      		</div>
+		      		<div class="col4">
+	      			<div class="form-group">
+						<label for="clientGeneder">Group</label>
+						<select class="form-control"  ng-class="{'error-field' : client.errors.group_type}" id="clientGender" ng-model="customer.group_type">
+							 <option ng-repeat="all_group in client.all_group" value="{!all_group.id!}" ng-selected ="customer.group_type == all_group.id">{!all_group.name!}</option>
+
+						</select>
+						<span ng-if="client.errors.group_type" class="error">{! client.errors.group_type !}</span>
+					</div>
+	      		</div>
+	      	</div>	
 	      	<h4 class="form-sectitle" ng-hide = "true "><span>Assign Group</span></h4>
 	      	<ul class="form-grouplist" ng-hide = "true ">
 				<li class="custom-checkbox">

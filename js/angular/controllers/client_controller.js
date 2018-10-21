@@ -58,6 +58,12 @@
 						}else {
 							value.age = $scope.getAge(value.birth_date) + ' years old';
 						}
+						if(value.subscription.length != 0) {
+							var last_key = value.subscription.length-1;
+							value.code = value.subscription[last_key].code;
+							value.purchased_date = value.subscription[last_key].purchased_date;
+							value.expired = value.subscription[last_key].date_expired;
+						}
 
 				   		value.original_index = key;
 
