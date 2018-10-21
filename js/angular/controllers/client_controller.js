@@ -360,7 +360,7 @@
 			self.reg.c_password = "1234567";
 			self.requiredValidator(self.reg.first_name, 'first_name');
 			self.requiredValidator(self.reg.last_name, 'last_name');
-			self.validateEmail(self.reg.email);
+			//self.validateEmail(self.reg.email);
 			self.validatePassword(self.reg.password);
 			self.validateConfirmPass(self.reg.c_password, 'confpassword');
 			self.checkGender(self.reg.gender);
@@ -386,7 +386,6 @@
 				
 				// temporarily set static values
 				self.reg.profession_type = 1;
-				self.reg.group_type = 1;
 				self.reg.user_type = 1;
 				self.reg.role = 'client';
 				self.reg.age = 23;
@@ -486,6 +485,29 @@
 		self.search = function () {
 
 		}
+
+		self.getAllGroup = function() {
+    		clientService.getAllGroup().then(function(res) {
+				self.all_group = [];
+				self._all_group = res.data.success;
+				self.total_client_count = res.data.success.total;
+				self.limit = 10;
+				angular.forEach(self._all_group, function(value, key){
+					
+					if(!isNaN(parseInt(key))) {
+						self.all_group.push(value);
+					}
+
+				})
+
+				console.log(self.all_group);
+
+			}).catch(function(res) {
+				$scope.sending = 'off';
+				console.log(res);
+			});
+    	}
+
 
 		
     }

@@ -1,4 +1,4 @@
-<div class="page-heading">
+<div class="page-heading" ng-init = "client.getAllGroup()">
 	<div class="colleft">
 		<div class="canvas">
 					<h3 class="searchfilter-title">Search Filter</h3>
@@ -149,8 +149,8 @@
 	      			<div class="col-sm-6 col-md-6">
 		      			<div class="form-group">
 			      			<label for="email">Email</label>
-			      			<input type="text" class="form-control" id="email" ng-class="{'error-field' : client.errors.email}" ng-model="client.reg.email" ng-change="client.validateEmail(client.reg.email)" required>
-	                                <span ng-if="client.errors.email" class="error">{! client.errors.email !}</span>
+			      			<input type="text" class="form-control" id="email" ng-model="client.reg.email">
+	                        <!-- <span ng-if="client.errors.email" class="error">{! client.errors.email !}</span> -->
 			      		</div>
 		      		</div>
 		      		<div class="col4">
@@ -166,7 +166,8 @@
 						<span ng-if="client.errors.gender" class="error">{! client.errors.gender !}</span>
 					</div>
 	      		</div>
-	      		</div>
+
+
 	      		
 	      		<div class="col8 hidden">
 	      			<div class="form-group">
@@ -180,6 +181,35 @@
 						</select>
 					</div>
 	      		</div>
+
+	      	</div>
+
+	      	<div class="col-container">
+	      		<div class="row">
+	      			<div class="col-sm-6 col-md-6">
+		      			<div class="form-group">
+			      			<label for="email">Category</label>
+			      			<select class="form-control"  ng-class="{'error-field' : client.errors.category}" id="clientGender" ng-model="client.reg.category">
+								<option value="PRIVATE PRACTICE">PRIVATE PRACTICE</option>
+								<option value="PUBLIC HOSPITAL">PUBLIC HOSPITAL</option>
+								<option value="GENERAL PRACTICE ADULTS">GENERAL PRACTICE ADULTS</option>
+								<option value="GENERAL PRACTICE YOUNG ADULTS">GENERAL PRACTICE YOUNG ADULTS</option>
+
+							</select>
+							<span ng-if="client.errors.gender" class="error">{! client.errors.category !}</span>
+			      		</div>
+		      		</div>
+		      		<div class="col4">
+	      			<div class="form-group">
+						<label for="clientGeneder">Group</label>
+						<select class="form-control"  ng-class="{'error-field' : client.errors.group_type}" id="clientGender" ng-model="client.reg.group_type">
+							 <option ng-repeat="all_group in client.all_group" value="{!all_group.id!}">{!all_group.name!}</option>
+
+						</select>
+						<span ng-if="client.errors.group_type" class="error">{! client.errors.group_type !}</span>
+					</div>
+	      		</div>
+
 
 	      	</div>
 	      	<!-- <div class="row">
@@ -251,7 +281,7 @@
 	      	</div>
 	      </div>
 	      <div class="modal-footer">
-	      	<a href="" class="btn btn-primary" ng-click="client.submitRegister()">Save</a>
+	      	<a href="" class="btn btn-primary" ng-click="client.submitRegister()">Submit</a>
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 	      </div>
 	    </div><!-- model-content -->

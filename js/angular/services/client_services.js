@@ -3,7 +3,7 @@ angular.module('reme')
 
 function clientService($http, baseUrl) {
 	var clientApi = {};
-	var regUrl = baseUrl + '/api';
+	var regUrl = 'http://127.0.0.1:8000' + '/api';
 
 	clientApi.register = function(data, url) {
 		return $http({
@@ -129,6 +129,15 @@ function clientService($http, baseUrl) {
 			method	: 'PUT',
 			url 	: regUrl + '/manage/languages/'+id,
 			data 	: data,
+
+		})
+	}
+
+
+	clientApi.getAllGroup = function() {
+		return $http({
+			method	: 'GET',
+			url 	: regUrl + '/manage/group',
 
 		})
 	}
