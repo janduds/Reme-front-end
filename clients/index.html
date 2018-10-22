@@ -58,6 +58,14 @@
   					<span class="menu-label">Language</span>
 				</a>
 			</li>
+
+			<li ng-if ="user.role == 'admin'">
+  				<a ui-sref="audio" data-tooltip="List of Audio" ng-class="{'active' : $state.current.name == 'audio' }">
+
+  					<span class="menu-icon"><i class="fa fa-music"></i></span>
+  					<span class="menu-label">Audio</span>
+				</a>
+			</li>
   		</ul>
   	</div><!-- sidebar -->
 	<header>

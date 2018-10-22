@@ -87,6 +87,13 @@ function config($stateProvider, $urlRouterProvider, $interpolateProvider, $httpP
         	controller: 'ClientController',
         	controllerAs: 'client'
         })
+
+        .state('audio', {
+            url: '/audio',
+            templateUrl: '/views/audio.html',
+            controller: 'AudioController',
+            controllerAs: 'audio'
+        })
        .state('change-password', {
             url: '/change-password',
             templateUrl: '/views/changepassword.html',

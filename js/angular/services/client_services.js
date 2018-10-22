@@ -143,5 +143,14 @@ function clientService($http, baseUrl) {
 	}
 
 
+	clientApi.getAllAudio= function() {
+		return $http({
+			method	: 'GET',
+			url 	: regUrl + '/manage/audio',
+
+		})
+	}
+
+
 	return clientApi;
 };					

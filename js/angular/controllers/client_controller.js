@@ -9,7 +9,8 @@
         .controller('ChangeController', ChangeController)
         .controller('MusicController', MusicController)
         .controller('JournalController', JournalController)
-        .controller('LanguageController', LanguageController);
+        .controller('LanguageController', LanguageController)
+        .controller('AudioController', AudioController);
 
     function Controller($scope, $state, clientService)
     {	
@@ -1089,4 +1090,43 @@
     	
 
    }
+
+ 
+   function AudioController($scope, clientService, $filter){
+    	var self = this;
+    	self.errors = {};
+    	self.new = {};
+    	self.getAllAudio = function() {
+    		clientService.getAllAudio().then(function(res) {
+				self.all_audio = [];
+				self._all_audio = res.data.success;
+				self.total_client_count = res.data.success.total;
+				self.limit = 10;
+				angular.forEach(self._all_audio, function(value, key){
+					
+					if(!isNaN(parseInt(key))) {
+						
+						self.all_audio.push(value);
+					}
+
+				})
+
+				console.log(self.all_audio);
+
+				
+				$(".loader-head").addClass("hidden"); 
+
+			}).catch(function(res) {
+				$scope.sending = 'off';
+				console.log(res);
+			});
+    	}
+
+    	
+
+    	
+   }
+
+
+
 
