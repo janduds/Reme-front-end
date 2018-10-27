@@ -515,6 +515,11 @@
 			});
     	}
 
+    	self.newClient = function () {
+    		self.errors = {};
+    		self.reg = {}; 	
+    	}
+
 
 		
     }
@@ -827,6 +832,11 @@
 				
 			}
 		}
+
+		self.newSubscription = function() {
+			self.code = {};
+			self.errors = {};
+		}
     }
 
 
@@ -1001,6 +1011,11 @@
 			    })
 		    }
 		}
+
+		self.newMusic = function() {
+			self.errors = {};
+			self.new = {};
+		}
    }
 
 
@@ -1116,13 +1131,13 @@
 						console.log(res.data.error)
 				    })
   				}
-  			})
-
-
-  			
-
-		    
+  			}) 
     	}
+
+    	self.newLanguage = function() {
+			self.errors = {};
+			self.new = {};
+		}
 
     	
 
@@ -1236,6 +1251,11 @@
 					console.log(res.data.error)
 			    })
 		    }
+		}
+
+		self.newAudio = function() {
+			self.errors = {};
+			self.new = {};
 		}
 
     	

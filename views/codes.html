@@ -17,7 +17,7 @@
 	<div class="colright">
 		<h3 class="page-title">Activation Codes</h3>
 		<p class="pull-right">
-			<button class="btn btn-default" ng-click="subscription.showAllUsers('add')">Add Subscription</button>
+			<button class="btn btn-default" ng-click="subscription.showAllUsers('add'); subscription.newSubscription()">Add Subscription</button>
 		</p>
 		<ul class="nav nav-pills">
 			<li ng-class = "(code_filter == 'all') ? 'active' : '' " ng-click = "subscription.filterCode('all')"><a class="filter">All</a></li>

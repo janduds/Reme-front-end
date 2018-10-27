@@ -17,7 +17,7 @@
 			<div class="colright">
 				<h3 class="page-title">List Of Language</h3>
 				<p class="page-description"></p>
-				<a href="" class="btn btn-primary" data-toggle="modal" data-target="#newMusic" ng-click="errors = {}">
+				<a href="" class="btn btn-primary" data-toggle="modal" data-target="#newMusic" ng-click="language.newLanguage()">
 					<i class="fa fa-user-plus fa-left-sm"></i>New Language
 				</a>
 			</div>
@@ -33,7 +33,7 @@
 			</div>
 
 			<ul class="listing-items">
-				<li ng-repeat ="language in language.all_language | filter: {'name' : filter_search}">
+				<li ng-repeat ="language in language.all_language | filter: {'language.language' : filter_search}">
 					<div class="wrapper">
 						<span class="listing-icon"><i class="fa fa-book"></i></span>
 						<div class="listing-column codes-name" style="text-transform: uppercase;"><span>{!language.language!}</span></div>

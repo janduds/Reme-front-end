@@ -29,7 +29,7 @@
 	<div class="colright">
 		<h3 class="page-title">Clients</h3>
 		<p class="page-description"></p>
-		<a href="" class="btn btn-primary" data-toggle="modal" data-target="#newClient" ng-click="errors = {}">
+		<a href="" class="btn btn-primary" data-toggle="modal" data-target="#newClient" ng-click="client.newClient()">
 			<i class="fa fa-user-plus fa-left-sm"></i>New Client
 		</a>
 	</div>
@@ -67,7 +67,7 @@
 					<a href="" data-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></a>
 					<ul class="dropdown-menu dropdown-menu-right">
 						<li><a href="" data-toggle="modal" data-target="#updateClient" ng-click="viewCustomer(client.original_index)">Edit</a></li>
-						<li><a href="" data-toggle="modal" data-target="#viewClient" ng-click="viewCustomer(client.original_index)">View Profile</a></li>
+						<li><a href="" data-toggle="modal" data-target="#viewClient" ng-click="viewCustomer(client.original_index)">View Client</a></li>
 						<li><a href="" ng-click="archiveUser(client.original_index,1)" >Archive</a></li>
 					</ul>
 				</div>
