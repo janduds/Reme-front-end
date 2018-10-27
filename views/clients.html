@@ -199,10 +199,10 @@
 		      			<div class="form-group">
 			      			<label for="email">Category</label>
 			      			<select class="form-control"  ng-class="{'error-field' : client.errors.category}" id="clientGender" ng-model="client.reg.category">
-								<option value="PRIVATE PRACTICE">PRIVATE PRACTICE</option>
-								<option value="PUBLIC HOSPITAL">PUBLIC HOSPITAL</option>
-								<option value="GENERAL PRACTICE ADULTS">GENERAL PRACTICE ADULTS</option>
-								<option value="GENERAL PRACTICE YOUNG ADULTS">GENERAL PRACTICE YOUNG ADULTS</option>
+								<option value="PRIVATE PRACTICE">Private practice</option>
+								<option value="PUBLIC HOSPITAL">Public hospital</option>
+								<option value="GENERAL PRACTICE ADULTS">General practice adults</option>
+								<option value="GENERAL PRACTICE YOUNG ADULTS">General Practice young adults</option>
 
 							</select>
 							<span ng-if="client.errors.gender" class="error">{! client.errors.category !}</span>
@@ -212,7 +212,7 @@
 	      			<div class="form-group">
 						<label for="clientGeneder">Group</label>
 						<select class="form-control"  ng-class="{'error-field' : client.errors.group_type}" id="clientGender" ng-model="client.reg.group_type">
-							 <option ng-repeat="all_group in client.all_group" value="{!all_group.id!}">{!all_group.name!}</option>
+							 <option ng-repeat="all_group in client.all_group" class="capitalize" value="{!all_group.id!}">{!all_group.name!}</option>
 
 						</select>
 						<span ng-if="client.errors.group_type" class="error">{! client.errors.group_type !}</span>
