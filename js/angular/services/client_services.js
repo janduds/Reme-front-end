@@ -151,6 +151,16 @@ function clientService($http, baseUrl) {
 		})
 	}
 
+	clientApi.addAudio = function(data) {
+		return $http({
+			method	: 'POST',
+			url 	: regUrl + '/manage/audio',
+			headers : { 'Content-Type': undefined },
+			data 	: data,
+
+		})
+	}
+
 
 	return clientApi;
 };					

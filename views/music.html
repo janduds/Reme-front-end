@@ -1,4 +1,4 @@
-		<div class="page-heading" ng-init = "music.getAllMusic()">
+		<div class="page-heading" ng-init = "music.init()">
 			<div class="colleft">
 				<div class="canvas">
 					<h3 class="searchfilter-title">Search Filter</h3>
@@ -26,9 +26,11 @@
 			<div class="listing-header">
 				<div class="wrapper">
 					<div class="listing-column codes-name"><span>Name<i class="fa fa-caret-down fa-right-sm"></i></span></div>
-					<div class="listing-column codes-client"><span>Duration<i class="fa fa-caret-down fa-right-sm"></i></span></div>
-					<div class="listing-column codes-client"><span>Music Type<i class="fa fa-caret-down fa-right-sm"></i></span></div>
-					<div class="listing-column codes-client"><span>URL<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+					<div class="listing-column small-tabs"><span>Duration<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+					<div class="listing-column small-tabs"><span>Language<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+					<div class="listing-column small-tabs"><span>Status<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+
+					<div class="listing-column small-tabs"><span>URL<i class="fa fa-caret-down fa-right-sm"></i></span></div>
 				</div>
 			</div>
 
@@ -37,9 +39,10 @@
 					<div class="wrapper">
 						<span class="listing-icon"><i class="fa fa-music"></i></span>
 						<div class="listing-column codes-name" style="text-transform: uppercase;"><span>{!music.name!}</span></div>
-						<div class="listing-column codes-client"><span>{!music.selected_session_name !}</span></div>
-						<div class="listing-column codes-client"><span>Guitar</span></div>
-						<div class="listing-column codes-client"><span>{!music.url !}</span></div>
+						<div class="listing-column small-tabs"><span>{!music.session.name !}</span></div>
+						<div class="listing-column small-tabs"><span>{!music.language.language !}</span></div>
+						<div class="listing-column small-tabs"><span>{!music.status !}</span></div>
+						<div class="listing-column small-tabs"><span>{!music.url !}</span></div>
 					</div><!-- wrapper -->
 				</li>
 				<li >
@@ -115,6 +118,16 @@
 						</select>
                             <span ng-if="music.errors.music_type" class="error">{! music.errors.music_type !}</span>
 					</div>
+	      		</div>
+	      	</div>
+	      	<div class="col-container">
+	      		<div class="col6">
+	      				<label for="firstName">Language</label>
+						<select class="form-control" id="aPdateup" name="day" ng-class="{'error-field' : music.errors.selected_session}" ng-model = "music.new.language_id">
+							<option ng-repeat="language in music.all_language" value = "{!language.id!}" >{!language.language!}</option>
+
+						</select>
+                        <span ng-if="music.errors.language_id" class="error">{! music.errors.language_id !}</span>
 	      		</div>
 	      	</div>
 	      		      </div>

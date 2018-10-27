@@ -1,4 +1,4 @@
-		<div class="page-heading" ng-init = "audio.getAllAudio()">
+		<div class="page-heading" ng-init = "audio.init()">
 			<div class="colleft">
 				<div class="canvas">
 					<h3 class="searchfilter-title">Search Filter</h3>
@@ -26,10 +26,10 @@
 			<div class="listing-header">
 				<div class="wrapper">
 					<div class="listing-column codes-name"><span>Name<i class="fa fa-caret-down fa-right-sm"></i></span></div>
-					<div class="listing-column codes-client"><span>Session<i class="fa fa-caret-down fa-right-sm"></i></span></div>
-					<div class="listing-column codes-client"><span>Language<i class="fa fa-caret-down fa-right-sm"></i></span></div>
-					<div class="listing-column codes-client"><span>Status<i class="fa fa-caret-down fa-right-sm"></i></span></div>
-					<div class="listing-column codes-client"><span>URL<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+					<div class="listing-column small-tabs"><span>Session<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+					<div class="listing-column small-tabs"><span>Language<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+					<div class="listing-column small-tabs"><span>Status<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+					<div class="listing-column small-tabs"><span>URL<i class="fa fa-caret-down fa-right-sm"></i></span></div>
 				</div>
 			</div>
 
@@ -38,10 +38,10 @@
 					<div class="wrapper">
 						<span class="listing-icon"><i class="fa fa-music"></i></span>
 						<div class="listing-column codes-name" style="text-transform: uppercase;"><span>{!audio.name!}</span></div>
-						<div class="listing-column codes-client"><span>{!audio.session.name !}</span></div>
-						<div class="listing-column codes-client"><span>{!audio.language.language!}</span></div>
-						<div class="listing-column codes-client"><span>{!audio.status!}</span></div>
-						<div class="listing-column codes-client"><span>{!audio.url !}</span></div>
+						<div class="listing-column small-tabs"><span>{!audio.session.name !}</span></div>
+						<div class="listing-column small-tabs"><span>{!audio.language.language!}</span></div>
+						<div class="listing-column small-tabs"><span>{!audio.status!}</span></div>
+						<div class="listing-column small-tabs"><span>{!audio.url !}</span></div>
 					</div><!-- wrapper -->
 				</li>
 				<li >
@@ -80,15 +80,15 @@
 	      		<div class="col6">
 	      			<div class="form-group">
 						<label for="firstName">Name</label>
-						<input type="text" class="form-control" id="firstName" ng-class="{'error-field' : music.errors.name}" ng-model="music.new.name" required>
-                            <span ng-if="music.errors.name" class="error">{! music.errors.name !}</span>
+						<input type="text" class="form-control" id="firstName" ng-class="{'error-field' : audio.errors.name}" ng-model="audio.new.name" required>
+                            <span ng-if="audio.errors.name" class="error">{! audio.errors.name !}</span>
 					</div>
 	      		</div>
 	      		<div class="col6">
 	      			<div class="form-group">
 						<label for="lastName">File</label>
-						<input type="file" class="form-control" id="file" ng-class="{'error-field' : music.errors.file}" ng-model="music.new.file" required>
-                            <span ng-if="music.errors.file" class="error">{! music.errors.file !}</span>
+						<input type="file" class="form-control" id="file" ng-class="{'error-field' : audio.errors.file}" ng-model="music.new.file" required>
+                            <span ng-if="audio.errors.file" class="error">{! audio.errors.file !}</span>
 					</div>
 	      		</div>
 	      	</div>
@@ -96,32 +96,28 @@
 	      		<div class="col6">
 	      			<div class="form-group">
 						<label for="firstName">Duration</label>
-						<select class="form-control" id="aPdateup" name="day" ng-class="{'error-field' : music.errors.selected_session}" ng-model = "music.new.selected_session">
+						<select class="form-control" id="aPdateup" name="day" ng-class="{'error-field' : audio.errors.selected_session}" ng-model = "audio.new.selected_session">
 							<option value = "" selected="selected">Select</option>
 							<option value = "1" >2 Minutes</option>
 							<option value = "2" >5 Minutes</option>
 							<option value = "3" >20 Minutes</option>
 
 						</select>
-                            <span ng-if="music.errors.selected_session" class="error">{! music.errors.selected_session !}</span>
+                            <span ng-if="audio.errors.selected_session" class="error">{! audio.errors.selected_session !}</span>
 					</div>
 	      		</div>
 	      		<div class="col6">
-	      			<div class="form-group">
-						<label for="lastName">Genre</label>
-						<select class="form-control" id="aPdateup" name="day" ng-class="{'error-field' : music.errors.music_type}" ng-model = "music.new.music_type">
-							<option value = "" selected="selected">Select</option>
-							<option value = "1" >Guitar</option>
-							<option value = "2" >Piano</option>
+	      				<label for="firstName">Language</label>
+						<select class="form-control" id="aPdateup" name="day" ng-class="{'error-field' : audio.errors.selected_session}" ng-model = "audio.new.language_id">
+							<option ng-repeat="language in audio.all_language" value = "{!language.id!}" >{!language.language!}</option>
 
 						</select>
-                            <span ng-if="music.errors.music_type" class="error">{! music.errors.music_type !}</span>
-					</div>
+                        <span ng-if="audio.errors.language_id" class="error">{! audio.errors.language_id !}</span>
 	      		</div>
 	      	</div>
 	      		      </div>
 	      <div class="modal-footer">
-	      	<a href="" class="btn btn-primary" ng-click="music.submitMusic()">Submit</a>
+	      	<a href="" class="btn btn-primary" ng-click="audio.submitAudio()">Submit</a>
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 	      </div>
 	    </div><!-- model-content -->

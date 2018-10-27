@@ -885,6 +885,11 @@
     	self.new = {};
     	self.edit_subscription = false;
 
+    	self.init = function() {
+    		self.getAllMusic();
+    		self.getAllLanguage();
+    	}
+
     	self.getAllMusic = function() {
 	    	clientService.getAllMusic().then(function(res) {
 				self.all_music = [];
@@ -920,6 +925,30 @@
 			});
 		}
 
+		self.getAllLanguage = function() {
+    		clientService.getAllLanguage().then(function(res) {
+				self.all_language = [];
+				self._all_language = res.data.success;
+				self.total_client_count = res.data.success.total;
+				self.limit = 10;
+				angular.forEach(self._all_language, function(value, key){
+					
+					if(!isNaN(parseInt(key))) {
+						
+						self.all_language.push(value);
+					}
+
+				})
+
+				
+				$(".loader-head").addClass("hidden"); 
+
+			}).catch(function(res) {
+				$scope.sending = 'off';
+				console.log(res);
+			});
+    	}
+
 		self.submitMusic = function() {
 			var file = document.getElementById('file').files[0];
 			
@@ -936,25 +965,33 @@
 		    }
 
 		    if(self.new.selected_session == undefined) {
-			 	self.errors.selected_session = "For is Required";
+			 	self.errors.selected_session = "Duration is Required";
 		    }else {
 		    	self.errors.selected_session = "";
 		    }
 
 		    if(self.new.music_type == undefined || self.new.music_type == " ") {
-			 	self.errors.music_type = "Music Type is Required";
+			 	self.errors.music_type = "Genre is Required";
 		    }else {
 		    	self.errors.music_type = "";
 		    }
+
+	        if(self.new.language_id == undefined || self.new.language_id == " ") {
+			 	self.errors.language_id = "Language is Required";
+		    }else {
+		    	self.errors.language_id = "";
+		    }
+
 		    var payload = new FormData();
 		   
 		    payload.append("name",self.new.name);
 		    payload.append("file",file);
 		    payload.append("selected_session",self.new.selected_session);
 		    payload.append("music_type",self.new.music_type);
+		    payload.append("language_id",self.new.language_id);
 
 		    if(self.errors.name == "" && self.errors.file == "" && self.errors.selected_session == "" && self.errors.music_type == "") {
-		    	clientService.addMusic(payload).then(function(res) {
+		    	clientService.addAudio(payload).then(function(res) {
 
 				    if(res.data.success) {
 				    	location.reload();
@@ -1096,6 +1133,11 @@
     	var self = this;
     	self.errors = {};
     	self.new = {};
+
+    	self.init = function() {
+    		self.getAllAudio();
+    		self.getAllLanguage();
+    	}
     	self.getAllAudio = function() {
     		clientService.getAllAudio().then(function(res) {
 				self.all_audio = [];
@@ -1121,6 +1163,80 @@
 				console.log(res);
 			});
     	}
+
+    	self.getAllLanguage = function() {
+    		clientService.getAllLanguage().then(function(res) {
+				self.all_language = [];
+				self._all_language = res.data.success;
+				self.total_client_count = res.data.success.total;
+				self.limit = 10;
+				angular.forEach(self._all_language, function(value, key){
+					
+					if(!isNaN(parseInt(key))) {
+						
+						self.all_language.push(value);
+					}
+
+				})
+
+				
+				$(".loader-head").addClass("hidden"); 
+
+			}).catch(function(res) {
+				$scope.sending = 'off';
+				console.log(res);
+			});
+    	}
+
+
+    	self.submitAudio = function() {
+ 
+			var file = document.getElementById('file').files[0];
+			
+		    if(self.new.name == undefined) {
+		 	  self.errors.name = "Name is Required";
+		    }else {
+		      self.errors.name = "";	
+		    }
+			
+			if(file == undefined) {
+			 	self.errors.file = "File is Required";
+		    }else {
+		    	self.errors.file = "";
+		    }
+
+		    if(self.new.selected_session == undefined) {
+			 	self.errors.selected_session = "Duration is Required";
+		    }else {
+		    	self.errors.selected_session = "";
+		    }
+
+	        if(self.new.language_id == undefined || self.new.language_id == " ") {
+			 	self.errors.language_id = "Language is Required";
+		    }else {
+		    	self.errors.language_id = "";
+		    }
+
+		    var payload = new FormData();
+		   
+		    payload.append("name",self.new.name);
+		    payload.append("file",file);
+		    payload.append("selected_session",self.new.selected_session);
+		    payload.append("music_type",self.new.music_type);
+		    payload.append("language_id",self.new.language_id);
+		    console.log(payload);
+
+		    if(self.errors.name == "" && self.errors.file == "" && self.errors.selected_session == "") {
+		    	clientService.addAudio(payload).then(function(res) {
+
+				    if(res.data.success) {
+				    	location.reload();
+				    }
+			    }).catch(function(res) {
+					console.log(res.data.error)
+			    })
+		    }
+		}
 
     	
 
