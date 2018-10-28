@@ -38,7 +38,14 @@ function clientService($http, baseUrl) {
 			method 	: 'GET',
 			url 	: regUrl + '/logout'
 		});
-	}		
+	}
+
+	clientApi.deleteClient = function(id) {
+		return $http({
+			method 	: 'DELETE',
+			url 	: regUrl + '/manage/users/'+ id
+		});
+	}				
 
 	clientApi.getClientSubscription = function(data) {
 		return $http({

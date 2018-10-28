@@ -62,11 +62,12 @@
 						if(value.subscription.length != 0) {
 							var last_key = value.subscription.length-1;
 							value.code = value.subscription[last_key].code;
-							value.purchased_date = value.subscription[last_key].purchased_date;
-							value.expired = value.subscription[last_key].date_expired;
+							value.purchased_date = $scope.convertDate(value.subscription[last_key].purchased_date);
+
+							value.expired = $scope.convertDate(value.subscription[last_key].date_expired);
 						}
 
-				   		value.original_index = key;
+				   		value.original_index = key;;
 
 						$scope.client_list.push(value);
 					}
@@ -84,6 +85,12 @@
 
 			console.log($scope.client_list);
 	    }
+
+	    $scope.convertDate = function(inputFormat) {
+		  function pad(s) { return (s < 10) ? '0' + s : s; }
+		  var d = new Date(inputFormat);
+		  return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
+		}
 
 	    $scope.getAge = function(birthday){
 		    var birthday = new Date(birthday);
@@ -350,6 +357,21 @@
 			
 		}
 
+		$scope.deleteClient = function(id) {
+    		clientService.deleteClient(id).then(function(res) {
+				if(res.data.success) {
+					location.reload();
+				} else if(res.data.errors) {
+					angular.forEach(res.data.errors, function(value, key) {
+						$scope.errors[value.field] = value.message;
+					})
+				}
+			}).catch(function(res){
+				$scope.errors = res.errors;
+			})
+    	}
+
+
     }
 
     function ClientController($scope, $location, clientService)
@@ -520,6 +542,7 @@
     		self.reg = {}; 	
     	}
 
+    	
 
 		
     }
