@@ -1291,7 +1291,6 @@
   		var self = this;
     	self.errors = {};
     	self.new = {};
-    	$scope.profile_id = 16;
 
     	self.init = function() {
     		clientService.getClientById($scope.profile_id).then(function(res) {
