@@ -45,6 +45,14 @@ function clientService($http, baseUrl) {
 			method 	: 'DELETE',
 			url 	: regUrl + '/manage/users/'+ id
 		});
+	}
+
+	clientApi.getClientById = function(id) {
+		return $http({
+			method	: 'GET',
+			url 	: regUrl + '/manage/users/'+ id,
+
+		})
 	}				
 
 	clientApi.getClientSubscription = function(data) {
@@ -167,6 +175,8 @@ function clientService($http, baseUrl) {
 
 		})
 	}
+
+
 
 
 	return clientApi;

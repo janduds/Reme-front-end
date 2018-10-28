@@ -149,6 +149,10 @@
    color: #00bcd4;
 }
 
+.active-on-hover:hover {
+    color:#00bcd4;
+    cursor:pointer;
+}
 .main-container {
     padding-top: 210px;
 }
@@ -224,7 +228,60 @@ section {
 
 }
 
+.personal-information{
+   padding-top: 20px;
+   padding-left:15px;
+   padding-right: 15px;
+}
 
+.customer-picture {
+    vertical-align: middle;
+}
+
+.customer-picture > img{
+    width: 50px;
+    border-radius: 50px;
+    border: 2px solid #ccc;
+
+}
+
+.customer-name {
+    text-transform: capitalize;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.group-name {
+    font-size: 12px;
+}
+
+hr.new1 {
+  border-top: 1px dashed #ccc;
+}
+
+.important-information {
+    padding-left:15px;
+    padding-right: 15px;
+}
+
+h5.header-name{
+    color: #00bcd4;
+}
+
+span.column-head {
+    display: block;
+    color:#757575;
+    padding-top:10px;
+}
+
+span.column-def {
+    display: block;
+    font-weight: bold;
+}
+.note {
+    width: 23%;
+    padding-bottom: 25px !important;
+}
 
 
 

@@ -37,7 +37,7 @@
 <div class="listing-container listing-client iconed optioned">
 	<div class="listing-header">
 		<div class="wrapper">
-			<div class="listing-column client-name-small"><span>Name<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+			<div class="listing-column client-name-small "><span>Name<i class="fa fa-caret-down fa-right-sm"></i></span></div>
 			<div class="listing-column small-tabs"><span>birthdate<i class="fa fa-caret-down fa-right-sm"></i></span></div>
 			<div class="listing-column small-tabs"><span>age<i class="fa fa-caret-down fa-right-sm"></i></span></div>
 			<div class="listing-column small-tabs"><span>gender<i class="fa fa-caret-down fa-right-sm"></i></span></div>
@@ -54,7 +54,8 @@
 				<figure class="listing-user" style="background-image:url('/images/user-default.png');">
 					<img src="/images/user-default.png" alt="" />
 				</figure>
-				<div class="listing-column client-name-small"><span>{!client.name | uppercase!}</span></div>
+				<div class="listing-column client-name-small active-on-hover"> 
+	                <span ui-sref="customer-profile" ng-click="userProfile(client.id)">{!client.name | uppercase!}</span></div><
 				<div class="listing-column small-tabs"><span>{!client.birth_date | date:'MMM. dd, yyyy'!}</span></div>
 				<div class="listing-column small-tabs"><span>{!client.age!}</span></div>
 				<div class="listing-column small-tabs"><span>{!client.gender |uppercase !}</span></div>

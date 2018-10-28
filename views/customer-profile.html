@@ -1,0 +1,48 @@
+<div class="col-container" ng-init="customer.init()">
+	<div class="col3">
+		<div class="canvas">
+			<div class="personal-information">
+				<figure class="customer-picture" style="background-image:url(/images/user-default.png);">
+					<img src="/images/user-default.png" alt="">
+				</figure>
+				<span class="customer-name">{!customer.profile.name!}</span>
+				<span class="group-name" >Group:({!customer.profile.group.name!})</span>
+			</div>
+			<hr class="new1">
+			<div class="important-information">
+				<h5 class="header-name">Personal Information</h5>
+				<span class="column-head">Date of Birth</span>
+				<span class="column-def" >{!customer.profile.birth_date | date:'MMM. dd, yyyy'!}</span>
+				<span class="column-head">Age</span>
+				<span class="column-def" >{!customer.profile.age!}</span>
+				<span class="column-head">Gender</span>
+				<span class="column-def" >{!customer.profile.gender| uppercase!}</span>
+			</div>
+			<hr class="new1">
+			<div class="important-information">
+				<h5 class="header-name">Note(Professional User Comments)</h5>
+				<div class="container">
+				  <div class="row">
+				  <div class="note">
+				  		{!customer.profile.note!}
+				  </div>
+				  		
+				  </div>
+				</div>
+			</div>
+
+			
+		</div>
+	</div>
+	<div class="col9">
+		<div class="canvas">
+			sdfsdf
+			sdfsdfsd
+			sdfs
+			df
+			sdf
+			sdf
+
+		</div>
+	</div>
+</div>

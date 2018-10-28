@@ -108,6 +108,13 @@ function config($stateProvider, $urlRouterProvider, $interpolateProvider, $httpP
             controllerAs: ''
         })
 
+        .state('customer-profile', {
+            url: '/customer-profile',
+            templateUrl: '/views/customer-profile.html',
+            controller: 'CustomerProfileController',
+            controllerAs: 'customer'
+        })
+
        
 }
 function run($rootScope, $state) {

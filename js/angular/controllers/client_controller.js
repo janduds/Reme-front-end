@@ -10,7 +10,8 @@
         .controller('MusicController', MusicController)
         .controller('JournalController', JournalController)
         .controller('LanguageController', LanguageController)
-        .controller('AudioController', AudioController);
+        .controller('AudioController', AudioController)
+        .controller('CustomerProfileController', CustomerProfileController);
 
     function Controller($scope, $state, clientService)
     {	
@@ -215,6 +216,10 @@
 
         $scope.filterGender = function() {
         	$scope.filter_gender = $('#gender').val();
+        }
+
+        $scope.userProfile = function(id) {
+        	$scope.profile_id = id;
         }
 
         function formatDate(date) {
@@ -1280,10 +1285,29 @@
 			self.errors = {};
 			self.new = {};
 		}
+   }
 
-    	
+   function CustomerProfileController($scope, clientService, $filter) {
+  		var self = this;
+    	self.errors = {};
+    	self.new = {};
+    	$scope.profile_id = 16;
 
-    	
+    	self.init = function() {
+    		clientService.getClientById($scope.profile_id).then(function(res) {
+				self.client = [];
+				self.profile = res.data.success;
+
+				self.profile.name = self.profile.first_name+" " +self.profile.last_name;
+				self.profile.age = $scope.getAge(self.profile.birth_date) + ' years old';
+				console.log(self.profile);
+				$(".loader-head").addClass("hidden"); 
+
+			}).catch(function(res) {
+				$scope.sending = 'off';
+				console.log(res);
+			});
+    	}	
    }
 
 
