@@ -1300,20 +1300,21 @@
 
 				self.profile.name = self.profile.first_name+" " +self.profile.last_name;
 				self.profile.age = $scope.getAge(self.profile.birth_date) + ' years old';
-				self.all_journal = self.profile.journal;
-				console.log(self.all_journal);
-
-				angular.forEach(self.all_journal, function(value, key) {
-				  self.all_journal[key].new_date = $scope.convertDate(value.created_at);
+				
+				angular.forEach(self.profile.journal, function(value, key) {
+				  self.profile.journal[key].new_date = $scope.convertDate(value.created_at);
 				});
 
-				$scope.convertDate();
+				console.log(self.profile.journal);
+
 				$(".loader-head").addClass("hidden"); 
 
 			}).catch(function(res) {
 				$scope.sending = 'off';
 				console.log(res);
 			});
+
+			
     	}	
    }
 
