@@ -1291,6 +1291,7 @@
   		var self = this;
     	self.errors = {};
     	self.new = {};
+    	self.journal = {};
 
     	self.init = function() {
     		clientService.getClientById($scope.profile_id).then(function(res) {
@@ -1299,7 +1300,14 @@
 
 				self.profile.name = self.profile.first_name+" " +self.profile.last_name;
 				self.profile.age = $scope.getAge(self.profile.birth_date) + ' years old';
-				console.log(self.profile);
+				self.all_journal = self.profile.journal;
+				console.log(self.all_journal);
+
+				angular.forEach(self.all_journal, function(value, key) {
+				  self.all_journal[key].new_date = $scope.convertDate(value.created_at);
+				});
+
+				$scope.convertDate();
 				$(".loader-head").addClass("hidden"); 
 
 			}).catch(function(res) {

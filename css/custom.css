@@ -282,6 +282,9 @@ span.column-def {
     width: 23%;
     padding-bottom: 25px !important;
 }
+.journal-column-comment {
+    width: 30%;
+}
 
 
 

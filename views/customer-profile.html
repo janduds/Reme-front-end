@@ -36,12 +36,37 @@
 	</div>
 	<div class="col9">
 		<div class="canvas">
-			sdfsdf
-			sdfsdfsd
-			sdfs
-			df
-			sdf
-			sdf
+			<div class="listing-container listing-codes iconed">
+			<div class="listing-header">
+				<div class="wrapper">
+					<div class="listing-column journal-column"><span>Duration<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+					<div class="listing-column journal-column"><span>Mood Before<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+					<div class="listing-column journal-column"><span>Mood After<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+					<div class="listing-column journal-column-comment"><span>Comment<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+					<div class="listing-column journal-column"><span>Date Created<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+				</div>
+			</div>
+
+			<ul class="listing-items">
+				<li ng-repeat ="journal in customer.all_journal">
+					<div class="wrapper">
+						<span class="listing-icon"><i class="fa fa-address-book"></i></span>
+						<div class="listing-column journal-column"><span>{!journal.session.name !}</span></div>
+						<div class="listing-column journal-column"><span>{!journal.mood_before !}</span></div>
+						<div class="listing-column journal-column"><span>{!journal.mood_after !}</span></div>
+						<div class="listing-column journal-column-comment"><span>{!journal.comment!}</span></div>
+						<div class="listing-column journal-column"><span>{!journal.new_date !}</span></div>
+					</div><!-- wrapper -->
+				</li>
+				<li >
+					<div class="wrapper loader-head">
+						<div class="listing-column client-name loader"></div>
+						
+					</div><!-- wrapper -->
+				</li>
+			</ul>
+					
+		</div>
 
 		</div>
 	</div>
