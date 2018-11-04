@@ -35,6 +35,27 @@
 		</div>
 	</div>
 	<div class="col9">
+		<div class="colleft">
+			<div class="canvas">
+						<h3 class="searchfilter-title">Search Filter</h3>
+						<div class="searchfilter-container">
+							<div class="col-container">
+								<div class="col6">
+									<div class="form-group">
+										<label for="">Date From</label>
+										<input type="date" id="date_from" class="form-control" ng-model = "customer.date_from">
+									</div><!-- form-group -->
+								</div>
+								<div class="col6">
+									<div class="form-group">
+										<label for="">Date To</label>
+										<input type="date" id="date_to" class="form-control" ng-model = "customer.date_to">
+									</div><!-- form-group -->
+								</div>
+							</div><!-- col-container -->
+						</div><!-- searchfilter-container -->
+					</div><!-- canvas -->
+		</div><!-- colleft -->
 		<div class="canvas">
 			<div class="listing-container listing-codes iconed">
 			<div class="listing-header">
@@ -48,7 +69,7 @@
 			</div>
 
 			<ul class="listing-items">
-				<li ng-repeat ="journal in customer.profile.journal">
+				<li ng-repeat ="journal in customer.profile.journal | filter:customer.filterFnDate">
 					<div class="wrapper">
 						<span class="listing-icon"><i class="fa fa-address-book"></i></span>
 						<div class="listing-column journal-column"><span>{!journal.session.name !}</span></div>

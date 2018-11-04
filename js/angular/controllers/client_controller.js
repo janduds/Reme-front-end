@@ -1293,6 +1293,10 @@
     	self.new = {};
     	self.journal = {};
 
+    	if($scope.profile_id == undefined) {
+    		window.location.href = '/clients/';
+    	}
+
     	self.init = function() {
     		clientService.getClientById($scope.profile_id).then(function(res) {
 				self.client = [];
@@ -1313,9 +1317,37 @@
 				$scope.sending = 'off';
 				console.log(res);
 			});
+    	}
 
-			
-    	}	
+    	self.filterFnDate = function(journal) {
+    		var date = new Date(journal.created_at);
+
+    		if( (self.date_from == undefined  || self.date_from == null) && (self.date_to == undefined || self.date_to == null)) {
+    			return true;
+    		}
+
+    		if( (self.date_from != undefined  || self.date_from != null) && (self.date_to != undefined || self.date_to != null)) {
+    			if(date >= self.date_from && date <= self.date_to) {
+    				return true;
+    			}
+    		}
+
+    		if( (self.date_from != undefined  || self.date_from != null) && (self.date_to == undefined || self.date_to == null)) {
+    			if(date >= self.date_from ) {
+    				return true;
+    			}
+    		}
+
+    		if( (self.date_from == undefined  || self.date_from == null) && (self.date_to != undefined || self.date_to != null)) {
+    			if(date <= self.date_to ) {
+    				return true;
+    			}
+    		}
+
+    		return false;
+    	}
+
+
    }
 
 
