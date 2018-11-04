@@ -4,12 +4,23 @@
 					<h3 class="searchfilter-title">Search Filter</h3>
 					<div class="searchfilter-container">
 						<div class="col-container">
-							<div class="col12">
+							<div class="col6">
 								<div class="form-group">
 									<label for="">Search</label>
 									<input type="text" name="" value="" class="form-control" ng-model="filter_search" id="" placeholder="Enter keyword here..." />
 								</div><!-- form-group -->
 							</div><!-- col8 -->
+							<div class="col6">
+								<div class="form-group">
+									<label for="">Session</label>
+									<select class="form-control" ng-model="journal.selected_session">
+										<option value="">--</option>
+										<option value="1">Re:Frame</option>
+										<option value="2">Re:Fresh</option>
+										<option value="3">Re:Juvenate</option>
+									</select>
+								</div><!-- form-group -->
+							</div>
 						</div><!-- col-container -->
 						<div class="col-container">
 							<div class="col6">
@@ -25,20 +36,6 @@
 								</div><!-- form-group -->
 							</div>
 						</div><!-- col-container -->
-						<div class="col-container">
-								<div class="col6">
-									<div class="form-group">
-										<label for="">Session</label>
-										<select class="form-control" ng-model="selected_session">
-											<option>--</option>
-											<option value="1">Re:Frame</option>
-											<option value="2">Re:Fresh</option>
-											<option value="3">Re:Juvenate</option>
-										</select>
-									</div><!-- form-group -->
-								</div>
-								
-							</div><!-- col-container -->
 					</div><!-- searchfilter-container -->
 				</div><!-- canvas -->
 			</div><!-- colleft -->
@@ -60,7 +57,7 @@
 			</div>
 
 			<ul class="listing-items">
-				<li ng-repeat ="journal in journal.all_journal | filter: {'name' : filter_search} | filter:{'selected_session':selected_session} | filter:journal.filterFnDate">
+				<li ng-repeat ="journal in journal.all_journal | filter: {'name' : filter_search} | filter:journal.filterSession | filter:journal.filterFnDate">
 					<div class="wrapper">
 						<span class="listing-icon"><i class="fa fa-address-book"></i></span>
 						<div class="listing-column codes-name" style="text-transform: uppercase;"><span>{!journal.user.name!}</span></div>
