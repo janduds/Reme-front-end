@@ -547,6 +547,20 @@
     		self.reg = {}; 	
     	}
 
+    	self.FilterGroup= function(client) {
+    		console.log(self.filter_group);
+
+    		if(self.filter_group == undefined || self.filter_group == null || self.filter_group == "") {
+				return true;
+    		}
+    		if(self.filter_group != undefined || self.filter_group != null) {
+    			if(client.group_type == self.filter_group) {
+    				return true;
+    			}
+    		}
+    		return false;
+    	}
+
     	
 
 		

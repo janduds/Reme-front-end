@@ -15,10 +15,35 @@
 									<label for="">Gender</label>
 									<select class="form-control" id = "gender" ng-change="filterGender()" ng-model="gender">
 										<option value="">--</option>
-										<option value="male">MALE</option>
-										<option value="female">FEMALE</option>
-										<option value="Other">OTHER</option>
-										<option value="Rather not to Say">RATHER NOT TO SAY</option>
+										<option value="male">Male</option>
+										<option value="female">Female</option>
+										<option value="Other">Other</option>
+										<option value="Rather not to say">Rather not to say</option>
+									</select>
+								</div><!-- form-group -->
+							</div>
+						</div><!-- col-container -->
+						<div class="col-container">
+							<div class="col6">
+								<div class="form-group">
+									<label for="">Category</label>
+									<select  class="form-control" ng-model = "filter_category">
+										<option value="">--</option>
+										<option value="PRIVATE PRACTICE">Private practice</option>
+										<option value="PUBLIC HOSPITAL">Public hospital</option>
+										<option value="GENERAL PRACTICE ADULTS">General practice adults</option>
+										<option value="GENERAL PRACTICE YOUNG ADULTS">General practice young adults</option>
+										
+									</select>
+								</div><!-- form-group -->
+							</div>
+							<div class="col6">
+								<div class="form-group">
+									<label for="">Group</label>
+									<select class="form-control" ng-model="client.filter_group">
+										<option value="">--</option>
+										<option ng-repeat="group in client.all_group" value="{!group.id!}">{!group.name!}
+										</option>
 									</select>
 								</div><!-- form-group -->
 							</div>
@@ -49,7 +74,7 @@
 		</div>
 	</div>
 	<ul class="listing-items">
-		<li ng-repeat ="client in client_list | filter:filterByCustomer() | filter: {'name' : client_name} | filter: {'role' : filter_cat} | filter: {'gender' : filter_gender} track by $index" ng-hide = "client.archive == 1" >
+		<li ng-repeat ="client in client_list | filter:filterByCustomer() | filter: {'name' : client_name} | filter: {'role' : filter_cat} | filter: {'gender' : filter_gender} | filter:{'category': filter_category} | filter:client.FilterGroup track by $index" ng-hide = "client.archive == 1" >
 			<div class="wrapper">
 				<figure class="listing-user" style="background-image:url('/images/user-default.png');">
 					<img src="/images/user-default.png" alt="" />
