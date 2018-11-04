@@ -1059,21 +1059,9 @@
 				self.limit = 10;
 				angular.forEach(self._all_journal, function(value, key){
 					
-					if(value.selected_session == 1) {
-							value.selected_session_name = "2 minutes";
-					}
-
-					if(value.selected_session == 2) {
-						value.selected_session_name = "5 minutes";
-					}
-
-					if(value.selected_session == 3) {
-						value.selected_session_name = "20 minutes";
-					}
-
 					if(!isNaN(parseInt(key))) {
 						value.name = value.user.name;
-						console.log(value.customer_doctor);
+						value.new_date = $scope.convertDate(value.created_at);
 						if((value.customer_doctor != null || value.customer_doctor != undefined) && $scope.user.id == value.customer_doctor.doctor_id) {
 							self.all_journal.push(value);
 						}
@@ -1091,6 +1079,34 @@
 				$scope.sending = 'off';
 				console.log(res);
 			});
+    	}
+
+    	self.filterFnDate = function(journal) {
+    		var date = new Date(journal.created_at);
+
+    		if( (self.date_from == undefined  || self.date_from == null) && (self.date_to == undefined || self.date_to == null)) {
+    			return true;
+    		}
+
+    		if( (self.date_from != undefined  || self.date_from != null) && (self.date_to != undefined || self.date_to != null)) {
+    			if(date >= self.date_from && date <= self.date_to) {
+    				return true;
+    			}
+    		}
+
+    		if( (self.date_from != undefined  || self.date_from != null) && (self.date_to == undefined || self.date_to == null)) {
+    			if(date >= self.date_from ) {
+    				return true;
+    			}
+    		}
+
+    		if( (self.date_from == undefined  || self.date_from == null) && (self.date_to != undefined || self.date_to != null)) {
+    			if(date <= self.date_to ) {
+    				return true;
+    			}
+    		}
+
+    		return false;
     	}
 
     	
