@@ -548,7 +548,6 @@
     	}
 
     	self.FilterGroup= function(client) {
-    		console.log(self.filter_group);
 
     		if(self.filter_group == undefined || self.filter_group == null || self.filter_group == "") {
 				return true;
@@ -558,6 +557,43 @@
     				return true;
     			}
     		}
+    		return false;
+    	}
+
+    	self.filterFnDate = function(client) {
+    		var last_key = client.subscription.length-1;
+    		var latest_sub = client.subscription[last_key];
+
+    		if(latest_sub != undefined) {
+    			var date_purchased = new Date(latest_sub.purchased_date);
+    			var date_expired = new Date(latest_sub.date_expired);
+    		}else {
+    			var date_purchased = null;
+    			var date_expired = null;
+    		}
+
+    		if( (self.purchased_date == undefined  || self.purchased_date == null) && (self.date_expired == undefined || self.date_expired == null)) {
+    			return true;
+    		}
+
+    		if( (self.purchased_date != undefined  || self.purchased_date != null) && (self.date_expired != undefined || self.date_expired != null)) {
+    			if(date_purchased >= self.purchased_date && date_expired <= self.date_expired) {
+    				return true;
+    			}
+    		}
+
+    		if( (self.purchased_date != undefined  || self.purchased_date != null) && (self.date_expired == undefined || self.date_expired == null)) {
+    			if(date_purchased >= self.purchased_date ) {
+    				return true;
+    			}
+    		}
+
+    		if( (self.purchased_date == undefined  || self.purchased_date == null) && (self.date_expired != undefined || self.date_expired != null)) {
+    			if(date_expired <= self.date_expired ) {
+    				return true;
+    			}
+    		}
+
     		return false;
     	}
 

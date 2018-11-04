@@ -48,6 +48,20 @@
 								</div><!-- form-group -->
 							</div>
 						</div><!-- col-container -->
+						<div class="col-container">
+							<div class="col6">
+								<div class="form-group">
+									<label for="">Date From</label>
+									<input type="date" id="date_from" class="form-control" ng-model = "client.purchased_date">
+								</div><!-- form-group -->
+							</div>
+							<div class="col6">
+								<div class="form-group">
+									<label for="">Date To</label>
+									<input type="date" id="date_to" class="form-control" ng-model = "client.date_expired">
+								</div><!-- form-group -->
+							</div>
+						</div><!-- col-container -->
 					</div><!-- searchfilter-container -->
 				</div><!-- canvas -->
 	</div><!-- colleft -->
@@ -74,7 +88,7 @@
 		</div>
 	</div>
 	<ul class="listing-items">
-		<li ng-repeat ="client in client_list | filter:filterByCustomer() | filter: {'name' : client_name} | filter: {'role' : filter_cat} | filter: {'gender' : filter_gender} | filter:{'category': filter_category} | filter:client.FilterGroup track by $index" ng-hide = "client.archive == 1" >
+		<li ng-repeat ="client in client_list | filter:filterByCustomer() | filter: {'name' : client_name} | filter: {'role' : filter_cat} | filter: {'gender' : filter_gender} | filter:{'category': filter_category} | filter:client.FilterGroup | filter:client.filterFnDate track by $index" ng-hide = "client.archive == 1" >
 			<div class="wrapper">
 				<figure class="listing-user" style="background-image:url('/images/user-default.png');">
 					<img src="/images/user-default.png" alt="" />
