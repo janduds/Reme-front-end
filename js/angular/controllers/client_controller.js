@@ -1427,6 +1427,22 @@
     		return false;
     	}
 
+    	self.filterSession = function(journal) {
+
+
+    		if(self.selected_session == undefined || self.selected_session == "--" || self.selected_session == null) {
+    			return true;
+    		}
+
+    		if(self.selected_session != undefined || self.selected_session != "" || self.selected_session != null) {
+    			if(journal.selected_session == self.selected_session){
+    				return true;
+    			}
+    		}
+
+    		return false;
+    	}
+
 
    }
 

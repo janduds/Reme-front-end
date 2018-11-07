@@ -57,7 +57,7 @@
 								<div class="col6">
 									<div class="form-group">
 										<label for="">Session</label>
-										<select class="form-control" ng-model="selected_session">
+										<select class="form-control" ng-model="customer.selected_session">
 											<option>--</option>
 											<option value="1">Re:Frame</option>
 											<option value="2">Re:Fresh</option>
@@ -83,7 +83,7 @@
 			</div>
 
 			<ul class="listing-items">
-				<li ng-repeat ="journal in customer.profile.journal | filter:customer.filterFnDate | filter: {'selected_session' : selected_session}">
+				<li ng-repeat ="journal in customer.profile.journal | filter:customer.filterFnDate | filter:customer.filterSession">
 					<div class="wrapper">
 						<span class="listing-icon"><i class="fa fa-address-book"></i></span>
 						<div class="listing-column journal-column"><span>{!journal.session.name !}</span></div>
