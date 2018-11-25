@@ -159,10 +159,19 @@ function clientService($http, baseUrl) {
 	}
 
 
-	clientApi.getAllGroup = function() {
+	clientApi.getAllGroup = function(id) {
 		return $http({
 			method	: 'GET',
+			url 	: regUrl + '/manage/group?user_id='+id,
+
+		})
+	}
+
+	clientApi.addSubgroup = function(data) {
+		return $http({
+			method	: 'POST',
 			url 	: regUrl + '/manage/group',
+			data 	: data
 
 		})
 	}

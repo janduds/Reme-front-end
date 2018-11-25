@@ -23,6 +23,7 @@
         $scope.errors = [];
         $scope.saving = false;
         $scope.base_view_music = 'http://server.reme.cloud/api/manage/music-view/';
+        $scope.add_subgroup = false;
 
         $scope.code_filter = "all";
         
@@ -538,7 +539,7 @@
 		}
 
 		self.getAllGroup = function() {
-    		clientService.getAllGroup().then(function(res) {
+    		clientService.getAllGroup($scope.user.id).then(function(res) {
 				self.all_group = [];
 				self._all_group = res.data.success;
 				self.total_client_count = res.data.success.total;
@@ -612,6 +613,36 @@
     		}
 
     		return false;
+    	}
+
+    	self.addsubclick = function() {
+    		$scope.add_subgroup = true;
+    		$scope.subgroup = {};
+    		$scope.subgroup_errors = {};
+    		$scope.subgroup_success = null;
+
+    	}
+
+    	self.addNewSub = function() {
+
+    		if($scope.subgroup.name == undefined || $scope.subgroup.name == null) {
+    			$scope.subgroup_errors.name = "subgroup is required";
+    		} else {
+    			var data = {"user_id" : $scope.user.id, "name" : $scope.subgroup.name};
+					clientService.addSubgroup(data).then(function(res) {
+						if(res.data.errors) {
+							return;
+						}else {
+							location.reload();
+						}
+					}).catch(function(res) {
+						$scope.sending = 'off';
+						console.log(res);
+					});
+
+				//$scope.subgroup = {};
+    			$scope.subgroup_errors = {};
+    		}
     	}
 
     	

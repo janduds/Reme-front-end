@@ -236,7 +236,7 @@
 
 	      	<div class="col-container">
 	      		<div class="row">
-	      			<div class="col-sm-6 col-md-6">
+	      			<div class="col-sm-4 col-md-4">
 		      			<div class="form-group">
 			      			<label for="email">Group</label>
 			      			<select class="form-control"  ng-class="{'error-field' : client.errors.category}" id="clientGender" ng-model="client.reg.category">
@@ -249,17 +249,46 @@
 							<span ng-if="client.errors.gender" class="error">{! client.errors.category !}</span>
 			      		</div>
 		      		</div>
-		      		<div class="col4">
-	      			<div class="form-group">
-						<label for="clientGeneder">Subgroup</label>
-						<select class="form-control"  ng-class="{'error-field' : client.errors.group_type}" id="clientGender" ng-model="client.reg.group_type">
-							 <option ng-repeat="all_group in client.all_group" class="capitalize" value="{!all_group.id!}">{!all_group.name!}</option>
+		      		<div class="col-sm-2 col-md-2">
+		      			<div class="form-group">
+			      			<button class="btn btn-primary custom-btn">Add</button>
+			      		</div>
+		      		</div>
+		      		<div class="col-sm-4 col-md-4" ng-if="!add_subgroup">
+		      			<div class="form-group">
+							<label for="clientGeneder">Subgroup</label>
+							<select class="form-control"  ng-class="{'error-field' : client.errors.group_type}" id="clientGender" ng-model="client.reg.group_type">
+								 <option ng-repeat="all_group in client.all_group" class="capitalize" value="{!all_group.id!}">{!all_group.name!}</option>
 
-						</select>
-						<span ng-if="client.errors.group_type" class="error">{! client.errors.group_type !}</span>
-					</div>
+							</select>
+							<span ng-if="client.errors.group_type" class="error">{! client.errors.group_type !}</span>
+						</div>
+						<div class="col-sm-2 col-md-2">
+			      			<div class="form-group">
+				      			<button class="btn btn-primary custom-subgroup-btn" ng-click="client.addsubclick()">Add</button>
+				      		</div>
+			      		</div>
+	      			</div>
+	      			<div class="col-sm-4 col-md-4" ng-if="add_subgroup">
+		      			<div class="form-group">
+							<label for="clientGeneder">Subgroup</label>
+							<input type="text" class="form-control" id="subgroup" ng-model="subgroup.name" required ng-class="{'error-field' : subgroup_errors.name}">
+							
+						</div>
+						<div class="col-sm-2 col-md-2">
+			      			<div class="form-group">
+				      			<button class="btn btn-success custom-subgroup-btn" ng-click="client.addNewSub()">Save</button>
+				      		</div>
+			      		</div>
+			      		<span ng-if="subgroup_errors.name" class="error">{! subgroup_errors.name !}</span>
+			      		<span ng-if="subgroup_success.name" class="success">{! subgroup_success.name !}</span>
+	      			</div>
+	      	</div>
+	      	<div class="col-container">
+	      		<div class="row">
+	      			<div class="col-sm-6 col-md-6"></div>
 	      		</div>
-	      	</div>	
+	      	</div>
 
 
 	      	</div>
