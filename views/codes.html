@@ -16,9 +16,9 @@
 	</div>
 	<div class="colright">
 		<h3 class="page-title">Activation Codes</h3>
-		<p class="pull-right">
+		<!-- <p class="pull-right">
 			<button class="btn btn-default" ng-click="subscription.showAllUsers('add'); subscription.newSubscription()">Add Subscription</button>
-		</p>
+		</p> -->
 		<ul class="nav nav-pills">
 			<li ng-class = "(code_filter == 'all') ? 'active' : '' " ng-click = "subscription.filterCode('all')"><a class="filter">All</a></li>
 			<li ng-class = "(code_filter == 'unassigned') ? 'active' : '' " ng-click = "subscription.filterCode('unassigned')"><a class="filter">Unassigned</a></li>
@@ -31,9 +31,9 @@
 	<div class="listing-header">
 		<div class="wrapper">
 			<div class="listing-column codes-name"><span>Codes<i class="fa fa-caret-down fa-right-sm"></i></span></div>
-			<div class="listing-column codes-gendate"><span>purchased date<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+			<div class="listing-column codes-gendate"><span>activated date<i class="fa fa-caret-down fa-right-sm"></i></span></div>
 			<div class="listing-column codes-client"><span>client<i class="fa fa-caret-down fa-right-sm"></i></span></div>
-			<div class="listing-column codes-expiry"><span>Expiry date<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+			<div class="listing-column codes-expiry"><span>Expires<i class="fa fa-caret-down fa-right-sm"></i></span></div>
 			<div class="listing-column codes-status"><span>status<i class="fa fa-caret-down fa-right-sm"></i></span></div>
 		</div>
 	</div>
@@ -108,7 +108,7 @@
 					</div>
 	      		</div>
 	      	</div>
-	      	<h4 class="form-sectitle"><span>Purchased Date</span></h4>
+	      	<h4 class="form-sectitle"><span>Activated Date</span></h4>
 	      	<div class="col-container">
 	      		<div class="col4">
 	      			<div class="form-group">
@@ -142,7 +142,7 @@
 	      		</div>
 	      		<span ng-if="subscription.errors.purchased_date" class="error">{!subscription.errors.purchased_date !}</span>	      	
 	      </div>
-	      <h4 class="form-sectitle"><span>Expiry Date</span></h4>
+	      <h4 class="form-sectitle"><span>Expires</span></h4>
 	      	<div class="col-container">
 	      		<div class="col4">
 	      			<div class="form-group">
@@ -219,7 +219,7 @@
 					</div>
 	      		</div>
 	      	</div>
-	      	<h4 class="form-sectitle"><span>Purchased Date</span></h4>
+	      	<h4 class="form-sectitle"><span>Activated Date</span></h4>
 	      	<div class="col-container">
 	      		<div class="col4">
 	      			<div class="form-group">
@@ -253,7 +253,7 @@
 	      		</div>
 	      		<span ng-if="subscription.errors.purchased_date" class="error">{!subscription.errors.purchased_date !}</span>	      	
 	      </div>
-	      <h4 class="form-sectitle"><span>Expiry Date</span></h4>
+	      <h4 class="form-sectitle"><span>Expires</span></h4>
 	      	<div class="col-container">
 	      		<div class="col4">
 	      			<div class="form-group">

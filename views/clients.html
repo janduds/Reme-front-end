@@ -77,14 +77,14 @@
 	<div class="listing-header">
 		<div class="wrapper">
 			<div class="listing-column client-name-small "><span>Name<i class="fa fa-caret-down fa-right-sm"></i></span></div>
-			<div class="listing-column small-tabs"><span>birthdate<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+			<div class="listing-column small-tabs"><span>date of birth<i class="fa fa-caret-down fa-right-sm"></i></span></div>
 			<div class="listing-column small-tabs"><span>age<i class="fa fa-caret-down fa-right-sm"></i></span></div>
 			<div class="listing-column small-tabs"><span>gender<i class="fa fa-caret-down fa-right-sm"></i></span></div>
-			<div class="listing-column small-tabs"><span>category<i class="fa fa-caret-down fa-right-sm"></i></span></div>
 			<div class="listing-column small-tabs"><span>group<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+			<div class="listing-column small-tabs"><span>subgroup<i class="fa fa-caret-down fa-right-sm"></i></span></div>
 			<div class="listing-column small-tabs"><span>code<i class="fa fa-caret-down fa-right-sm"></i></span></div>
-			<div class="listing-column small-tabs"><span>purchased date<i class="fa fa-caret-down fa-right-sm"></i></span></div>
-			<div class="listing-column small-tabs"><span>expiration date<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+			<div class="listing-column small-tabs"><span>Activated Date<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+			<div class="listing-column small-tabs"><span>Expires<i class="fa fa-caret-down fa-right-sm"></i></span></div>
 		</div>
 	</div>
 	<ul class="listing-items">
@@ -108,6 +108,7 @@
 					<ul class="dropdown-menu dropdown-menu-right">
 						<li><a href="" data-toggle="modal" data-target="#updateClient" ng-click="viewCustomer(client.original_index)">Edit</a></li>
 						<li><a ng-click="deleteClient(client.id)">Delete</a></li>
+						<li><a ng-click="">Renew Code</a></li>
 						<li><a href="" ng-click="archiveUser(client.original_index,1)" >Archive</a></li>
 					</ul>
 				</div>
@@ -160,7 +161,7 @@
 					</div>
 	      		</div>
 	      	</div>
-	      	<h4 class="form-sectitle"><span>Birthdate</span></h4>
+	      	<h4 class="form-sectitle"><span>Date of Birth</span></h4>
 	      	<div class="col-container">
 	      		<div class="col4">
 	      			<div class="form-group">
@@ -237,7 +238,7 @@
 	      		<div class="row">
 	      			<div class="col-sm-6 col-md-6">
 		      			<div class="form-group">
-			      			<label for="email">Category</label>
+			      			<label for="email">Group</label>
 			      			<select class="form-control"  ng-class="{'error-field' : client.errors.category}" id="clientGender" ng-model="client.reg.category">
 								<option value="PRIVATE PRACTICE">Private practice</option>
 								<option value="PUBLIC HOSPITAL">Public hospital</option>
@@ -250,7 +251,7 @@
 		      		</div>
 		      		<div class="col4">
 	      			<div class="form-group">
-						<label for="clientGeneder">Group</label>
+						<label for="clientGeneder">Subgroup</label>
 						<select class="form-control"  ng-class="{'error-field' : client.errors.group_type}" id="clientGender" ng-model="client.reg.group_type">
 							 <option ng-repeat="all_group in client.all_group" class="capitalize" value="{!all_group.id!}">{!all_group.name!}</option>
 
@@ -331,7 +332,7 @@
 	      	</div>
 	      </div>
 	      <div class="modal-footer">
-	      	<a href="" class="btn btn-primary" ng-click="client.submitRegister()">Submit</a>
+	      	<a href="" class="btn btn-primary" ng-click="client.submitRegister()">Activate</a>
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 	      </div>
 	    </div><!-- model-content -->

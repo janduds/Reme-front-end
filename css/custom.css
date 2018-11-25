@@ -255,6 +255,10 @@ section {
     font-size: 12px;
 }
 
+.group-name:first-letter {
+    text-transform: capitalize !important;
+}
+
 hr.new1 {
   border-top: 1px dashed #ccc;
 }

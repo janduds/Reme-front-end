@@ -1384,12 +1384,14 @@
 
 				self.profile.name = self.profile.first_name+" " +self.profile.last_name;
 				self.profile.age = $scope.getAge(self.profile.birth_date) + ' years old';
+				self.profile.format_category = titleCaseWord(self.profile.category);
+				self.profile.format_group_name = titleCaseWord(self.profile.group.name);
 				
 				angular.forEach(self.profile.journal, function(value, key) {
 				  self.profile.journal[key].new_date = $scope.convertDate(value.created_at);
 				});
 
-				console.log(self.profile.journal);
+				console.log(self.profile);
 
 				$(".loader-head").addClass("hidden"); 
 
@@ -1444,6 +1446,11 @@
     	}
 
 
+   }
+
+   function titleCaseWord(string) {
+	  if (!string) return string;
+	  return string[0].toUpperCase() + string.substr(1).toLowerCase();
    }
 
 

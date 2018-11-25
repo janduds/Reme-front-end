@@ -6,7 +6,11 @@
 					<img src="/images/user-default.png" alt="">
 				</figure>
 				<span class="customer-name">{!customer.profile.name!}</span>
-				<span class="group-name" >Group:({!customer.profile.group.name!})</span>
+				<div>
+					<div>Group: <span class="group-name">{!customer.profile.format_category!}</span></div>
+					<div>Subgroup: <span class="group-name">{!customer.profile.format_group_name!}</span></div>
+				</div>
+				
 			</div>
 			<hr class="new1">
 			<div class="important-information">
@@ -78,7 +82,7 @@
 					<div class="listing-column journal-column"><span>Mood Before<i class="fa fa-caret-down fa-right-sm"></i></span></div>
 					<div class="listing-column journal-column"><span>Mood After<i class="fa fa-caret-down fa-right-sm"></i></span></div>
 					<div class="listing-column journal-column-comment"><span>Comment<i class="fa fa-caret-down fa-right-sm"></i></span></div>
-					<div class="listing-column journal-column"><span>Date Created<i class="fa fa-caret-down fa-right-sm"></i></span></div>
+					<div class="listing-column journal-column"><span>Date<i class="fa fa-caret-down fa-right-sm"></i></span></div>
 				</div>
 			</div>
 
