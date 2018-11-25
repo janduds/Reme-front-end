@@ -47,6 +47,16 @@ function clientService($http, baseUrl) {
 		});
 	}
 
+	clientApi.renewClientCode = function(data,id) {
+		return $http({
+			method 	: 'PUT',
+			url 	: regUrl + '/manage/client/subscriptions/'+id,
+			data 	: data
+		});
+	}
+
+
+
 	clientApi.getClientById = function(id) {
 		return $http({
 			method	: 'GET',

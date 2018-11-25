@@ -376,6 +376,23 @@
 			})
     	}
 
+    	$scope.renewCode = function(client) {
+    		var data = {
+    			"code" : client.code,
+    		};
+			clientService.renewClientCode(data,client.id).then(function(res) {
+				if(res.data.success) {
+					location.reload();
+				} else if(res.data.errors) {
+					angular.forEach(res.data.errors, function(value, key) {
+						$scope.errors[value.field] = value.message;
+					})
+				}
+			}).catch(function(res){
+				$scope.errors = res.errors;
+			})
+		}
+
 
     }
 
@@ -596,6 +613,8 @@
 
     		return false;
     	}
+
+    	
 
     	
 
